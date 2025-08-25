@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bypsfov7yltrj"]
+
+[ext_resource type="AudioStream" uid="uid://ckc4j7ynjkckd" path="res://Resources/SFX/sealoop.ogg" id="1_v2toe"]
+[ext_resource type="Script" uid="uid://ddws86x3aluyf" path="res://Scenes/Global/SeaSound.gd" id="2_6ewcn"]
+[ext_resource type="AudioStream" uid="uid://dbqhl1ksyis1h" path="res://Resources/SFX/woodcrackles.ogg" id="3_1msrb"]
+
+[node name="SeaSound" type="AudioStreamPlayer"]
+stream = ExtResource("1_v2toe")
+bus = &"SeaSounds"
+script = ExtResource("2_6ewcn")
+
+[node name="crackles" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1msrb")
+volume_db = -20.0
+pitch_scale = 0.9
+bus = &"SeaSounds"

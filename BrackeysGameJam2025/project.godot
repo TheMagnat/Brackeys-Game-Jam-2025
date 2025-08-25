@@ -21,6 +21,7 @@ Debug="*res://Scenes/Debug/Debug.gd"
 EventBus="*res://Scenes/Global/EventBus.gd"
 RayHelper="*res://Scenes/Helper/RayHelper.gd"
 Global="*res://Scenes/Global/Global.gd"
+SeaSound="*res://Scenes/Global/SeaSound.tscn"
 
 [debug]
 
