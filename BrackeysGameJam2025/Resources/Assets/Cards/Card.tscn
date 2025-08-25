@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnqbvrx07oldi"]
+
+[ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/outlines.gdshader" id="1_fa0bh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fxnlw"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_fa0bh")
+shader_parameter/activated = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ummc0"]
+resource_local_to_scene = true
+next_pass = SubResource("ShaderMaterial_fxnlw")
+stencil_mode = 3
+stencil_flags = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_hjcsd"]
+size = Vector3(0.4, 0.6, 0.01)
+
+[node name="Card" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ummc0")
+mesh = SubResource("BoxMesh_hjcsd")

@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvhj527wv0io3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sar6x"]
+albedo_color = Color(0.84, 0.6097, 0.44519997, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sar6x"]
+size = Vector3(4, 0.2, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tds7a"]
+size = Vector3(0.5, 2, 0.5)
+
+[node name="Table" type="Node3D"]
+
+[node name="Top" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_sar6x")
+mesh = SubResource("BoxMesh_sar6x")
+
+[node name="Steps" type="Node3D" parent="."]
+
+[node name="Step" type="MeshInstance3D" parent="Steps"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 1, -1.25)
+material_override = SubResource("StandardMaterial3D_sar6x")
+mesh = SubResource("BoxMesh_tds7a")
+skeleton = NodePath("../..")
+
+[node name="Step2" type="MeshInstance3D" parent="Steps"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, -1.25)
+material_override = SubResource("StandardMaterial3D_sar6x")
+mesh = SubResource("BoxMesh_tds7a")
+skeleton = NodePath("../..")
+
+[node name="Step3" type="MeshInstance3D" parent="Steps"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 1, 1.25)
+material_override = SubResource("StandardMaterial3D_sar6x")
+mesh = SubResource("BoxMesh_tds7a")
+skeleton = NodePath("../..")
+
+[node name="Step4" type="MeshInstance3D" parent="Steps"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, 1.25)
+material_override = SubResource("StandardMaterial3D_sar6x")
+mesh = SubResource("BoxMesh_tds7a")
+skeleton = NodePath("../..")

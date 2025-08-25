@@ -1,0 +1,293 @@
+[gd_scene load_steps=33 format=3 uid="uid://c0nwpy0h6ssfh"]
+
+[ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
+[ext_resource type="PackedScene" uid="uid://wrkbrbbpdwy6" path="res://Scenes/Cards/Hand/Hand.tscn" id="3_rk0yb"]
+[ext_resource type="Script" uid="uid://hplad1nyntgv" path="res://Scenes/Demo/GameManager.gd" id="4_6dlwc"]
+[ext_resource type="Script" uid="uid://dve5gom7vnevy" path="res://Scenes/Demo/PlayerHand.gd" id="6_aanud"]
+[ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/outlines.gdshader" id="6_e327d"]
+[ext_resource type="Script" uid="uid://dlsurt871l1yt" path="res://Scenes/Interactable/Interactable.gd" id="6_vp0ry"]
+[ext_resource type="Shape3D" uid="uid://bm58nbans4mp1" path="res://Resources/Shapes/CardCollisionShape.tres" id="7_vp0ry"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ouq38"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_rk0yb"]
+sky_material = SubResource("ProceduralSkyMaterial_ouq38")
+
+[sub_resource type="Environment" id="Environment_6dlwc"]
+background_mode = 2
+sky = SubResource("Sky_rk0yb")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rk0yb"]
+size = Vector3(4, 0.2, 4)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vp0ry"]
+friction = 2.0
+rough = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vp0ry"]
+albedo_color = Color(0.33367997, 0.48, 0.3312, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vp0ry"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 0.025
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vp0ry"]
+height = 0.2
+radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_vp0ry"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vp0ry"]
+radius = 0.1
+
+[sub_resource type="Animation" id="Animation_vp0ry"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardHand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.1707838, 2.6721418)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardHand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.89976954, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7j7j0"]
+resource_name = "SetHandDown"
+length = 2.0
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardHand:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector3(0, 2.1707838, 2.6721418), Vector3(-1.4753988, 2.1124852, 1.4804745)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardHand:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector3(-0.89976954, 0, 0), Vector3(1.5707964, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e327d"]
+_data = {
+&"RESET": SubResource("Animation_vp0ry"),
+&"SetHandDown": SubResource("Animation_7j7j0")
+}
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e327d"]
+friction = 4.0
+bounce = 0.6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vp0ry"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_e327d")
+shader_parameter/activated = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aj4hj"]
+resource_local_to_scene = true
+next_pass = SubResource("ShaderMaterial_vp0ry")
+stencil_mode = 3
+stencil_flags = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_7j7j0"]
+size = Vector3(0.25, 0.25, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7j7j0"]
+size = Vector3(0.25, 0.25, 0.25)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aj4hj"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_e327d")
+shader_parameter/activated = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8eesi"]
+resource_local_to_scene = true
+next_pass = SubResource("ShaderMaterial_aj4hj")
+stencil_mode = 3
+stencil_flags = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_vp0ry"]
+size = Vector3(0.4, 0.6, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7j7j0"]
+albedo_color = Color(0.16, 0.09167999, 0.062399995, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_aanud"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aanud"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e327d"]
+size = Vector3(0.4, 10, 10)
+
+[node name="MainSceneDemo" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6dlwc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+shadow_bias = 0.01
+directional_shadow_max_distance = 30.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.797626, 0.60315233, 0, -0.60315233, 0.797626, 0, 3.6433747, 2.8029666)
+far = 100.0
+
+[node name="Table" type="StaticBody3D" parent="."]
+
+[node name="Table" parent="Table" instance=ExtResource("1_ouq38")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_rk0yb")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+physics_material_override = SubResource("PhysicsMaterial_vp0ry")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Table/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.013, 0)
+material_override = SubResource("StandardMaterial3D_vp0ry")
+mesh = SubResource("CylinderMesh_vp0ry")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.075, 0)
+shape = SubResource("CylinderShape3D_vp0ry")
+
+[node name="GameManager" type="Node3D" parent="."]
+script = ExtResource("4_6dlwc")
+
+[node name="PlayerHandManager" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95669633, 2.5913124, 0.4887122)
+script = ExtResource("6_aanud")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerHandManager"]
+mesh = SubResource("SphereMesh_vp0ry")
+skeleton = NodePath("../..")
+
+[node name="PlayerHandStaticBody" type="StaticBody3D" parent="PlayerHandManager"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerHandManager/PlayerHandStaticBody"]
+shape = SubResource("SphereShape3D_vp0ry")
+
+[node name="PinJoint3D" type="Generic6DOFJoint3D" parent="PlayerHandManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04850769, 0)
+node_a = NodePath("../PlayerHandStaticBody")
+
+[node name="CardHand" parent="." instance=ExtResource("3_rk0yb")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.6217903, 0.7831834, 0, -0.7831834, 0.6217903, 0, 2.1707838, 2.6721418)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_e327d")
+}
+speed_scale = 1.5
+
+[node name="Entities" type="Node3D" parent="."]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Entities" node_paths=PackedStringArray("meshInstance") groups=["Interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7555294, 0)
+collision_mask = 2049
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_e327d")
+script = ExtResource("6_vp0ry")
+meshInstance = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entities/RigidBody3D"]
+material_override = SubResource("StandardMaterial3D_aj4hj")
+mesh = SubResource("BoxMesh_7j7j0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entities/RigidBody3D"]
+shape = SubResource("BoxShape3D_7j7j0")
+
+[node name="Card" type="RigidBody3D" parent="Entities" node_paths=PackedStringArray("meshInstance") groups=["Interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7555294, 0.51226115)
+script = ExtResource("6_vp0ry")
+meshInstance = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Entities/Card"]
+material_override = SubResource("StandardMaterial3D_8eesi")
+mesh = SubResource("BoxMesh_vp0ry")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entities/Card"]
+shape = ExtResource("7_vp0ry")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_7j7j0")
+mesh = SubResource("BoxMesh_aanud")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_aanud")
+
+[node name="Cage" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cage"]
+collision_layer = 2048
+collision_mask = 0
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cage/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 0, 0)
+shape = SubResource("BoxShape3D_e327d")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Cage/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, 0)
+shape = SubResource("BoxShape3D_e327d")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Cage/StaticBody3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -2.2)
+shape = SubResource("BoxShape3D_e327d")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Cage/StaticBody3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 2.2)
+shape = SubResource("BoxShape3D_e327d")
