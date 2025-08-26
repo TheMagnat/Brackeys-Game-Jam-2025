@@ -1,18 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://da4c2limit5rl"]
+[gd_scene load_steps=3 format=3 uid="uid://da4c2limit5rl"]
 
-[ext_resource type="PackedScene" uid="uid://dnqbvrx07oldi" path="res://Resources/Assets/Cards/Card.tscn" id="1_b1q5o"]
 [ext_resource type="Script" uid="uid://noc2dvin7k7c" path="res://Scenes/Cards/Card.gd" id="1_ntgjb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ntgjb"]
-size = Vector3(0.42, 0.62, 0.05)
+size = Vector3(8.4, 12.4, 1)
 
-[node name="Card" type="Node3D"]
+[node name="Card" type="Node3D" node_paths=PackedStringArray("model")]
 transform = Transform3D(0.50000036, 0, 0, 0, 0.50000036, 0, 0, 0, 0.50000036, 0, 0, 0)
 script = ExtResource("1_ntgjb")
-
-[node name="Holder" type="Node3D" parent="."]
-
-[node name="Card" parent="Holder" instance=ExtResource("1_b1q5o")]
+model = NodePath("")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 129

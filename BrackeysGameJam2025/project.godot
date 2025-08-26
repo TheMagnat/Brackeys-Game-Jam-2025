@@ -92,15 +92,16 @@ SCROLL_DOWN={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_8="CardInteractableLayer"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
-jolt_physics_3d/simulation/baumgarte_stabilization_factor=0.5
-jolt_physics_3d/queries/use_enhanced_internal_edge_removal=true
-jolt_physics_3d/limits/world_boundary_shape_size=100.0
-3d/solver/contact_recycle_radius=0.001
-3d/solver/contact_max_separation=0.01
-3d/solver/contact_max_allowed_penetration=0.001
+jolt_physics_3d/simulation/bounce_velocity_threshold=20.0
+jolt_physics_3d/simulation/sleep_velocity_threshold=0.3
+3d/default_gravity=196.0
 common/physics_interpolation=true
 
 [rendering]
@@ -108,4 +109,3 @@ common/physics_interpolation=true
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=5
 anti_aliasing/quality/msaa_3d=3
 anti_aliasing/quality/screen_space_aa=1
-anti_aliasing/quality/use_taa=true

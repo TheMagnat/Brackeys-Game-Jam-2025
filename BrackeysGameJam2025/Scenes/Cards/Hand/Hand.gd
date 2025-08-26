@@ -7,7 +7,6 @@ signal cardSelected(index: int)
 
 var cards: Array[Card]
 var cardsInHand: int
-var cardsSelected: int
 
 var hidingHand: bool = false
 
@@ -17,13 +16,12 @@ var hidingHand: bool = false
 #@export var player: Player
 
 @export_category("Hand Card Positioning")
-@export var maxSpaceBetweenCards: float = 0.6
 @export var minCardRotation: float = 0.06
 @export var cardRotationBasedOnDist: float = 0.4
 @export var spaceBetweenSelected: float = 0.025
 @export var spaceBetweenViewed: float = 0.05
 
-@export var currentSpaceBetweenCards: float = 0.6
+@export var spaceBetweenCards: float = 0.6
 @export var tuckPercent: float = 0.0
 
 # Card selection and play logic
@@ -37,13 +35,15 @@ var elapsedTime: float = 0.0
 
 # DEBUG
 @export_category("Debug")
-@export_range(0, 30) var numberOfDebugCards: int = 0
+@export_range(0, 50) var numberOfDebugCards: int = 0
 
 # Cache
 @onready var cardsHolder: Node3D = $CardsHolder
 @onready var path: Path3D = $Path3D
 var curveLength: float
 var curveCenterLength: float
+
+const CARD_PACKED_SCENE: PackedScene = preload("uid://da4c2limit5rl")
 
 func _ready() -> void:
 	
@@ -65,7 +65,10 @@ func _ready() -> void:
 	
 	# Connect Player events
 	#player.spellsUpdated.connect(updateHandFromPlayer)
-	if not Engine.is_editor_hint(): EventBus.isHandlingItem.connect(onHandlingItem)
+	if not Engine.is_editor_hint():
+		EventBus.isHandlingItem.connect(onHandlingItem)
+		EventBus.storeCard.connect(onStoreCard)
+		EventBus.forceStoreCard.connect(onForceStoreCard)
 
 #region Initializing Methods
 
@@ -83,48 +86,35 @@ func populateHandFromPlayer() -> void:
 		#cards.push_back(spellInstance.card)
 		#cardsHolder.add_child(spellInstance.card)
 
-func updateHandFromPlayer(added: bool, index: int) -> void:
-	pass
-	#if added:
-		## Here a spell get added
-		#var cardToAdd: Card = player.spells[index].card
-		#cardToAdd.resetState()
-		#
-		#cardsInHand += 1
-		#
-		#cards.push_back(cardToAdd)
-		#
-		## If there is at least one child, the card as a sibling
-		#var cardsCount: int = cardsHolder.get_child_count()
-		#if cardsCount and index < cardsCount:
-			#cardsHolder.get_child(index).add_sibling(cardToAdd)
-		#else:
-			#cardsHolder.add_child(cardToAdd)
-		#
-		#for i: int in range(index, cards.size()):
-			#cards[i].handPosition += 1
-		#
-		#initializeCard(index) # Do it after adding it to hand list
-	#
-	#else:
-		## Here a spell get deleted
-		#var cardToDelete: Card = cards[index]
-		#if cardToDelete.inHand:
-			#cardsInHand -= 1
-		#
-		#uninitializeCard(index) # Do it before removing it from hand list
-		#
-		## This line remove both from the card list and the card Holder
-		#cardsHolder.remove_child(cards.pop_at(index) as Card)
-		#
-		#for i: int in range(index, cards.size()):
-			#cards[i].handPosition -= 1
+func addCardInHand(cardToAdd: Card, index: int) -> void:
+	cardToAdd.resetState()
+	
+	cardsInHand += 1
+	
+	cards.insert(index, cardToAdd)
+	
+	# If there is at least one child, the card as a sibling
+	var cardsCount: int = cardsHolder.get_child_count()
+	if cardsCount and index < cardsCount:
+		cardsHolder.get_child(index).add_sibling(cardToAdd)
+	else:
+		cardsHolder.add_child(cardToAdd)
+	
+	for i: int in range(index, cards.size()):
+		cards[i].handPosition += 1
+	
+	initializeCard(index) # Do it after adding it to hand list
 	
 # DEBUG
 func initDebug() -> void:
-	const CARD_PACKED_SCENE: PackedScene = preload("uid://da4c2limit5rl")
+	const CARD_MODEL_PACKED_SCENE: PackedScene = preload("uid://dnqbvrx07oldi")
 	for i: int in numberOfDebugCards:
 		var newDebugCard: Card = CARD_PACKED_SCENE.instantiate()
+		var newCardModel: CardModel = CARD_MODEL_PACKED_SCENE.instantiate()
+		newCardModel.value = i % 11
+		
+		newDebugCard.add_child(newCardModel)
+		newDebugCard.model = newCardModel
 		
 		cardsHolder.add_child(newDebugCard)
 		cards.push_back(newDebugCard)
@@ -134,9 +124,6 @@ func popCard(index: int) -> Card:
 	var popedCard: Card = cards.pop_at(index)
 	popedCard.removeFromHand()
 	#cardsHolder.remove_child(popedCard)
-	
-	if popedCard.selected:
-		cardsSelected -= 1
 	
 	if index == viewedCard:
 		viewedCard = -1
@@ -182,26 +169,38 @@ func onCardDeviewed(card: Card) -> void:
 
 #region Cards Positions Managing
 
-
+var lastInsertionIndex: int = 0
 func updateCardsPosition() -> void:
+	if cardsInHand == 0: return
+	
 	var handViewedCard: int = viewedCard
-	if (not Engine.is_editor_hint() and not Global.isHandActive) or (viewedCard != -1 and cards[viewedCard].selected):
+	if not Engine.is_editor_hint() and not Global.isHandActive:
 		handViewedCard = -1
 	
-	var spaceDiff: float = maxf(0, maxSpaceBetweenCards - currentSpaceBetweenCards)
-	var currentCardRotation: float = minCardRotation + spaceDiff * cardRotationBasedOnDist
+	var trueCardStep: float
+	var currentCardRotation: float
+	if cardsInHand > 1:
+		var hypoteticalHandLength: float = (cardsInHand - 1) * spaceBetweenCards
+		var surplus: float = max(0.0, hypoteticalHandLength - curveLength)
+		var surplusOffset: float = surplus / (cardsInHand - 1.0)
+		
+		trueCardStep = spaceBetweenCards - surplusOffset
+		currentCardRotation = minCardRotation + surplusOffset * cardRotationBasedOnDist
+
+	else:
+		trueCardStep = spaceBetweenCards
 	
-	var trueCardStep: float = currentSpaceBetweenCards
+		currentCardRotation = minCardRotation
 	
 	var totalHandLenght: float = (cardsInHand - 1) * trueCardStep
 	if handViewedCard != -1:
 		totalHandLenght += 2 * spaceBetweenViewed
 	
-	totalHandLenght += cardsSelected * (2 * spaceBetweenSelected)
-	
 	var halfHandLenght: float = totalHandLenght / 2.0
 	
 	var startingLength: float = curveCenterLength - halfHandLenght
+	
+	lastInsertionIndex = 0
 	
 	var handIndex: int = 0
 	var accOffset: float = 0.0
@@ -217,12 +216,16 @@ func updateCardsPosition() -> void:
 				isHandViewedCard = true
 				cardOffset += spaceBetweenViewed
 				accOffset += 2 * spaceBetweenViewed
-			
-			if card.selected:
-				cardOffset += spaceBetweenSelected
-				accOffset += 2 * spaceBetweenSelected
 		
 		var sampleOffset: float = startingLength + cardOffset
+		
+		if not Engine.is_editor_hint() and Global.isTryingToHoldCard:
+			if sampleOffset < Global.mouseRelativeXPos * curveLength:
+				sampleOffset -= spaceBetweenViewed
+				lastInsertionIndex = i + 1
+			else:
+				sampleOffset += spaceBetweenViewed
+		
 		
 		var newPos: Vector3 = path.curve.sample_baked(sampleOffset)
 		var newUpVec: Vector3 = path.curve.sample_baked_up_vector(sampleOffset)
@@ -231,23 +234,20 @@ func updateCardsPosition() -> void:
 		var newCardBasis: Basis
 		var scaling: float = 1.0
 		if isHandViewedCard:
-			newPos.z += 0.2
-			newPos.y += 0.2
+			newPos.z += 2.0
+			newPos.y += 4.0
 			#scaling = 0.75
-		elif card.selected:
-			newPos.z -= 0.2
-			newPos.y += 0.2
 		else:
 			newCardBasis = Basis(newUpVec, currentCardRotation) * Basis(Vector3.BACK, -Vector2(newUpVec.x, newUpVec.y).angle_to(Vector2.DOWN))
 		
-		if hidingHand:
-			newPos.y -= 0.3
+		if hidingHand and (not Engine.is_editor_hint() and not Global.isTryingToHoldCard):
+			newPos.y -= 6.0
 		
 		# Random movements
 		newPos += Vector3(
-			noise.get_noise_2d(elapsedTime + i * 20, elapsedTime + i * 20) * 0.05 - 0.025,
-			noise.get_noise_2d(elapsedTime + i * 20, -(elapsedTime + i * 20)) * 0.05 - 0.025,
-			(1.0 - tuckPercent) * (noise.get_noise_2d(-(elapsedTime + i * 20), elapsedTime + i * 20) * 0.01 - 0.005)
+			noise.get_noise_2d(elapsedTime + i * 20, elapsedTime + i * 20) * 0.2 - 0.1,
+			noise.get_noise_2d(elapsedTime + i * 20, -(elapsedTime + i * 20)) * 0.2 - 0.1,
+			(1.0 - tuckPercent) * (noise.get_noise_2d(-(elapsedTime + i * 20), elapsedTime + i * 20) * 0.2 - 0.1)
 		)
 		
 		card.globalMode = false
@@ -271,32 +271,37 @@ func _physics_process(delta: float) -> void:
 func onPlayerSelectCard(newSelectedCard: int) -> void:
 	cardSelected.emit(newSelectedCard)
 
-#func onPlayerSelectCard(newSelectedCard: int) -> void:
-	#var trueNewSelectedCard: Card = cards[newSelectedCard]
-	#
-	#if trueNewSelectedCard.selected:
-		#trueNewSelectedCard.selected = false
-		#cardsSelected -= 1
-		#return
-	#
-	#trueNewSelectedCard.selected = true
-	#cardsSelected += 1
-
 func onHandlingItem(isHandling: bool) -> void:
 	hidingHand = isHandling
+	for card: Card in cards:
+		card.area.input_ray_pickable = not isHandling
+
+func onForceStoreCard(cardInteractable: CardInteractable) -> void:
+	storeCard(cardInteractable, cards.size())
+
+func onStoreCard(cardInteractable: CardInteractable) -> void:
+	storeCard(cardInteractable, lastInsertionIndex)
+
+func storeCard(cardInteractable: CardInteractable, index: int) -> void:
+	var oldTransform: Transform3D = cardInteractable.global_transform
+	
+	var newCard: Card = CARD_PACKED_SCENE.instantiate()
+	#newCard.transform = oldTransform
+	
+	cardInteractable.model.reparent(newCard, false)
+	newCard.model = cardInteractable.model
+	
+	cardInteractable.queue_free()
+	
+	addCardInHand(newCard, index)
+	
+	newCard.global_transform = oldTransform
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("SELECT"):
 		if viewedCard != -1:
 			onPlayerSelectCard(viewedCard)
 			get_viewport().set_input_as_handled()
-	
-	if event.is_action_pressed("SECONDARY_ACTION") or event.is_action_pressed("CANCEL"):
-		for card: Card in cards:
-			if card.selected:
-				card.selected = false
-				cardsSelected -= 1
-				get_viewport().set_input_as_handled()
 	
 	# Keyboard inputs
 	if event.is_action_pressed("CARD_SHORTCUT_1"):

@@ -11,7 +11,6 @@ var mouseInside: bool = false
 
 ## Hand related
 var handPosition: int
-var selected: bool = false
 
 ## Position related
 # Global Card
@@ -25,7 +24,7 @@ var requestedHolderPosition := Vector3.ZERO
 var requestedHolderRotation := Vector3.ZERO
 
 # Cache
-@onready var holder: Node3D = $Holder
+@export var model: CardModel
 
 # UI Cache
 #@onready var cardName: Label3D = $Holder/Face/Name
@@ -38,7 +37,6 @@ func _ready() -> void:
 
 func resetState() -> void:
 	mouseInside = false
-	selected = false
 	globalMode = false
 	top_level = false
 
@@ -80,8 +78,8 @@ func _physics_process(delta: float) -> void:
 	rotation = lerp(rotation, requestedCardRotation, 5.0 * delta)
 	scale = lerp(scale, requestedCardScale, 5.0 * delta)
 	
-	holder.position = lerp(holder.position, requestedHolderPosition, 5.0 * delta)
-	holder.rotation = lerp(holder.rotation, requestedHolderRotation, 5.0 * delta)
+	model.position = lerp(model.position, requestedHolderPosition, 5.0 * delta)
+	model.rotation = lerp(model.rotation, requestedHolderRotation, 5.0 * delta)
 
 # Collision Cache
 @onready var area: Area3D = $Area3D

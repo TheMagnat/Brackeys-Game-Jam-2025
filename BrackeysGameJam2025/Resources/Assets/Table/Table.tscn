@@ -1,43 +1,96 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvhj527wv0io3"]
+[gd_scene load_steps=11 format=3 uid="uid://bvhj527wv0io3"]
+
+[ext_resource type="Script" uid="uid://cp7c7e0c7wprf" path="res://Resources/Assets/Table/Table.gd" id="1_tds7a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sar6x"]
+size = Vector3(80, 4, 80)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sar6x"]
 albedo_color = Color(0.84, 0.6097, 0.44519997, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_sar6x"]
-size = Vector3(4, 0.2, 4)
+size = Vector3(80, 4, 80)
 
 [sub_resource type="BoxMesh" id="BoxMesh_tds7a"]
-size = Vector3(0.5, 2, 0.5)
+size = Vector3(10, 40, 10)
 
-[node name="Table" type="Node3D"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sar6x"]
+friction = 2.0
+rough = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tds7a"]
+albedo_color = Color(0.33367997, 0.48, 0.3312, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vjwv6"]
+top_radius = 20.0
+bottom_radius = 20.0
+height = 0.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xeg4i"]
+height = 4.0
+radius = 20.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tds7a"]
+radius = 20.0
+
+[node name="Table" type="StaticBody3D"]
+script = ExtResource("1_tds7a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
+shape = SubResource("BoxShape3D_sar6x")
 
 [node name="Top" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
 material_override = SubResource("StandardMaterial3D_sar6x")
 mesh = SubResource("BoxMesh_sar6x")
 
 [node name="Steps" type="Node3D" parent="."]
 
 [node name="Step" type="MeshInstance3D" parent="Steps"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 1, -1.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 20, -25)
 material_override = SubResource("StandardMaterial3D_sar6x")
 mesh = SubResource("BoxMesh_tds7a")
 skeleton = NodePath("../..")
 
 [node name="Step2" type="MeshInstance3D" parent="Steps"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, -1.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 20, -25)
 material_override = SubResource("StandardMaterial3D_sar6x")
 mesh = SubResource("BoxMesh_tds7a")
 skeleton = NodePath("../..")
 
 [node name="Step3" type="MeshInstance3D" parent="Steps"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 1, 1.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 20, 25)
 material_override = SubResource("StandardMaterial3D_sar6x")
 mesh = SubResource("BoxMesh_tds7a")
 skeleton = NodePath("../..")
 
 [node name="Step4" type="MeshInstance3D" parent="Steps"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, 1.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 20, 25)
 material_override = SubResource("StandardMaterial3D_sar6x")
 mesh = SubResource("BoxMesh_tds7a")
 skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 42, 0)
+physics_material_override = SubResource("PhysicsMaterial_sar6x")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.26, 0)
+material_override = SubResource("StandardMaterial3D_tds7a")
+mesh = SubResource("CylinderMesh_vjwv6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+shape = SubResource("CylinderShape3D_xeg4i")
+
+[node name="PlayArea" type="Area3D" parent="StaticBody3D"]
+collision_layer = 0
+collision_mask = 128
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/PlayArea"]
+shape = SubResource("SphereShape3D_tds7a")
+
+[connection signal="body_entered" from="StaticBody3D/PlayArea" to="." method="_on_play_area_body_entered"]
+[connection signal="body_exited" from="StaticBody3D/PlayArea" to="." method="_on_play_area_body_exited"]

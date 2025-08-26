@@ -1,5 +1,9 @@
 class_name Interactable extends RigidBody3D
 
+signal picked
+
+var activated: bool = true
+
 @export var meshInstance: MeshInstance3D
 var outlineShader: ShaderMaterial
 

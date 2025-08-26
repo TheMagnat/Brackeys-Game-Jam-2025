@@ -1,4 +1,4 @@
-extends Node3D
+class_name GameManager extends Node3D
 
 @onready var hand: CardHand = %CardHand
 @onready var playerHandManager: PlayerHandManager = %PlayerHandManager
@@ -7,8 +7,33 @@ extends Node3D
 
 const CARD_COLLISION_SHAPE = preload("uid://bm58nbans4mp1")
 
+var currentGameAcc: int = 0
+
 func _ready() -> void:
 	hand.cardSelected.connect(onCardSelected)
+	EventBus.cardPlayed.connect(onCardPlayed)
+
+
+const cardValueToTrueValue: Dictionary[CardModel.VALUE, int] = {
+	CardModel.VALUE.AS: 1,
+	CardModel.VALUE.TWO: 2,
+	CardModel.VALUE.THREE: 3,
+	CardModel.VALUE.FOUR: 4,
+	CardModel.VALUE.FIVE: 5,
+	CardModel.VALUE.SIX: 6,
+	CardModel.VALUE.SEVEN: 7,
+	CardModel.VALUE.EIGHT: 8,
+	CardModel.VALUE.NINE: 9,
+	CardModel.VALUE.TEN: 10,
+	CardModel.VALUE.JACK: -10
+}
+
+func computeCardTrueValue(cardModel: CardModel) -> int:
+	return cardValueToTrueValue[cardModel.value]
+
+func onCardPlayed(card: CardInteractable) -> void:
+	var cardValue: int = computeCardTrueValue(card.model)
+	currentGameAcc += cardValue
 
 func onCardSelected(index: int) -> void:
 	##TODO: Create ray helper for this instead of doing it here
@@ -23,25 +48,24 @@ func onCardSelected(index: int) -> void:
 	var card: Card = hand.popCard(index)
 	var result: Dictionary = RayHelper.castAreaRay(from, to, 0b10000000)
 	
+	var cardModelGlobalTransform: Transform3D = card.model.global_transform
+	
 	var handPosition: Vector3
 	if result:
 		handPosition = result.position
 	else:
-		handPosition = card.holder.global_position
+		handPosition = cardModelGlobalTransform.origin
 	
-	var newInteractable := Interactable.new()
+	var newInteractable := CardInteractable.new()
 	add_child(newInteractable)
 	
 	var collisionShape := CollisionShape3D.new()
 	collisionShape.shape = CARD_COLLISION_SHAPE
 	
-	newInteractable.global_transform = card.holder.global_transform
+	newInteractable.global_transform = cardModelGlobalTransform
 	
 	newInteractable.add_child(collisionShape)
-	card.holder.reparent(newInteractable)
-	
-	newInteractable.meshInstance = newInteractable.get_node("Holder/Card/MeshInstance3D")
-	newInteractable.initialize()
+	newInteractable.initializeModel(card.model) # This method steal the node so we can release the old card after
 	
 	card.queue_free()
 	
@@ -59,3 +83,9 @@ func onCardSelected(index: int) -> void:
 	#hand.animationPlayer.play("TuckHand")
 	#await hand.animationPlayer.animation_finished
 	#animationPlayer.play("SetHandDown")
+
+
+func _on_off_table_detector_body_entered(body: Node3D) -> void:
+	var card: CardInteractable = body
+	
+	EventBus.forceStoreCard.emit(card)
