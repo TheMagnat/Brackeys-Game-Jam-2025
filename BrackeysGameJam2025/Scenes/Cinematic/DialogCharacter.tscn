@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh65mbfrk17yw"]
+
+[ext_resource type="PackedScene" uid="uid://dyrl1i5wag823" path="res://Scenes/Cinematic/DialogLabel.tscn" id="1_s6sep"]
+[ext_resource type="Script" uid="uid://vsd3vh0j7n5s" path="res://Scenes/Cinematic/DialogCharacter.gd" id="1_yfoi6"]
+
+[sub_resource type="Shader" id="Shader_omxac"]
+code = "shader_type canvas_item;
+
+uniform float speed : hint_range(0.0, 100.0, 0.001) = 1.0;
+uniform float amplitude : hint_range(0.0, 10.0, 0.001) = 2.0;
+
+void vertex() {
+	VERTEX.y += cos(VERTEX.x * 20.0 + TIME * speed) * amplitude;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yfoi6"]
+resource_local_to_scene = true
+shader = SubResource("Shader_omxac")
+shader_parameter/speed = 1.0000000475
+shader_parameter/amplitude = 2.000000095
+
+[node name="DialogCharacter" type="Sprite2D"]
+script = ExtResource("1_yfoi6")
+
+[node name="Name" parent="." instance=ExtResource("1_s6sep")]
+material = SubResource("ShaderMaterial_yfoi6")
+custom_minimum_size = Vector2(256, 128)
+offset_left = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0

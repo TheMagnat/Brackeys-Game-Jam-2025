@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bypsfov7yltrj"]
+[gd_scene load_steps=5 format=3 uid="uid://bypsfov7yltrj"]
 
 [ext_resource type="AudioStream" uid="uid://ckc4j7ynjkckd" path="res://Resources/SFX/sealoop.ogg" id="1_v2toe"]
 [ext_resource type="Script" uid="uid://ddws86x3aluyf" path="res://Scenes/Global/SeaSound.gd" id="2_6ewcn"]
 [ext_resource type="AudioStream" uid="uid://dbqhl1ksyis1h" path="res://Resources/SFX/woodcrackles.ogg" id="3_1msrb"]
+[ext_resource type="AudioStream" uid="uid://d31cyegc4eu2" path="res://Resources/SFX/harmonica_loop.ogg" id="4_6t1l2"]
 
 [node name="SeaSound" type="AudioStreamPlayer"]
 stream = ExtResource("1_v2toe")
@@ -13,4 +14,9 @@ script = ExtResource("2_6ewcn")
 stream = ExtResource("3_1msrb")
 volume_db = -20.0
 pitch_scale = 0.9
+bus = &"SeaSounds"
+
+[node name="HarmonicaLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_6t1l2")
+volume_db = -12.0
 bus = &"SeaSounds"

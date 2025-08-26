@@ -1,0 +1,138 @@
+[gd_scene load_steps=41 format=3 uid="uid://v0suyigmajrx"]
+
+[ext_resource type="Script" uid="uid://bjcgm5dl1gy0u" path="res://Scenes/Cinematic/dialog.gd" id="1_44o50"]
+[ext_resource type="FontFile" uid="uid://cp3jm5gf0seah" path="res://Resources/Fonts/BlackSamsGold-ej5e.ttf" id="1_vmygu"]
+[ext_resource type="PackedScene" uid="uid://dh65mbfrk17yw" path="res://Scenes/Cinematic/DialogCharacter.tscn" id="2_ffb6v"]
+[ext_resource type="Texture2D" uid="uid://chvqydhjc7w86" path="res://Resources/GFX/testcharacter.png" id="3_0h3y3"]
+[ext_resource type="PackedScene" uid="uid://dyrl1i5wag823" path="res://Scenes/Cinematic/DialogLabel.tscn" id="3_qptr5"]
+[ext_resource type="AudioStream" uid="uid://cqt7hh8iwbl7w" path="res://Resources/SFX/pirate/pirate1.ogg" id="4_ahyna"]
+[ext_resource type="AudioStream" uid="uid://d4mtei6srp1ko" path="res://Resources/SFX/pirate/pirate11.ogg" id="6_nourv"]
+[ext_resource type="AudioStream" uid="uid://cjljfqnvxv5cv" path="res://Resources/SFX/pirate/pirate13.ogg" id="8_h041f"]
+[ext_resource type="AudioStream" uid="uid://bona37in5suyv" path="res://Resources/SFX/pirate/pirate14.ogg" id="9_uilxw"]
+[ext_resource type="AudioStream" uid="uid://bgnwe5p1k06fo" path="res://Resources/SFX/pirate/pirate15.ogg" id="10_d5r54"]
+[ext_resource type="AudioStream" uid="uid://bvnmvdqb1ibmx" path="res://Resources/SFX/pirate/pirate16.ogg" id="11_8qwai"]
+[ext_resource type="AudioStream" uid="uid://b563lobhreyoi" path="res://Resources/SFX/pirate/pirate17.ogg" id="12_bidhx"]
+[ext_resource type="AudioStream" uid="uid://d3x5f71vnounw" path="res://Resources/SFX/pirate/pirate18.ogg" id="13_n67dt"]
+[ext_resource type="AudioStream" uid="uid://b67kghnrk240d" path="res://Resources/SFX/pirate/pirate19.ogg" id="14_spy77"]
+[ext_resource type="AudioStream" uid="uid://bnt2ch7n8efnf" path="res://Resources/SFX/pirate/pirate20.ogg" id="15_nak33"]
+[ext_resource type="AudioStream" uid="uid://dakj18lyhjioo" path="res://Resources/SFX/pirate/pirate3.ogg" id="16_d1gm0"]
+[ext_resource type="AudioStream" uid="uid://cxc0i84mqplt8" path="res://Resources/SFX/pirate/pirate21.ogg" id="17_kxii1"]
+[ext_resource type="AudioStream" uid="uid://ds4gise6xnewa" path="res://Resources/SFX/pirate/pirate22.ogg" id="18_jd1ti"]
+[ext_resource type="AudioStream" uid="uid://clorjrfe3qhe4" path="res://Resources/SFX/pirate/pirate23.ogg" id="19_l781a"]
+[ext_resource type="AudioStream" uid="uid://1rsvsrkgkc2t" path="res://Resources/SFX/pirate/pirate24.ogg" id="20_yc258"]
+[ext_resource type="AudioStream" uid="uid://c6k1mwah8rbks" path="res://Resources/SFX/pirate/pirate25.ogg" id="21_gi47g"]
+[ext_resource type="AudioStream" uid="uid://ddq3wmrp41pyb" path="res://Resources/SFX/pirate/pirate26.ogg" id="22_e8tti"]
+[ext_resource type="AudioStream" uid="uid://cou6pcd58hbo1" path="res://Resources/SFX/pirate/pirate28.ogg" id="24_kta3m"]
+[ext_resource type="AudioStream" uid="uid://blpu0xf2w3m1p" path="res://Resources/SFX/pirate/pirate29.ogg" id="25_q4y54"]
+[ext_resource type="AudioStream" uid="uid://daf43gheyy21d" path="res://Resources/SFX/pirate/pirate4.ogg" id="27_xmfwa"]
+[ext_resource type="AudioStream" uid="uid://bcfwq2x356oo4" path="res://Resources/SFX/pirate/pirate31.ogg" id="28_t81t3"]
+[ext_resource type="AudioStream" uid="uid://ced46mkfu8kh8" path="res://Resources/SFX/pirate/pirate32.ogg" id="29_f08ei"]
+[ext_resource type="AudioStream" uid="uid://lyakb7vam0m8" path="res://Resources/SFX/pirate/pirate33.ogg" id="30_u5lkn"]
+[ext_resource type="AudioStream" uid="uid://bqchv88rnk7ss" path="res://Resources/SFX/pirate/pirate34.ogg" id="31_j11ln"]
+[ext_resource type="AudioStream" uid="uid://drfl73bh14xbx" path="res://Resources/SFX/pirate/pirate35.ogg" id="32_lv58p"]
+[ext_resource type="AudioStream" uid="uid://b1ivtjx6mromj" path="res://Resources/SFX/pirate/pirate6.ogg" id="34_i7x0a"]
+[ext_resource type="AudioStream" uid="uid://chtg5m1n55jif" path="res://Resources/SFX/pirate/pirate7.ogg" id="35_sb258"]
+[ext_resource type="AudioStream" uid="uid://bufgvvwnlfjug" path="res://Resources/SFX/pirate/pirate8.ogg" id="36_0gi05"]
+[ext_resource type="AudioStream" uid="uid://byxr23lvmt0dt" path="res://Resources/SFX/pirate/pirate9.ogg" id="37_ou0uh"]
+[ext_resource type="AudioStream" uid="uid://yws1o5uam42c" path="res://Resources/SFX/pirate/pirate10.ogg" id="38_p0svf"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ffb6v"]
+random_pitch = 1.25
+streams_count = 30
+stream_0/stream = ExtResource("4_ahyna")
+stream_1/stream = ExtResource("16_d1gm0")
+stream_2/stream = ExtResource("27_xmfwa")
+stream_3/stream = ExtResource("34_i7x0a")
+stream_4/stream = ExtResource("35_sb258")
+stream_5/stream = ExtResource("36_0gi05")
+stream_6/stream = ExtResource("37_ou0uh")
+stream_7/stream = ExtResource("38_p0svf")
+stream_8/stream = ExtResource("6_nourv")
+stream_9/stream = ExtResource("8_h041f")
+stream_10/stream = ExtResource("9_uilxw")
+stream_11/stream = ExtResource("10_d5r54")
+stream_12/stream = ExtResource("11_8qwai")
+stream_13/stream = ExtResource("12_bidhx")
+stream_14/stream = ExtResource("13_n67dt")
+stream_15/stream = ExtResource("14_spy77")
+stream_16/stream = ExtResource("15_nak33")
+stream_17/stream = ExtResource("17_kxii1")
+stream_18/stream = ExtResource("18_jd1ti")
+stream_19/stream = ExtResource("19_l781a")
+stream_20/stream = ExtResource("20_yc258")
+stream_21/stream = ExtResource("21_gi47g")
+stream_22/stream = ExtResource("22_e8tti")
+stream_23/stream = ExtResource("24_kta3m")
+stream_24/stream = ExtResource("25_q4y54")
+stream_25/stream = ExtResource("28_t81t3")
+stream_26/stream = ExtResource("29_f08ei")
+stream_27/stream = ExtResource("30_u5lkn")
+stream_28/stream = ExtResource("31_j11ln")
+stream_29/stream = ExtResource("32_lv58p")
+
+[sub_resource type="Shader" id="Shader_omxac"]
+code = "shader_type canvas_item;
+
+uniform float speed : hint_range(0.0, 100.0, 0.001) = 1.0;
+uniform float amplitude : hint_range(0.0, 10.0, 0.001) = 2.0;
+
+void vertex() {
+	VERTEX.y += cos(VERTEX.x * 20.0 + TIME * speed) * amplitude;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ra1vm"]
+resource_local_to_scene = true
+shader = SubResource("Shader_omxac")
+shader_parameter/speed = 1.0000000475
+shader_parameter/amplitude = 2.000000095
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qptr5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ra1vm"]
+
+[node name="Dialog" type="CanvasLayer"]
+script = ExtResource("1_44o50")
+
+[node name="Characters" type="Node2D" parent="."]
+visible = false
+
+[node name="TestChar" parent="Characters" instance=ExtResource("2_ffb6v")]
+texture = ExtResource("3_0h3y3")
+hframes = 4
+anim_speed = 0.125
+sound_speed_min = 0.09999999999126885
+sound_speed_max = 0.3000000000029104
+stream = SubResource("AudioStreamRandomizer_ffb6v")
+
+[node name="Resources" type="Node2D" parent="."]
+visible = false
+
+[node name="DialogLabel" parent="Resources" instance=ExtResource("3_qptr5")]
+material = SubResource("ShaderMaterial_ra1vm")
+offset_bottom = 40.0
+text = ""
+
+[node name="Button" type="Button" parent="Resources"]
+custom_minimum_size = Vector2(256, 0)
+offset_right = 256.0
+offset_bottom = 40.0
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("1_vmygu")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qptr5")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ra1vm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ra1vm")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ra1vm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ra1vm")
+text = "button"
+alignment = 0
+
+[node name="Text" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 256)
+offset_left = 256.0
+offset_right = 1152.0
+offset_bottom = 256.0
+alignment = 1
+
+[node name="icon" type="Marker2D" parent="."]
+position = Vector2(128, 128)

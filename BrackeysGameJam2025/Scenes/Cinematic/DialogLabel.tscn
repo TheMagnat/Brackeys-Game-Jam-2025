@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://dyrl1i5wag823"]
+
+[ext_resource type="FontFile" uid="uid://cp3jm5gf0seah" path="res://Resources/Fonts/BlackSamsGold-ej5e.ttf" id="1_phe7t"]
+[ext_resource type="Script" uid="uid://bj16ohbufv78f" path="res://Scenes/Cinematic/DialogLabel.gd" id="2_omxac"]
+
+[sub_resource type="Shader" id="Shader_omxac"]
+code = "shader_type canvas_item;
+
+uniform float speed : hint_range(0.0, 100.0, 0.001) = 1.0;
+uniform float amplitude : hint_range(0.0, 10.0, 0.001) = 2.0;
+
+void vertex() {
+	VERTEX.y += cos(VERTEX.x * 20.0 + TIME * speed) * amplitude;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xbu6h"]
+resource_local_to_scene = true
+shader = SubResource("Shader_omxac")
+shader_parameter/speed = 1.0000000475
+shader_parameter/amplitude = 2.000000095
+
+[sub_resource type="LabelSettings" id="LabelSettings_t1gy1"]
+font = ExtResource("1_phe7t")
+font_size = 32
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="DialogLabel" type="Label"]
+material = SubResource("ShaderMaterial_xbu6h")
+offset_right = 40.0
+offset_bottom = 23.0
+text = "a"
+label_settings = SubResource("LabelSettings_t1gy1")
+script = ExtResource("2_omxac")

@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvyor2v2tnwwj"]
+
+[ext_resource type="Script" uid="uid://2d5ebihhij52" path="res://Scenes/Cinematic/intro.gd" id="1_nl7nc"]
+[ext_resource type="FontFile" uid="uid://cp3jm5gf0seah" path="res://Resources/Fonts/BlackSamsGold-ej5e.ttf" id="2_71trs"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_v8oih"]
+font = ExtResource("2_71trs")
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="intro" type="CanvasLayer"]
+script = ExtResource("1_nl7nc")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 324, 1152, 324)
+width = 648.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(1152, 648)
+offset_right = 40.0
+offset_bottom = 40.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "The crew seems to be in a good mood today"
+label_settings = SubResource("LabelSettings_v8oih")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "and that makes me only worry more"
+label_settings = SubResource("LabelSettings_v8oih")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "
+The petty officer came to me with a big smile on his face"
+label_settings = SubResource("LabelSettings_v8oih")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Rumor has it that I'm a card ace it seems, I hope this won't doom me"
+label_settings = SubResource("LabelSettings_v8oih")
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "
+The sun light is blinding me after so long in the holds"
+label_settings = SubResource("LabelSettings_v8oih")
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "When my eyes get used to it, I'm sat at a table, the ship's captain before me"
+label_settings = SubResource("LabelSettings_v8oih")
+horizontal_alignment = 1
