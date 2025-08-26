@@ -1,12 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://bvyor2v2tnwwj"]
 
 [ext_resource type="Script" uid="uid://2d5ebihhij52" path="res://Scenes/Cinematic/intro.gd" id="1_nl7nc"]
-[ext_resource type="FontFile" uid="uid://cp3jm5gf0seah" path="res://Resources/Fonts/BlackSamsGold-ej5e.ttf" id="2_71trs"]
+[ext_resource type="FontFile" uid="uid://dt26h4xdh1yok" path="res://Resources/Fonts/Primitive-4yGY.ttf" id="2_nl7nc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_v8oih"]
-font = ExtResource("2_71trs")
+font = ExtResource("2_nl7nc")
 font_size = 32
-outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [node name="intro" type="CanvasLayer"]

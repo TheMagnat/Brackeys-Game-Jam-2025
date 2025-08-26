@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dnqbvrx07oldi"]
+[gd_scene load_steps=9 format=3 uid="uid://dnqbvrx07oldi"]
 
 [ext_resource type="Script" uid="uid://dl5u2svqlulsx" path="res://Resources/Assets/Cards/CardModel.gd" id="1_pllwv"]
 [ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/outlines.gdshader" id="2_es4am"]
 [ext_resource type="Shader" uid="uid://dbsvhn4bmcga1" path="res://Resources/Assets/Cards/Card.gdshader" id="3_rh6xj"]
+[ext_resource type="Texture2D" uid="uid://boeej6obceyof" path="res://Resources/Assets/Cards/Textures/Other/dos_carte.png" id="4_es4am"]
 [ext_resource type="Texture2D" uid="uid://uq3ap80cs8lb" path="res://Resources/Assets/Cards/Textures/3_coeur.png" id="4_mqib7"]
 [ext_resource type="ArrayMesh" uid="uid://3x8b4jax31uo" path="res://Resources/Meshes/Cards/CardMesh.res" id="5_8u3ja"]
 
@@ -12,29 +13,14 @@ render_priority = 0
 shader = ExtResource("2_es4am")
 shader_parameter/activated = 0.0
 
-[sub_resource type="Gradient" id="Gradient_xr8so"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.121212125)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_rk7r7"]
-frequency = 0.0195
-fractal_type = 2
-fractal_octaves = 1
-cellular_distance_function = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jx5fj"]
-noise = SubResource("FastNoiseLite_rk7r7")
-color_ramp = SubResource("Gradient_xr8so")
-invert = true
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ummc0"]
 resource_local_to_scene = true
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_jx5fj")
 shader = ExtResource("3_rh6xj")
 shader_parameter/frontTexture = ExtResource("4_mqib7")
-shader_parameter/backTexture = SubResource("NoiseTexture2D_jx5fj")
-shader_parameter/sideColor = Color(0.9882353, 0.9490196, 0.88235295, 1)
+shader_parameter/backTexture = ExtResource("4_es4am")
+shader_parameter/sideColor = Color(0.8392157, 0.75686276, 0.64705884, 1)
 
 [node name="Card" type="Node3D"]
 script = ExtResource("1_pllwv")
@@ -42,5 +28,6 @@ color = 3
 value = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_ummc0")
 mesh = ExtResource("5_8u3ja")

@@ -11,6 +11,16 @@ func castAreaRay(origin: Vector3, end: Vector3, mask: int) -> Dictionary:
 	
 	return result
 
+func castHandCardRay() -> Dictionary:
+	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var camera: Camera3D = get_viewport().get_camera_3d()
+	
+	# Create a ray from the camera through the mouse position
+	var from: Vector3 = camera.project_ray_origin(mouse_pos)
+	var to: Vector3 = from + camera.project_ray_normal(mouse_pos) * 100.0  # Ray length
+	
+	return RayHelper.castAreaRay(from, to, Card.PHYSICS_LAYER)
+
 func castMouseRay(mask: int) -> Dictionary:
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	

@@ -151,7 +151,6 @@ spaceBetweenSelected = 1.0
 spaceBetweenViewed = 2.0
 spaceBetweenCards = 6.0
 noise = SubResource("FastNoiseLite_657ah")
-numberOfDebugCards = 12
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5eqyj")

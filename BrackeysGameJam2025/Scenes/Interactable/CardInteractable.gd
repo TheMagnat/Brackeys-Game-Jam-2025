@@ -10,12 +10,18 @@ func initializeModel(newModel: CardModel) -> void:
 	model = newModel
 	newModel.reparent(self)
 	
+	newModel.inHand = false
+	newModel.cardInteractable = self
+	
 	meshInstance = newModel.meshInstance
 	initialize()
 
 func initializeNewModel(newModel: CardModel) -> void:
 	model = newModel
 	add_child(newModel)
+	
+	newModel.inHand = false
+	newModel.cardInteractable = self
 	
 	meshInstance = newModel.meshInstance
 	initialize()
@@ -24,6 +30,11 @@ func activate() -> void:
 	activated = true
 	collision_layer = 0b01 + PHYSICS_LAYER
 	freeze = false
+
+func deactivate() -> void:
+	activated = false
+	collision_layer = 0b01
+	freeze = true
 
 func _ready() -> void:
 	collision_layer = 0b01

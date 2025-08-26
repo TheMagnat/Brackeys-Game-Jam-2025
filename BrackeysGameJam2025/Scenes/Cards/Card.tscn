@@ -5,13 +5,12 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_ntgjb"]
 size = Vector3(8.4, 12.4, 1)
 
-[node name="Card" type="Node3D" node_paths=PackedStringArray("model")]
+[node name="Card" type="Node3D"]
 transform = Transform3D(0.50000036, 0, 0, 0, 0.50000036, 0, 0, 0, 0.50000036, 0, 0, 0)
 script = ExtResource("1_ntgjb")
-model = NodePath("")
 
 [node name="Area3D" type="Area3D" parent="."]
-collision_layer = 129
+collision_layer = 257
 collision_mask = 0
 monitoring = false
 

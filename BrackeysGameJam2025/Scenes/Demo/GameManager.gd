@@ -1,73 +1,87 @@
 class_name GameManager extends Node3D
 
+signal finishedDrawPhase
+
+@onready var deck: Deck = %Deck
 @onready var hand: CardHand = %CardHand
+@onready var pirateCardHand: CardHand = %PirateCardHand
+
 @onready var playerHandManager: PlayerHandManager = %PlayerHandManager
 
 @onready var animationPlayer: AnimationPlayer = %AnimationPlayer
 
-const CARD_COLLISION_SHAPE = preload("uid://bm58nbans4mp1")
+@onready var centerToAim: Marker3D = %CenterToAim
 
-var currentGameAcc: int = 0
+var currentGameTotalScore: int = 0
 
 func _ready() -> void:
 	hand.cardSelected.connect(onCardSelected)
 	EventBus.cardPlayed.connect(onCardPlayed)
+	EventBus.gameFinished.connect(onGameFinished)
+	
+	call_deferred("drawCards", 4)
 
+func onGameFinished(whoWin: int) -> void:
+	Global.gameFinished = true
+	
+	$"../Pirate/ShakerEmitter3D".emit = true
 
-const cardValueToTrueValue: Dictionary[CardModel.VALUE, int] = {
-	CardModel.VALUE.AS: 1,
-	CardModel.VALUE.TWO: 2,
-	CardModel.VALUE.THREE: 3,
-	CardModel.VALUE.FOUR: 4,
-	CardModel.VALUE.FIVE: 5,
-	CardModel.VALUE.SIX: 6,
-	CardModel.VALUE.SEVEN: 7,
-	CardModel.VALUE.EIGHT: 8,
-	CardModel.VALUE.NINE: 9,
-	CardModel.VALUE.TEN: 10,
-	CardModel.VALUE.JACK: -10
-}
+	
+	for cardModel: CardModel in deck.cardsModels:
+		var cardInteractable: CardInteractable = GlobalCardManager.getCardInteractableFromModel(cardModel)
+		cardInteractable.activate()
+		cardInteractable.gravity_scale = 0.2
+		cardInteractable.collision_layer = CardInteractable.PHYSICS_LAYER + 0b10
+		#cardInteractable.angular_damp = 0.0
+		
+		Vector3.ZERO.direction_to(cardInteractable.global_position)
+		cardInteractable.apply_force(
+			Vector3(randf_range(-1.0, 1.0), 0.25, randf_range(-1.0, 1.0)).normalized() * 7000.0, Vector3(5.0, 10.0, 5.0)
 
-func computeCardTrueValue(cardModel: CardModel) -> int:
-	return cardValueToTrueValue[cardModel.value]
+			#Vector3.ZERO.direction_to(cardInteractable.global_position) * 5000.0, Vector3(5.0, 10.0, 5.0)
+		)
+	
+	await get_tree().create_timer(1.0).timeout
+	for cardModel: CardModel in deck.cardsModels:
+		cardModel.cardInteractable.gravity_scale = 1.0
+		cardModel.cardInteractable.collision_layer = CardInteractable.PHYSICS_LAYER + 0b01
 
-func onCardPlayed(card: CardInteractable) -> void:
-	var cardValue: int = computeCardTrueValue(card.model)
-	currentGameAcc += cardValue
+func drawCards(nb: int) -> void:
+	Global.drawPhase = true
+	
+	for i: int in nb:
+		var card: CardInteractable = deck.pickTopCard(1)
+		card.model.cardOwner = 0
+		EventBus.forceStoreCard.emit(card)
+		await get_tree().create_timer(0.35).timeout
+		
+		var pirateCard: CardInteractable = deck.pickTopCard(1)
+		pirateCard.model.cardOwner = 1
+		pirateCardHand.onForceStoreCard(pirateCard)
+		await get_tree().create_timer(0.35).timeout
+	
+	Global.drawPhase = false
+
+func onCardPlayed(card: CardInteractable, who: int) -> void:
+	var cardValue: int = card.model.cardScore
+	currentGameTotalScore += cardValue
+	
+	if currentGameTotalScore >= Global.TOTAL_TO_NOT_REACH:
+		EventBus.gameFinished.emit(1 - who)
 
 func onCardSelected(index: int) -> void:
-	##TODO: Create ray helper for this instead of doing it here
-	# Get mouse position in screen coordinates
-	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
-	var camera: Camera3D = get_viewport().get_camera_3d()
-	
-	# Create a ray from the camera through the mouse position
-	var from: Vector3 = camera.project_ray_origin(mouse_pos)
-	var to: Vector3 = from + camera.project_ray_normal(mouse_pos) * 100.0  # Ray length
-	
+	var result: Dictionary = RayHelper.castHandCardRay()
 	var card: Card = hand.popCard(index)
-	var result: Dictionary = RayHelper.castAreaRay(from, to, 0b10000000)
 	
-	var cardModelGlobalTransform: Transform3D = card.model.global_transform
+	var cardModelPosition: Vector3 = card.model.global_position
 	
 	var handPosition: Vector3
 	if result:
 		handPosition = result.position
 	else:
-		handPosition = cardModelGlobalTransform.origin
+		handPosition = cardModelPosition
 	
-	var newInteractable := CardInteractable.new()
-	add_child(newInteractable)
-	
-	var collisionShape := CollisionShape3D.new()
-	collisionShape.shape = CARD_COLLISION_SHAPE
-	
-	newInteractable.global_transform = cardModelGlobalTransform
-	
-	newInteractable.add_child(collisionShape)
-	newInteractable.initializeModel(card.model) # This method steal the node so we can release the old card after
-	
-	card.queue_free()
+	var newInteractable: CardInteractable = GlobalCardManager.convertCardHandToInteractableCard(card)
 	
 	playerHandManager.hold(newInteractable, handPosition)
 
@@ -86,6 +100,27 @@ func onCardSelected(index: int) -> void:
 
 
 func _on_off_table_detector_body_entered(body: Node3D) -> void:
+	if Global.gameFinished: return
+	
 	var card: CardInteractable = body
 	
 	EventBus.forceStoreCard.emit(card)
+
+func playPirateCard(index: int) -> void:
+	var card: Card = pirateCardHand.popCard(index)
+	var newCardInteractable: CardInteractable = GlobalCardManager.convertCardHandToInteractableCard(card)
+	
+	sendCardToCenter(newCardInteractable)
+
+func sendCardToCenter(cardInteractable: CardInteractable) -> void:
+	var direction: Vector3 = cardInteractable.global_position.direction_to(centerToAim.global_position) + Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * 0.15
+	var distance: float = cardInteractable.global_position.distance_to(centerToAim.global_position)
+	
+	cardInteractable.angular_velocity = Vector3.ZERO
+	cardInteractable.linear_velocity = Vector3.ZERO
+	cardInteractable.apply_central_force(direction * distance * 200.0)
+
+func _unhandled_input(event: InputEvent) -> void:
+	## DEBUG
+	if event.is_action_pressed("SECONDARY_ACTION"):
+		playPirateCard(0)

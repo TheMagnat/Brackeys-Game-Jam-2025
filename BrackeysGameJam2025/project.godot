@@ -23,12 +23,17 @@ RayHelper="*res://Scenes/Helper/RayHelper.gd"
 Global="*res://Scenes/Global/Global.gd"
 SeaSound="*res://Scenes/Global/SeaSound.tscn"
 Shaker="*res://addons/shaker/src/Shaker.gd"
+GlobalCardManager="*res://Scenes/Global/GlobalCardManager.gd"
 
 [debug]
 
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/unsafe_property_access=1
 gdscript/warnings/unsafe_method_access=1
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
@@ -99,18 +104,23 @@ SCROLL_DOWN={
 
 [layer_names]
 
+3d_physics/layer_7="Interactable"
 3d_physics/layer_8="CardInteractableLayer"
+3d_physics/layer_9="CardHandLayer"
+3d_physics/layer_12="DiceLayer"
 
 [physics]
 
 3d/physics_engine="Jolt Physics"
 jolt_physics_3d/simulation/bounce_velocity_threshold=20.0
 jolt_physics_3d/simulation/sleep_velocity_threshold=0.3
+jolt_physics_3d/simulation/sleep_time_threshold=0.2
 3d/default_gravity=196.0
 common/physics_interpolation=true
 
 [rendering]
 
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=5
+anti_aliasing/quality/msaa_2d=3
 anti_aliasing/quality/msaa_3d=3
 anti_aliasing/quality/screen_space_aa=1

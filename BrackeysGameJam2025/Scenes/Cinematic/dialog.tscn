@@ -1,7 +1,6 @@
 [gd_scene load_steps=41 format=3 uid="uid://v0suyigmajrx"]
 
 [ext_resource type="Script" uid="uid://bjcgm5dl1gy0u" path="res://Scenes/Cinematic/dialog.gd" id="1_44o50"]
-[ext_resource type="FontFile" uid="uid://cp3jm5gf0seah" path="res://Resources/Fonts/BlackSamsGold-ej5e.ttf" id="1_vmygu"]
 [ext_resource type="PackedScene" uid="uid://dh65mbfrk17yw" path="res://Scenes/Cinematic/DialogCharacter.tscn" id="2_ffb6v"]
 [ext_resource type="Texture2D" uid="uid://chvqydhjc7w86" path="res://Resources/GFX/testcharacter.png" id="3_0h3y3"]
 [ext_resource type="PackedScene" uid="uid://dyrl1i5wag823" path="res://Scenes/Cinematic/DialogLabel.tscn" id="3_qptr5"]
@@ -31,6 +30,7 @@
 [ext_resource type="AudioStream" uid="uid://bqchv88rnk7ss" path="res://Resources/SFX/pirate/pirate34.ogg" id="31_j11ln"]
 [ext_resource type="AudioStream" uid="uid://drfl73bh14xbx" path="res://Resources/SFX/pirate/pirate35.ogg" id="32_lv58p"]
 [ext_resource type="AudioStream" uid="uid://b1ivtjx6mromj" path="res://Resources/SFX/pirate/pirate6.ogg" id="34_i7x0a"]
+[ext_resource type="FontFile" uid="uid://dt26h4xdh1yok" path="res://Resources/Fonts/Primitive-4yGY.ttf" id="35_gd4nd"]
 [ext_resource type="AudioStream" uid="uid://chtg5m1n55jif" path="res://Resources/SFX/pirate/pirate7.ogg" id="35_sb258"]
 [ext_resource type="AudioStream" uid="uid://bufgvvwnlfjug" path="res://Resources/SFX/pirate/pirate8.ogg" id="36_0gi05"]
 [ext_resource type="AudioStream" uid="uid://byxr23lvmt0dt" path="res://Resources/SFX/pirate/pirate9.ogg" id="37_ou0uh"]
@@ -100,7 +100,7 @@ visible = false
 texture = ExtResource("3_0h3y3")
 hframes = 4
 anim_speed = 0.125
-sound_speed_min = 0.09999999999126885
+sound_speed_min = 0.09999999999126884
 sound_speed_max = 0.3000000000029104
 stream = SubResource("AudioStreamRandomizer_ffb6v")
 
@@ -117,7 +117,7 @@ custom_minimum_size = Vector2(256, 0)
 offset_right = 256.0
 offset_bottom = 40.0
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("1_vmygu")
+theme_override_fonts/font = ExtResource("35_gd4nd")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxEmpty_qptr5")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ra1vm")

@@ -1,8 +1,9 @@
 class_name Interactable extends RigidBody3D
 
-signal picked
+signal picked(who: int) # 0 = Player, 1 = Pirate
 
 var activated: bool = true
+var isPicked: bool = false
 
 @export var meshInstance: MeshInstance3D
 var outlineShader: ShaderMaterial

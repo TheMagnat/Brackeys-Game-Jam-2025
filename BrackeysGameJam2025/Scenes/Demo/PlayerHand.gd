@@ -1,6 +1,5 @@
 class_name PlayerHandManager extends Node3D
 
-
 var hoveredObject: Interactable = null:
 	set(value):
 		if hoveredObject == value: return
@@ -19,8 +18,10 @@ var hoverOffset: Vector3
 # Cache to impulse
 var requestDetach: bool = false
 
-##TEST
 @onready var joint: Joint3D = $PinJoint3D
+
+func _ready() -> void:
+	GlobalCardManager.playerHand = self
 
 var lastPos: Vector3
 var velocity: Vector3
@@ -56,10 +57,12 @@ func hold(toHold: Interactable, handPosition: Vector3) -> void:
 func attach() -> void:
 	hoveredObject.onUnhovered()
 	hoveredObject.can_sleep = false
-	joint.node_b = hoveredObject.get_path()
 	
-	hoveredObject.picked.emit()
+	joint.node_b = hoveredObject.get_path()
+	hoveredObject.isPicked = true
+	
 	EventBus.isHandlingItem.emit(true)
+	hoveredObject.picked.emit(0)
 
 func detach() -> void:
 	if Global.isTryingToHoldCard:
@@ -71,7 +74,10 @@ func detach() -> void:
 
 func _detach() -> void:
 	hoveredObject.can_sleep = true
+	
 	joint.node_b = NodePath("")
+	hoveredObject.isPicked = false
+	
 	EventBus.isHandlingItem.emit(false)
 
 func _unhandled_input(event: InputEvent) -> void:

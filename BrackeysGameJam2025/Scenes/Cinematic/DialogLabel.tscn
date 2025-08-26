@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dyrl1i5wag823"]
 
-[ext_resource type="FontFile" uid="uid://cp3jm5gf0seah" path="res://Resources/Fonts/BlackSamsGold-ej5e.ttf" id="1_phe7t"]
+[ext_resource type="FontFile" uid="uid://dt26h4xdh1yok" path="res://Resources/Fonts/Primitive-4yGY.ttf" id="1_omxac"]
 [ext_resource type="Script" uid="uid://bj16ohbufv78f" path="res://Scenes/Cinematic/DialogLabel.gd" id="2_omxac"]
 
 [sub_resource type="Shader" id="Shader_omxac"]
@@ -20,7 +20,7 @@ shader_parameter/speed = 1.0000000475
 shader_parameter/amplitude = 2.000000095
 
 [sub_resource type="LabelSettings" id="LabelSettings_t1gy1"]
-font = ExtResource("1_phe7t")
+font = ExtResource("1_omxac")
 font_size = 32
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)

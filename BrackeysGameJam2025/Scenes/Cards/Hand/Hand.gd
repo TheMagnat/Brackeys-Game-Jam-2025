@@ -1,6 +1,7 @@
 @tool
 class_name CardHand extends Node3D
 
+signal cardAdded(index: int)
 signal cardSelected(index: int)
 
 @onready var animationPlayer: AnimationPlayer = %AnimationPlayer
@@ -10,6 +11,7 @@ var cardsInHand: int
 
 var hidingHand: bool = false
 
+@export var isPlayer: bool = true
 @export var moving: bool = true
 
 @export_category("Owner")
@@ -65,7 +67,7 @@ func _ready() -> void:
 	
 	# Connect Player events
 	#player.spellsUpdated.connect(updateHandFromPlayer)
-	if not Engine.is_editor_hint():
+	if not Engine.is_editor_hint() and isPlayer:
 		EventBus.isHandlingItem.connect(onHandlingItem)
 		EventBus.storeCard.connect(onStoreCard)
 		EventBus.forceStoreCard.connect(onForceStoreCard)
@@ -121,8 +123,10 @@ func initDebug() -> void:
 #END DEBUG
 
 func popCard(index: int) -> Card:
+	uninitializeCard(index)
+	
 	var popedCard: Card = cards.pop_at(index)
-	popedCard.removeFromHand()
+	#popedCard.removeFromHand()
 	#cardsHolder.remove_child(popedCard)
 	
 	if index == viewedCard:
@@ -132,6 +136,8 @@ func popCard(index: int) -> Card:
 	
 	for i: int in range(index, cards.size()):
 		cards[i].handPosition -= 1
+	
+	print("IN HAND: ", viewedCard)
 	
 	return popedCard
 
@@ -160,10 +166,12 @@ func initializeCards() -> void:
 
 func onCardViewed(card: Card) -> void:
 	viewedCard = card.handPosition
+	print("viewedCard event: ", viewedCard)
 
 func onCardDeviewed(card: Card) -> void:
 	if card.handPosition == viewedCard:
 		viewedCard = -1
+	print("viewedCard event: ", viewedCard)
 
 #endregion
 
@@ -200,6 +208,11 @@ func updateCardsPosition() -> void:
 	
 	var startingLength: float = curveCenterLength - halfHandLenght
 	
+	# Compute the current mouse offset
+	var mouseXOffset: float
+	if not Engine.is_editor_hint() and Global.isTryingToHoldCard:
+		mouseXOffset = (Global.mouseRelativeXPos * 1.2 - 0.1) * (curveLength)
+	
 	lastInsertionIndex = 0
 	
 	var handIndex: int = 0
@@ -220,7 +233,7 @@ func updateCardsPosition() -> void:
 		var sampleOffset: float = startingLength + cardOffset
 		
 		if not Engine.is_editor_hint() and Global.isTryingToHoldCard:
-			if sampleOffset < Global.mouseRelativeXPos * curveLength:
+			if sampleOffset < mouseXOffset:
 				sampleOffset -= spaceBetweenViewed
 				lastInsertionIndex = i + 1
 			else:
@@ -277,25 +290,33 @@ func onHandlingItem(isHandling: bool) -> void:
 		card.area.input_ray_pickable = not isHandling
 
 func onForceStoreCard(cardInteractable: CardInteractable) -> void:
-	storeCard(cardInteractable, cards.size())
+	storeCard(cardInteractable, 0)
 
 func onStoreCard(cardInteractable: CardInteractable) -> void:
 	storeCard(cardInteractable, lastInsertionIndex)
 
 func storeCard(cardInteractable: CardInteractable, index: int) -> void:
+	var cardModel: CardModel = cardInteractable.model
+	
 	var oldTransform: Transform3D = cardInteractable.global_transform
 	
 	var newCard: Card = CARD_PACKED_SCENE.instantiate()
 	#newCard.transform = oldTransform
 	
-	cardInteractable.model.reparent(newCard, false)
-	newCard.model = cardInteractable.model
+	cardModel.reparent(newCard, false)
+	newCard.model = cardModel
 	
 	cardInteractable.queue_free()
 	
 	addCardInHand(newCard, index)
 	
 	newCard.global_transform = oldTransform
+	
+	cardModel.inHand = true
+	cardModel.hand = self
+	cardModel.handCard = newCard
+	
+	cardAdded.emit(index)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("SELECT"):

@@ -1,6 +1,8 @@
 @tool
 class_name Card extends Node3D
 
+const PHYSICS_LAYER: int = 0b100000000
+
 signal viewed(card: Card)
 signal deviewed(card: Card)
 
@@ -57,8 +59,8 @@ func _on_area_3d_mouse_exited() -> void:
 	deviewed.emit(self)
 	requestedHolderRotation = Vector3.ZERO
 
-func removeFromHand() -> void:
-	area.monitorable = false
+#func removeFromHand() -> void:
+	#area.monitorable = false
 
 func _physics_process(delta: float) -> void:
 	if not Engine.is_editor_hint() and Global.isHandActive:
@@ -97,7 +99,7 @@ func getMousePositionInArea() -> Vector3:
 	var from: Vector3 = camera.project_ray_origin(mouse_pos)
 	var to: Vector3 = from + camera.project_ray_normal(mouse_pos) * 100.0  # Ray length
 	
-	var result: Dictionary = RayHelper.castAreaRay(from, to, 0b10000000)
+	var result: Dictionary = RayHelper.castAreaRay(from, to, PHYSICS_LAYER)
 	if result and result.collider == area:
 		return to_local(result.position as Vector3) / shape.size * 2.0
 	
