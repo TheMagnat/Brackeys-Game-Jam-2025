@@ -1,7 +1,9 @@
-[gd_scene load_steps=39 format=3 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=41 format=3 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
+[ext_resource type="Script" uid="uid://dme7n7ov1ou1l" path="res://addons/shaker/src/Vector3/shaker_component3D.gd" id="2_r3vws"]
+[ext_resource type="Resource" uid="uid://bgwupdyecxqic" path="res://addons/shaker/data/resources/shaker_head_blob3D.tres" id="3_egw5o"]
 [ext_resource type="PackedScene" uid="uid://wrkbrbbpdwy6" path="res://Scenes/Cards/Hand/Hand.tscn" id="3_rk0yb"]
 [ext_resource type="Script" uid="uid://hplad1nyntgv" path="res://Scenes/Demo/GameManager.gd" id="4_6dlwc"]
 [ext_resource type="Script" uid="uid://dve5gom7vnevy" path="res://Scenes/Demo/PlayerHand.gd" id="6_aanud"]
@@ -173,7 +175,15 @@ shadow_enabled = true
 directional_shadow_max_distance = 400.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.797626, 0.60315233, 0, -0.60315233, 0.797626, 0, 72.86, 56.06)
+transform = Transform3D(1, 0, 0, 0, 0.797626, 0.60315233, 0, -0.60315233, 0.797626, 2.3791512e-05, 72.86001, 56.06)
+
+[node name="ShakerComponent3D" type="Node3D" parent="Camera3D"]
+script = ExtResource("2_r3vws")
+AutoPlay = true
+intensity = 5.0
+shake_speed = 0.25
+shakerPreset = ExtResource("3_egw5o")
+metadata/_custom_type_script = "uid://dme7n7ov1ou1l"
 
 [node name="Table" parent="." instance=ExtResource("1_ouq38")]
 
