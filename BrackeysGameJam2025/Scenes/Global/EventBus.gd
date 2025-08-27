@@ -1,6 +1,7 @@
 extends Node
 
 signal isHandlingItem(isIt: bool)
+signal droppedItem(object: Interactable)
 signal storeCard(card: CardInteractable)
 signal forceStoreCard(card: CardInteractable)
 
@@ -8,6 +9,8 @@ signal cardSelected
 signal cardPlayed(card: CardInteractable, who: int)
 signal cardAddedInPlayArea(card: CardInteractable)
 signal cardRemovedFromPlayArea(card: CardInteractable, resolved: bool)
+
+signal deckCardInPlayArea(card: CardInteractable)
 
 ## Distraction
 signal objectHittedGround(object: Interactable)

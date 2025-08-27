@@ -28,4 +28,9 @@ func _physics_process(delta: float) -> void:
 	
 	for card: CardInteractable in sleepingCards:
 		notResolvedCard.erase(card)
+		if card.cardIsHidden:
+			# Its a deck card and its hidden in play area, put it back on deck
+			EventBus.deckCardInPlayArea.emit(card)
+			return
+		
 		EventBus.cardAddedInPlayArea.emit(card)

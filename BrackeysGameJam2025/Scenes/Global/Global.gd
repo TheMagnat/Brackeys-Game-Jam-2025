@@ -7,6 +7,7 @@ var isTryingToHoldCard: bool = true
 var mouseRelativeXPos: float = 0.0
 
 ## Game Phase
+var canInteract: bool = false
 var gameFinished: bool = false
 var drawPhase: bool = true
 

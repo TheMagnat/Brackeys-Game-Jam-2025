@@ -1,11 +1,12 @@
 extends Node3D
 
 
-func castAreaRay(origin: Vector3, end: Vector3, mask: int) -> Dictionary:
+func castAreaRay(origin: Vector3, end: Vector3, mask: int, hitFromInside: bool = false) -> Dictionary:
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end, mask)
 	query.collide_with_areas = true
 	query.collide_with_bodies = false
+	query.hit_from_inside = hitFromInside
 	
 	var result: Dictionary = space_state.intersect_ray(query)
 	

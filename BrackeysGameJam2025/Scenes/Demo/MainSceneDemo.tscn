@@ -189,7 +189,7 @@ subdivide_width = 30
 subdivide_depth = 30
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ckiob"]
-size = Vector3(750, 30, 750)
+size = Vector3(750, 40, 750)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v63yj"]
 size = Vector3(500, 10, 500)
@@ -233,6 +233,10 @@ unique_name_in_owner = true
 [node name="GameManager" type="Node3D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_6dlwc")
+
+[node name="Deck" parent="." instance=ExtResource("11_ckiob")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.06162, 42, 2.9846687)
 
 [node name="PlayerHandManager" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -309,7 +313,7 @@ speed_scale = 1.5
 [node name="Entities" type="Node3D" parent="."]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Entities" node_paths=PackedStringArray("meshInstance") groups=["Interactable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55.12, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.927685, 55.12, -24.168495)
 collision_layer = 65
 collision_mask = 2049
 mass = 100.0
@@ -325,7 +329,7 @@ mesh = SubResource("BoxMesh_7j7j0")
 shape = SubResource("BoxShape3D_7j7j0")
 
 [node name="RigidBody3D2" type="RigidBody3D" parent="Entities" node_paths=PackedStringArray("meshInstance") groups=["Interactable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.969124, 55.12, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.709084, 55.12, 5.567539)
 collision_layer = 65
 mass = 100.0
 physics_material_override = SubResource("PhysicsMaterial_e327d")
@@ -340,7 +344,7 @@ mesh = SubResource("BoxMesh_7j7j0")
 shape = SubResource("BoxShape3D_4173f")
 
 [node name="Card" type="RigidBody3D" parent="Entities" node_paths=PackedStringArray("meshInstance") groups=["Interactable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55.12, 10.24)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.423315, 55.12, -16.278744)
 collision_layer = 65
 script = ExtResource("6_vp0ry")
 meshInstance = NodePath("MeshInstance3D")
@@ -451,12 +455,8 @@ visible = false
 material_override = SubResource("ShaderMaterial_ckiob")
 mesh = SubResource("PlaneMesh_aj4hj")
 
-[node name="Deck" parent="." instance=ExtResource("11_ckiob")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.06162, 42, 2.9846687)
-
 [node name="OffTableDetector" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
@@ -474,4 +474,5 @@ shape = SubResource("BoxShape3D_v63yj")
 debug_color = Color(0.89869046, 0.00018097162, 0.7697709, 0.41960785)
 
 [connection signal="body_entered" from="OffTableDetector" to="GameManager" method="_on_off_table_detector_body_entered"]
+[connection signal="body_entered" from="OffTableDetector" to="Pirate/PirateAI" method="_on_off_table_detector_body_entered"]
 [connection signal="body_entered" from="GroundDetector" to="Pirate/DistractionManager" method="_on_ground_detector_body_entered"]

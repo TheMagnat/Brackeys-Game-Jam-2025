@@ -18,6 +18,8 @@ var turnState: int = 0 # 0 = Play card, 1 = draw card
 func _ready() -> void:
 	EventBus.cardAddedInPlayArea.connect(onCardAddedInPlayArea)
 	EventBus.cardRemovedFromPlayArea.connect(onCardRemovedFromPlayArea)
+	EventBus.deckCardInPlayArea.connect(onDeckCardInPlayArea)
+	EventBus.droppedItem.connect(onDroppedItem)
 	
 	deck.topCardPicked.connect(onDeckTopCardPicked)
 	
@@ -27,6 +29,19 @@ func getNewThinkingTime() -> float:
 	#return 0.0
 	var factor: float = 1.0 if turnState == 0 else 0.1
 	return randf_range(0.7, 1.5) * factor
+	#return 2.0
+
+func onDroppedItem(object: Interactable) -> void:
+	if object is CardInteractable:
+		var card: CardInteractable = object
+		if card.cardIsHidden:
+			var busted: bool = detectCheat()
+			if busted:
+				cheatResolver(CHEAT_TYPE.HIDE, card.model)
+			
+
+func onDeckCardInPlayArea(card: CardInteractable) -> void:
+	deck.addOnTop(card)
 
 func onPlayerAddCardToHand(index: int) -> void:
 	if Global.gameFinished: return
@@ -55,6 +70,10 @@ func onPlayerAddCardToHand(index: int) -> void:
 
 func onCardRemovedFromPlayArea(card: CardInteractable, resolved: bool) -> void:
 	if Global.gameFinished: return
+	
+	if card.model.cardOwner == 2:
+		# If card is owned by the deck, let the game put it back on top of it
+		return
 	
 	if not resolved and card.model.cardOwner == 0:
 		# Here the card is not resolved and is owned by the player, so its ok, ignore
@@ -109,15 +128,15 @@ func onDeckTopCardPicked(card: CardInteractable, who: int) -> void:
 	if Global.gameFinished: return
 	
 	# If pirate is drawing, ignore
-	if who == 1:
-		return
-	
-	if not playerTurn or turnState != 1:
-		var busted: bool = detectCheat()
-		if busted:
-			cheatResolver(CHEAT_TYPE.DECK_STEAL, card.model)
-			## TODO: UN TRUC
-			return
+	#if who == 1:
+		#return
+	#
+	#if not playerTurn or turnState != 1:
+		#var busted: bool = detectCheat()
+		#if busted:
+			#cheatResolver(CHEAT_TYPE.DECK_STEAL, card.model)
+			### TODO: UN TRUC
+			#return
 	
 	#TODO: Detecter que le joueur à piocher plusieurs cartes
 
@@ -134,7 +153,8 @@ func detectCheat() -> bool:
 enum CHEAT_TYPE {
 	DECK_STEAL = 0,
 	STEAL = 1,
-	TRY_TO_PLAY_WRONG_TURN = 2
+	HIDE = 2,
+	TRY_TO_PLAY_WRONG_TURN = 3
 }
 
 func cheatResolver(cheatType: CHEAT_TYPE, cardModel: CardModel) -> void:
@@ -154,7 +174,11 @@ func cheatResolver(cheatType: CHEAT_TYPE, cardModel: CardModel) -> void:
 	
 	# Deck
 	elif cardModel.cardOwner == 2:
-		deck.addOnTop(cardInteractable)
+		#deck.addOnTop(cardInteractable)
+		
+		# The pirate confiscate the card as a punition
+		cardModel.cardOwner = 1 
+		pirateCardHand.onForceStoreCard(cardInteractable)
 	
 	# Table or Pirate
 	elif cardModel.cardOwner == 3 or cardModel.cardOwner == 1:
@@ -201,3 +225,13 @@ func selectCard() -> int:
 			bestTotal = newTotal
 	
 	return bestIndex
+
+
+func _on_off_table_detector_body_entered(body: Node3D) -> void:
+	if Global.gameFinished: return
+	
+	var card: CardInteractable = body
+	
+	var busted: bool = detectCheat()
+	if busted:
+		cheatResolver(CHEAT_TYPE.HIDE, card.model)

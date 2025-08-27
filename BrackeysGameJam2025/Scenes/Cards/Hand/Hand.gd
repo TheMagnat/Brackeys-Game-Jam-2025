@@ -137,22 +137,23 @@ func popCard(index: int) -> Card:
 	for i: int in range(index, cards.size()):
 		cards[i].handPosition -= 1
 	
-	print("IN HAND: ", viewedCard)
-	
 	return popedCard
 
 func uninitializeCard(index: int) -> void:
 	var card: Card = cards[index]
 	
-	card.viewed.disconnect(onCardViewed)
-	card.deviewed.disconnect(onCardDeviewed)
+	if isPlayer:
+		card.viewed.disconnect(onCardViewed)
+		card.deviewed.disconnect(onCardDeviewed)
 
 func initializeCard(index: int) -> void:
 	var card: Card = cards[index]
 	
 	card.handPosition = index
-	card.viewed.connect(onCardViewed)
-	card.deviewed.connect(onCardDeviewed)
+	
+	if isPlayer:
+		card.viewed.connect(onCardViewed)
+		card.deviewed.connect(onCardDeviewed)
 
 func initializeCards() -> void:
 	for i: int in cards.size():
@@ -166,12 +167,10 @@ func initializeCards() -> void:
 
 func onCardViewed(card: Card) -> void:
 	viewedCard = card.handPosition
-	print("viewedCard event: ", viewedCard)
 
 func onCardDeviewed(card: Card) -> void:
 	if card.handPosition == viewedCard:
 		viewedCard = -1
-	print("viewedCard event: ", viewedCard)
 
 #endregion
 
@@ -232,7 +231,7 @@ func updateCardsPosition() -> void:
 		
 		var sampleOffset: float = startingLength + cardOffset
 		
-		if not Engine.is_editor_hint() and Global.isTryingToHoldCard:
+		if isPlayer and not Engine.is_editor_hint() and Global.isTryingToHoldCard:
 			if sampleOffset < mouseXOffset:
 				sampleOffset -= spaceBetweenViewed
 				lastInsertionIndex = i + 1
@@ -319,6 +318,8 @@ func storeCard(cardInteractable: CardInteractable, index: int) -> void:
 	cardAdded.emit(index)
 
 func _input(event: InputEvent) -> void:
+	if not Global.canInteract: return
+	
 	if event.is_action_pressed("SELECT"):
 		if viewedCard != -1:
 			onPlayerSelectCard(viewedCard)

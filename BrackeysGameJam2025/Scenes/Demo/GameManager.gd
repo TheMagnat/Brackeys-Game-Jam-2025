@@ -1,7 +1,5 @@
 class_name GameManager extends Node3D
 
-signal finishedDrawPhase
-
 @onready var deck: Deck = %Deck
 @onready var hand: CardHand = %CardHand
 @onready var pirateCardHand: CardHand = %PirateCardHand
@@ -15,6 +13,8 @@ signal finishedDrawPhase
 var currentGameTotalScore: int = 0
 
 func _ready() -> void:
+	Global.canInteract = false
+	
 	hand.cardSelected.connect(onCardSelected)
 	EventBus.cardPlayed.connect(onCardPlayed)
 	EventBus.gameFinished.connect(onGameFinished)
@@ -61,6 +61,7 @@ func drawCards(nb: int) -> void:
 		await get_tree().create_timer(0.35).timeout
 	
 	Global.drawPhase = false
+	Global.canInteract = true
 
 func onCardPlayed(card: CardInteractable, who: int) -> void:
 	var cardValue: int = card.model.cardScore
@@ -97,14 +98,6 @@ func onCardSelected(index: int) -> void:
 	#hand.animationPlayer.play("TuckHand")
 	#await hand.animationPlayer.animation_finished
 	#animationPlayer.play("SetHandDown")
-
-
-func _on_off_table_detector_body_entered(body: Node3D) -> void:
-	if Global.gameFinished: return
-	
-	var card: CardInteractable = body
-	
-	EventBus.forceStoreCard.emit(card)
 
 func playPirateCard(index: int) -> void:
 	var card: Card = pirateCardHand.popCard(index)

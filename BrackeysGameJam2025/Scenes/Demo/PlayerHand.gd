@@ -19,6 +19,7 @@ var hoverOffset: Vector3
 var requestDetach: bool = false
 
 @onready var joint: Joint3D = $PinJoint3D
+@onready var deck: Deck = %Deck
 
 func _ready() -> void:
 	GlobalCardManager.playerHand = self
@@ -26,10 +27,13 @@ func _ready() -> void:
 var lastPos: Vector3
 var velocity: Vector3
 func _physics_process(delta: float) -> void:
+	if not Global.canInteract: return
+	
 	if requestDetach:
 		_detach()
 		hoveredObject.apply_central_impulse(velocity * hoveredObject.mass)
 		requestDetach = false
+		EventBus.droppedItem.emit(hoveredObject)
 	
 	Global.isTryingToHoldCard = false
 	if joint.node_b:
@@ -70,6 +74,15 @@ func detach() -> void:
 		EventBus.storeCard.emit(hoveredObject)
 	
 	else:
+		if hoveredObject is CardInteractable:
+			var card: CardInteractable = hoveredObject
+			if card.cardIsHidden:
+				var result: Dictionary = RayHelper.castAreaRay(card.global_position, card.global_position + Vector3.DOWN * 50.0, 65536, true)
+				if result and (result.collider as Node3D).is_in_group("DeckDropArea"):
+					_detach()
+					deck.helpDropOnTop(card)
+					return
+		
 		requestDetach = true
 
 func _detach() -> void:
@@ -81,6 +94,8 @@ func _detach() -> void:
 	EventBus.isHandlingItem.emit(false)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not Global.canInteract: return
+	
 	if event is InputEventMouseMotion:
 		if joint.node_b:
 			var pos: Vector3 = RayHelper.getMouseGroundPosition(hoverPosition.y) + hoverOffset
