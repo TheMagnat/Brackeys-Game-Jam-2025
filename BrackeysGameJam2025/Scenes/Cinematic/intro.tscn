@@ -1,14 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvyor2v2tnwwj"]
+[gd_scene load_steps=3 format=3 uid="uid://bvyor2v2tnwwj"]
 
 [ext_resource type="Script" uid="uid://2d5ebihhij52" path="res://Scenes/Cinematic/intro.gd" id="1_nl7nc"]
-[ext_resource type="FontFile" uid="uid://dt26h4xdh1yok" path="res://Resources/Fonts/Primitive-4yGY.ttf" id="2_nl7nc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_v8oih"]
-font = ExtResource("2_nl7nc")
-font_size = 32
+font_size = 30
 outline_color = Color(0, 0, 0, 1)
 
 [node name="intro" type="CanvasLayer"]
+layer = 110
 script = ExtResource("1_nl7nc")
 
 [node name="Line2D" type="Line2D" parent="."]
@@ -17,9 +16,11 @@ width = 648.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
 custom_minimum_size = Vector2(1152, 648)
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 0
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer"]
@@ -43,7 +44,7 @@ horizontal_alignment = 1
 
 [node name="Label4" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Rumor has it that I'm a card ace it seems, I hope this won't doom me"
+text = "Rumor has it that I'm a card ace it seems, and I hope this won't doom me"
 label_settings = SubResource("LabelSettings_v8oih")
 horizontal_alignment = 1
 

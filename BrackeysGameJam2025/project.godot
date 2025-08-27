@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BrackeysGameJam2025"
-run/main_scene="uid://c0nwpy0h6ssfh"
+run/main_scene="uid://comtniuw3st42"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -50,6 +50,10 @@ folder_colors={
 
 Interactable="Object that can be moved by the player"
 DeckDropArea=""
+
+[gui]
+
+theme/custom_font="uid://dt26h4xdh1yok"
 
 [input]
 

@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://comtniuw3st42"]
+
+[ext_resource type="Script" uid="uid://cupwtnl614t8u" path="res://Scenes/UI/MainMenu.gd" id="1_g18y6"]
+[ext_resource type="PackedScene" uid="uid://c16nmmpnwqcji" path="res://Scenes/UI/button.tscn" id="2_mjmdf"]
+
+[sub_resource type="Shader" id="Shader_g18y6"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	VERTEX.x += cos(VERTEX.x * 10.0 + TIME * 0.5);
+	VERTEX.y += cos(VERTEX.y * 10.0 + TIME * 0.5) * 2.0;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mjmdf"]
+shader = SubResource("Shader_g18y6")
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_g18y6")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 324, 1152, 324)
+width = 648.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color(0.83780426, 0.74183875, 0.6247251, 1)
+custom_minimum_size = Vector2(1152, 256)
+offset_top = 392.0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_font_sizes/font_size = 32
+text = "This amusement may be played with mice"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="bg" type="Node2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="Label" type="Label" parent="bg"]
+modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
+material = SubResource("ShaderMaterial_mjmdf")
+custom_minimum_size = Vector2(1152, 256)
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = -68.0
+theme_override_font_sizes/font_size = 128
+text = "Crooked Deck"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(320, 520)
+offset_left = 64.0
+offset_right = 384.0
+offset_bottom = 648.0
+alignment = 1
+
+[node name="Play" parent="VBoxContainer" instance=ExtResource("2_mjmdf")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Commence"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Fullscreen" parent="VBoxContainer" instance=ExtResource("2_mjmdf")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Immerse"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Quit" parent="VBoxContainer" instance=ExtResource("2_mjmdf")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Flee"

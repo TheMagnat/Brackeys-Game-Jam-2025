@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7m7jk5jjk5mj"]
+
+[ext_resource type="Script" uid="uid://cpq2bgey8jxb" path="res://Scenes/UI/game_menu.gd" id="1_dt8tu"]
+[ext_resource type="PackedScene" uid="uid://c16nmmpnwqcji" path="res://Scenes/UI/button.tscn" id="2_ac63f"]
+
+[node name="GameMenu" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_dt8tu")
+
+[node name="Line2D" type="Line2D" parent="."]
+modulate = Color(1, 1, 1, 0.5882353)
+points = PackedVector2Array(0, 324, 1152, 324)
+width = 648.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 0
+alignment = 1
+
+[node name="Resume" parent="VBoxContainer" instance=ExtResource("2_ac63f")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Keep playing"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+modulate = Color(0.011764706, 0.011764706, 0.011764706, 0)
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Fullscreen" parent="VBoxContainer" instance=ExtResource("2_ac63f")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Keep playing"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+modulate = Color(0.011764706, 0.011764706, 0.011764706, 0)
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Quit" parent="VBoxContainer" instance=ExtResource("2_ac63f")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Back to the holds"

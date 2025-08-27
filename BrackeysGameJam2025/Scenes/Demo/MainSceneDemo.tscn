@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=55 format=3 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
@@ -18,6 +18,8 @@
 [ext_resource type="Resource" uid="uid://cvklw5ika1tao" path="res://addons/shaker/data/resources/shaker_earthquake3D.tres" id="10_giv36"]
 [ext_resource type="PackedScene" uid="uid://cgn6wlmg2y0k8" path="res://Scenes/Cards/Deck/Deck.tscn" id="11_ckiob"]
 [ext_resource type="Script" uid="uid://by8grrlpsjf1o" path="res://Scenes/AI/DistractionManager.gd" id="12_v63yj"]
+[ext_resource type="PackedScene" uid="uid://bvyor2v2tnwwj" path="res://Scenes/Cinematic/intro.tscn" id="19_4173f"]
+[ext_resource type="PackedScene" uid="uid://c7m7jk5jjk5mj" path="res://Scenes/UI/GameMenu.tscn" id="19_mggys"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ouq38"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -162,7 +164,7 @@ size = Vector3(400, 20, 400)
 size = Vector3(8, 200, 200)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8eesi"]
-font_size = 64
+font_size = 48
 
 [sub_resource type="LabelSettings" id="LabelSettings_aj4hj"]
 font_size = 64
@@ -472,6 +474,12 @@ monitorable = false
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="GroundDetector"]
 shape = SubResource("BoxShape3D_v63yj")
 debug_color = Color(0.89869046, 0.00018097162, 0.7697709, 0.41960785)
+
+[node name="GameMenu" parent="." instance=ExtResource("19_mggys")]
+visible = false
+
+[node name="intro" parent="." instance=ExtResource("19_4173f")]
+visible = false
 
 [connection signal="body_entered" from="OffTableDetector" to="GameManager" method="_on_off_table_detector_body_entered"]
 [connection signal="body_entered" from="OffTableDetector" to="Pirate/PirateAI" method="_on_off_table_detector_body_entered"]

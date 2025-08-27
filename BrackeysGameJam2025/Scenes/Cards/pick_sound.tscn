@@ -1,0 +1,23 @@
+[gd_scene load_steps=8 format=3 uid="uid://bodfedid73ird"]
+
+[ext_resource type="AudioStream" uid="uid://dnuib8bqsdkje" path="res://Resources/SFX/material/card_pick1.ogg" id="1_ikvw3"]
+[ext_resource type="AudioStream" uid="uid://cgyp70qukt12h" path="res://Resources/SFX/material/card_pick2.ogg" id="2_fd8ux"]
+[ext_resource type="AudioStream" uid="uid://cx1hhx0r3o7i8" path="res://Resources/SFX/material/card_pick3.ogg" id="3_0kcya"]
+[ext_resource type="AudioStream" uid="uid://dl80oaqo42yqv" path="res://Resources/SFX/material/card_pick4.ogg" id="4_oa6sf"]
+[ext_resource type="AudioStream" uid="uid://sjxlemcph2g1" path="res://Resources/SFX/material/card_pick5.ogg" id="5_cs22q"]
+[ext_resource type="AudioStream" uid="uid://bwjn1acxywo8y" path="res://Resources/SFX/material/card_pick6.ogg" id="6_ab7j4"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4tv1v"]
+random_pitch = 1.1
+streams_count = 6
+stream_0/stream = ExtResource("1_ikvw3")
+stream_1/stream = ExtResource("2_fd8ux")
+stream_2/stream = ExtResource("3_0kcya")
+stream_3/stream = ExtResource("4_oa6sf")
+stream_4/stream = ExtResource("5_cs22q")
+stream_5/stream = ExtResource("6_ab7j4")
+
+[node name="pick" type="AudioStreamPlayer3D"]
+stream = SubResource("AudioStreamRandomizer_4tv1v")
+unit_size = 45.0
+attenuation_filter_db = -12.0

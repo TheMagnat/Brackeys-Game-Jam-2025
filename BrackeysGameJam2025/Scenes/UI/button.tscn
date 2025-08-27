@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c16nmmpnwqcji"]
+
+[ext_resource type="Script" uid="uid://c0ubl6hq45bcj" path="res://Scenes/UI/button.gd" id="1_rtysa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ypx1p"]
+
+[node name="Button" type="Button"]
+modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ypx1p")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ypx1p")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ypx1p")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ypx1p")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ypx1p")
+script = ExtResource("1_rtysa")

@@ -10,6 +10,7 @@ class_name DialogCharacter extends Sprite2D
 func _ready():
 	$AudioStreamPlayer.stream = stream
 	$Name.text = character_name
+	audio.finished.connect(talk_voice)
 
 func start_talking():
 	if hframes > 1 or vframes > 1:
@@ -22,7 +23,6 @@ func talk_voice():
 		return
 	
 	audio.play()
-	get_tree().create_timer(randf_range(sound_speed_min, sound_speed_max)).timeout.connect(talk_voice)
 
 func talk_visuals():
 	if frame == 0:

@@ -1,0 +1,18 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbpffi8rq4fre"]
+
+[ext_resource type="AudioStream" uid="uid://6b880rlg5lhx" path="res://Resources/SFX/material/card_hit1.ogg" id="1_0kyf6"]
+[ext_resource type="AudioStream" uid="uid://cxr1px3prt6bd" path="res://Resources/SFX/material/card_hit2.ogg" id="2_rtuk3"]
+[ext_resource type="AudioStream" uid="uid://dk1jpuh7ga8d5" path="res://Resources/SFX/material/card_hit3.ogg" id="3_lsow0"]
+[ext_resource type="AudioStream" uid="uid://bkk26th15pb4l" path="res://Resources/SFX/material/card_hit4.ogg" id="4_6xpth"]
+[ext_resource type="AudioStream" uid="uid://bpde5yp1a5hd0" path="res://Resources/SFX/material/card_hit5.ogg" id="5_urqp5"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vvixk"]
+streams_count = 5
+stream_0/stream = ExtResource("1_0kyf6")
+stream_1/stream = ExtResource("2_rtuk3")
+stream_2/stream = ExtResource("3_lsow0")
+stream_3/stream = ExtResource("4_6xpth")
+stream_4/stream = ExtResource("5_urqp5")
+
+[node name="hit" type="AudioStreamPlayer3D"]
+stream = SubResource("AudioStreamRandomizer_vvixk")

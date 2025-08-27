@@ -1,6 +1,11 @@
 extends Node3D
 
+const DEBUG := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SeaSound.outside()
+	if DEBUG:
+		$intro.queue_free()
+		SeaSound.outside()
+	else:
+		$intro.finished.connect(SeaSound.outside)

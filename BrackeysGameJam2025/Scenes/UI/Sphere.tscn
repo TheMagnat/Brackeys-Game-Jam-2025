@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmswypdye3b6j"]
+
+[ext_resource type="Script" uid="uid://ml1eqjwxt6co" path="res://Scenes/UI/Sphere.gd" id="1_85s8s"]
+
+[node name="Sphere" type="Node2D"]
+script = ExtResource("1_85s8s")
