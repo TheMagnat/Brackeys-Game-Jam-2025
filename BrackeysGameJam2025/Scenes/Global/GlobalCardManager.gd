@@ -23,8 +23,6 @@ func convertCardHandToInteractableCard(card: Card) -> CardInteractable:
 	
 	card.queue_free()
 	
-	print("IN HAND FROM GLOBAL: ", newInteractable.model.inHand)
-	
 	return newInteractable
 
 # Return ready to manage CardInteractable from any CardModel
