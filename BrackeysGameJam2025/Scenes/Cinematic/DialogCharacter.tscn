@@ -33,3 +33,4 @@ vertical_alignment = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 volume_db = -10.0
+pitch_scale = 0.5

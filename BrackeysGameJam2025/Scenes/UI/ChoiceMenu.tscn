@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://147q4fwq5jsn"]
+
+[ext_resource type="Script" uid="uid://b127nii3570eg" path="res://Scenes/UI/ChoiceMenu.gd" id="1_b0gre"]
+[ext_resource type="PackedScene" uid="uid://c16nmmpnwqcji" path="res://Scenes/UI/button.tscn" id="2_exkau"]
+
+[sub_resource type="Gradient" id="Gradient_il5lr"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[node name="ChoiceMenu" type="CanvasLayer"]
+script = ExtResource("1_b0gre")
+
+[node name="Resources" type="Node2D" parent="."]
+visible = false
+
+[node name="Button" parent="Resources" instance=ExtResource("2_exkau")]
+offset_right = 59.0
+offset_bottom = 39.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "test"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1152, 384)
+offset_top = 264.0
+offset_right = 1152.0
+offset_bottom = 648.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+alignment = 1
+
+[node name="Line2D" type="Line2D" parent="HBoxContainer"]
+modulate = Color(1, 1, 1, 0.54509807)
+points = PackedVector2Array(576, 384, 576, 0)
+width = 1152.0
+gradient = SubResource("Gradient_il5lr")
