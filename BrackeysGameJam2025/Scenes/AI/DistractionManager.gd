@@ -12,11 +12,15 @@ func _process(delta: float) -> void:
 	
 	remainingDistractionTime -= delta
 	if remainingDistractionTime <= 0.0:
-		isDistracted = false
-		material.albedo_color = Color("fffc4a")
+		stopDistraction()
 
-func getDistracted(pos: Vector3) -> void:
-	remainingDistractionTime = 2.0
+func stopDistraction() -> void:
+	isDistracted = false
+	remainingDistractionTime = 0.0
+	material.albedo_color = Color("fffc4a")
+
+func getDistracted(_pos: Vector3) -> void:
+	remainingDistractionTime = 4.0
 	isDistracted = true
 	
 	material.albedo_color = Color.RED

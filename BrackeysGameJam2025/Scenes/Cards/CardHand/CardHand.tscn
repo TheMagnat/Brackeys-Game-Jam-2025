@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://wrkbrbbpdwy6"]
 
-[ext_resource type="Script" uid="uid://cak6g5se6ko0u" path="res://Scenes/Cards/Hand/Hand.gd" id="1_m3g2y"]
+[ext_resource type="Script" uid="uid://cak6g5se6ko0u" path="res://Scenes/Cards/CardHand/CardHand.gd" id="1_o22as"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_657ah"]
 noise_type = 0
@@ -146,7 +146,7 @@ _data = {
 }
 
 [node name="CardHand" type="Node3D"]
-script = ExtResource("1_m3g2y")
+script = ExtResource("1_o22as")
 spaceBetweenSelected = 1.0
 spaceBetweenViewed = 2.0
 spaceBetweenCards = 6.0

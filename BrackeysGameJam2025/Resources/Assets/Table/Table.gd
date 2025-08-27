@@ -6,6 +6,9 @@ var notResolvedCard: Dictionary[CardInteractable, int]
 
 func _on_play_area_body_entered(body: Node3D) -> void:
 	var card: CardInteractable = body
+	
+	if card.freeze: return
+	
 	insideCard[card] = 0
 	notResolvedCard[card] = 0
 
@@ -13,10 +16,15 @@ func _on_play_area_body_exited(body: Node3D) -> void:
 	var card: CardInteractable = body 
 	var isResolved: bool = true
 	
+	if card.freeze:
+		return
+	
 	insideCard.erase(card)
 	if card in notResolvedCard:
 		notResolvedCard.erase(card)
 		isResolved = false
+	
+	if not is_instance_valid(card) or card.is_queued_for_deletion(): return
 	
 	EventBus.cardRemovedFromPlayArea.emit(card, isResolved)
 

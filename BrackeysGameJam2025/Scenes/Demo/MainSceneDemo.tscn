@@ -1,10 +1,11 @@
-[gd_scene load_steps=55 format=3 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=52 format=3 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
 [ext_resource type="Script" uid="uid://dme7n7ov1ou1l" path="res://addons/shaker/src/Vector3/shaker_component3D.gd" id="2_r3vws"]
+[ext_resource type="Material" uid="uid://dh6ykun8bv60u" path="res://Resources/Sky/day_sky.tres" id="2_y087b"]
 [ext_resource type="Resource" uid="uid://bgwupdyecxqic" path="res://addons/shaker/data/resources/shaker_head_blob3D.tres" id="3_egw5o"]
-[ext_resource type="PackedScene" uid="uid://wrkbrbbpdwy6" path="res://Scenes/Cards/Hand/Hand.tscn" id="3_rk0yb"]
+[ext_resource type="PackedScene" uid="uid://wrkbrbbpdwy6" path="res://Scenes/Cards/CardHand/CardHand.tscn" id="3_rk0yb"]
 [ext_resource type="Script" uid="uid://hplad1nyntgv" path="res://Scenes/Demo/GameManager.gd" id="4_6dlwc"]
 [ext_resource type="Script" uid="uid://blgox76nom2g2" path="res://addons/shaker/src/Vector3/ShakerReceiver3D.gd" id="4_giv36"]
 [ext_resource type="Script" uid="uid://dve5gom7vnevy" path="res://Scenes/Demo/PlayerHand.gd" id="6_aanud"]
@@ -21,16 +22,15 @@
 [ext_resource type="PackedScene" uid="uid://bvyor2v2tnwwj" path="res://Scenes/Cinematic/intro.tscn" id="19_4173f"]
 [ext_resource type="PackedScene" uid="uid://c7m7jk5jjk5mj" path="res://Scenes/UI/GameMenu.tscn" id="19_mggys"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ouq38"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
 [sub_resource type="Sky" id="Sky_rk0yb"]
-sky_material = SubResource("ProceduralSkyMaterial_ouq38")
+sky_material = ExtResource("2_y087b")
+radiance_size = 0
 
 [sub_resource type="Environment" id="Environment_6dlwc"]
 background_mode = 2
 sky = SubResource("Sky_rk0yb")
+ambient_light_color = Color(0.3515629, 0.3515629, 0.35156283, 1)
+ambient_light_sky_contribution = 0.65
 tonemap_mode = 2
 glow_enabled = true
 
@@ -53,56 +53,6 @@ albedo_color = Color(1, 0.9881667, 0.29000002, 1)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_giv36"]
 radius = 20.0
 height = 80.0
-
-[sub_resource type="Animation" id="Animation_ckiob"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CardHand:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 43.42, 49.88857)]
-}
-
-[sub_resource type="Animation" id="Animation_7j7j0"]
-resource_name = "SetHandDown"
-length = 2.0
-step = 0.0333333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CardHand:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(-2, 1),
-"update": 0,
-"values": [Vector3(0, 43.42, 49.88857), Vector3(-29.5, 42.24, 29.6)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CardHand:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.3),
-"transitions": PackedFloat32Array(-2, 1),
-"update": 0,
-"values": [Vector3(-0.89976954, 0, 0), Vector3(1.5707964, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_e327d"]
-_data = {
-&"RESET": SubResource("Animation_ckiob"),
-&"SetHandDown": SubResource("Animation_7j7j0")
-}
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e327d"]
 friction = 4.0
@@ -208,7 +158,7 @@ shadow_enabled = true
 directional_shadow_max_distance = 400.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.797626, 0.60315233, 0, -0.60315233, 0.797626, 2.3791512e-05, 72.86001, 56.06)
+transform = Transform3D(1, 0, 0, 0, 0.8578766, 0.5138558, 0, -0.5138558, 0.8578766, 2.3791512e-05, 72.86001, 59.879124)
 
 [node name="ShakerComponent3D" type="Node3D" parent="Camera3D"]
 script = ExtResource("2_r3vws")
@@ -238,7 +188,7 @@ script = ExtResource("4_6dlwc")
 
 [node name="Deck" parent="." instance=ExtResource("11_ckiob")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.06162, 42, 2.9846687)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.122993, 42, 0)
 
 [node name="PlayerHandManager" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -263,7 +213,7 @@ exclude_nodes_from_collision = false
 
 [node name="CardHand" parent="." instance=ExtResource("3_rk0yb")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.6217903, 0.7831834, 0, -0.7831834, 0.6217903, 0, 43.42, 49.88857)
+transform = Transform3D(1, 0, 0, 0, 0.62179023, 0.78318334, 0, -0.78318334, 0.62179023, 0, 43.42, 49.88857)
 cardRotationBasedOnDist = 0.03500000000349246
 
 [node name="Pirate" type="Node3D" parent="."]
@@ -305,13 +255,6 @@ script = ExtResource("12_v63yj")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 60, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_e327d")
-}
-speed_scale = 1.5
-
 [node name="Entities" type="Node3D" parent="."]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Entities" node_paths=PackedStringArray("meshInstance") groups=["Interactable"]]
@@ -352,6 +295,7 @@ script = ExtResource("6_vp0ry")
 meshInstance = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Entities/Card"]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999998, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_8eesi")
 mesh = SubResource("BoxMesh_vp0ry")
 

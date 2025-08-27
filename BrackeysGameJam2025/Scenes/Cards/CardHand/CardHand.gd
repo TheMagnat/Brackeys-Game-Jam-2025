@@ -126,8 +126,6 @@ func popCard(index: int) -> Card:
 	uninitializeCard(index)
 	
 	var popedCard: Card = cards.pop_at(index)
-	#popedCard.removeFromHand()
-	#cardsHolder.remove_child(popedCard)
 	
 	if index == viewedCard:
 		viewedCard = -1
@@ -182,6 +180,10 @@ func updateCardsPosition() -> void:
 	
 	var handViewedCard: int = viewedCard
 	if not Engine.is_editor_hint() and not Global.isHandActive:
+		handViewedCard = -1
+	
+	if viewedCard >= cards.size():
+		printerr("WRONG INDEX")
 		handViewedCard = -1
 	
 	var trueCardStep: float
@@ -318,28 +320,17 @@ func storeCard(cardInteractable: CardInteractable, index: int) -> void:
 	cardAdded.emit(index)
 
 func _input(event: InputEvent) -> void:
+	if not isPlayer: return
+	
 	if not Global.canInteract: return
 	
 	if event.is_action_pressed("SELECT"):
 		if viewedCard != -1:
+			if viewedCard >= cards.size():
+				printerr("WRONG INDEX")
+				return
+			
 			onPlayerSelectCard(viewedCard)
 			get_viewport().set_input_as_handled()
-	
-	# Keyboard inputs
-	if event.is_action_pressed("CARD_SHORTCUT_1"):
-		onPlayerSelectCard(0)
-		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed("CARD_SHORTCUT_2"):
-		onPlayerSelectCard(1)
-		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed("CARD_SHORTCUT_3"):
-		onPlayerSelectCard(2)
-		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed("CARD_SHORTCUT_4"):
-		onPlayerSelectCard(3)
-		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed("CARD_SHORTCUT_5"):
-		onPlayerSelectCard(4)
-		get_viewport().set_input_as_handled()
 	
 #endregion

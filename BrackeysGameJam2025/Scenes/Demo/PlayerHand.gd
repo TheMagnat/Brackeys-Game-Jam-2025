@@ -76,12 +76,12 @@ func detach() -> void:
 	else:
 		if hoveredObject is CardInteractable:
 			var card: CardInteractable = hoveredObject
-			if card.cardIsHidden:
-				var result: Dictionary = RayHelper.castAreaRay(card.global_position, card.global_position + Vector3.DOWN * 50.0, 65536, true)
-				if result and (result.collider as Node3D).is_in_group("DeckDropArea"):
-					_detach()
-					deck.helpDropOnTop(card)
-					return
+			#if card.cardIsHidden:
+			var result: Dictionary = RayHelper.castAreaRay(card.global_position, card.global_position + Vector3.DOWN * 50.0, 65536, true)
+			if result and (result.collider as Node3D).is_in_group("DeckDropArea"):
+				_detach()
+				deck.helpDropOnTop(card, 0)
+				return
 		
 		requestDetach = true
 

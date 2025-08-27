@@ -6,11 +6,11 @@ class_name GameManager extends Node3D
 
 @onready var playerHandManager: PlayerHandManager = %PlayerHandManager
 
-@onready var animationPlayer: AnimationPlayer = %AnimationPlayer
-
 @onready var centerToAim: Marker3D = %CenterToAim
 
 var currentGameTotalScore: int = 0
+
+var playedCardBuffer: Array[CardModel]
 
 func _ready() -> void:
 	Global.canInteract = false
@@ -25,7 +25,6 @@ func onGameFinished(whoWin: int) -> void:
 	Global.gameFinished = true
 	
 	$"../Pirate/ShakerEmitter3D".emit = true
-
 	
 	for cardModel: CardModel in deck.cardsModels:
 		var cardInteractable: CardInteractable = GlobalCardManager.getCardInteractableFromModel(cardModel)
@@ -64,11 +63,23 @@ func drawCards(nb: int) -> void:
 	Global.canInteract = true
 
 func onCardPlayed(card: CardInteractable, who: int) -> void:
-	var cardValue: int = card.model.cardScore
-	currentGameTotalScore += cardValue
+	playedCardBuffer.push_back(card.model)
 	
+	var cardValue: int = card.model.cardScore
+	currentGameTotalScore = maxi(0, currentGameTotalScore + cardValue)
+	
+	#EventBus.gameFinished.emit(1 - who)
 	if currentGameTotalScore >= Global.TOTAL_TO_NOT_REACH:
 		EventBus.gameFinished.emit(1 - who)
+	else:
+		if deck.cards.is_empty():
+			var cardToExcludeFromReshuffle: Array[CardModel]
+			for i: int in range(playedCardBuffer.size() - 1, -1, -1):
+				if playedCardBuffer[i].cardOwner == 3 and not playedCardBuffer[i].inHand:
+					cardToExcludeFromReshuffle.push_back(playedCardBuffer[i])
+					break
+			
+			deck.askShuffle(cardToExcludeFromReshuffle)
 
 func onCardSelected(index: int) -> void:
 	var result: Dictionary = RayHelper.castHandCardRay()
@@ -114,6 +125,13 @@ func sendCardToCenter(cardInteractable: CardInteractable) -> void:
 	cardInteractable.apply_central_force(direction * distance * 200.0)
 
 func _unhandled_input(event: InputEvent) -> void:
-	## DEBUG
 	if event.is_action_pressed("SECONDARY_ACTION"):
-		playPirateCard(0)
+		var cardToExcludeFromReshuffle: Array[CardModel]
+		for i: int in range(playedCardBuffer.size() - 1, -1, -1):
+			if playedCardBuffer[i].cardOwner == 3 and not playedCardBuffer[i].inHand:
+				cardToExcludeFromReshuffle.push_back(playedCardBuffer[i])
+				break
+		
+		playedCardBuffer = cardToExcludeFromReshuffle
+		
+		deck.askReset(cardToExcludeFromReshuffle)

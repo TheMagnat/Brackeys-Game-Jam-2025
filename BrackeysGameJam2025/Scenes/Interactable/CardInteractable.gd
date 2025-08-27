@@ -33,8 +33,11 @@ func activate() -> void:
 	activated = true
 	collision_layer = 0b01 + PHYSICS_LAYER
 	freeze = false
-	contact_monitor = true
-	max_contacts_reported = 1
+	# Put back to get the hit sound
+	#contact_monitor = true
+	#max_contacts_reported = 1
+	
+	lastPosition = global_position
 
 func deactivate() -> void:
 	activated = false
@@ -43,12 +46,12 @@ func deactivate() -> void:
 	contact_monitor = false
 	max_contacts_reported = 0
 
-@onready var hit := hit_sound.instantiate()
-@onready var pick := pick_sound.instantiate()
+@onready var hit: AudioStreamPlayer3D = hit_sound.instantiate()
+@onready var pick: AudioStreamPlayer3D = pick_sound.instantiate()
 
 # kinda works
-func body_hit(_body) -> void:
-	hit.volume_db = minf(3.0, linear_velocity.length() - 30.0)
+func body_hit(_body: Node3D) -> void:
+	hit.volume_db = minf(3.0, (lastVelocity.length() * 40.0 - 30.0))
 	hit.play()
 
 func picked_card(_i: int) -> void:
@@ -64,11 +67,18 @@ func _ready() -> void:
 	collision_layer = 0b01
 	
 	if activated:
-		collision_layer += PHYSICS_LAYER
+		activate()
 	else:
-		freeze = true
+		deactivate()
 	
 	mass = 1.0
 	linear_damp = 2.0
 	angular_damp = 1.0
 	continuous_cd = true
+
+var lastPosition: Vector3
+var lastVelocity: Vector3
+func _physics_process(delta: float) -> void:
+	if activated:
+		lastVelocity = global_position - lastPosition
+		lastPosition = global_position

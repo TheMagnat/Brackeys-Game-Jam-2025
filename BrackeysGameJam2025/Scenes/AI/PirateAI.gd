@@ -22,11 +22,12 @@ func _ready() -> void:
 	EventBus.droppedItem.connect(onDroppedItem)
 	
 	deck.topCardPicked.connect(onDeckTopCardPicked)
+	deck.topCardAdded.connect(onDeckTopCardAdded)
 	
 	playerCardHand.cardAdded.connect(onPlayerAddCardToHand)
 
 func getNewThinkingTime() -> float:
-	#return 0.0
+	return 0.0
 	var factor: float = 1.0 if turnState == 0 else 0.1
 	return randf_range(0.7, 1.5) * factor
 	#return 2.0
@@ -41,7 +42,7 @@ func onDroppedItem(object: Interactable) -> void:
 			
 
 func onDeckCardInPlayArea(card: CardInteractable) -> void:
-	deck.addOnTop(card)
+	deck.addOnTop(card, 1)
 
 func onPlayerAddCardToHand(index: int) -> void:
 	if Global.gameFinished: return
@@ -121,8 +122,25 @@ func onCardAddedInPlayArea(card: CardInteractable) -> void:
 			thinkingTime = getNewThinkingTime()
 	
 	# Now the owner is the table
-	EventBus.cardPlayed.emit(card, card.model.cardOwner)
 	card.model.cardOwner = 3
+	EventBus.cardPlayed.emit(card, card.model.cardOwner)
+
+func onDeckTopCardAdded(card: CardInteractable, who: int) -> void:
+	if who != 0:
+		# If the player is not the one who initiated this move, ignore
+		return
+	
+	if card.model.cardOwner != 2:
+		# Here the player try to add in deck a card that is already in game
+		var busted: bool = detectCheat()
+		if busted:
+			# Also remove the card from the deck
+			deck.pickTopCard(1)
+			cheatResolver(CHEAT_TYPE.HIDE_IN_DECK, card.model)
+			return
+		
+		# Here the cheat is not detected, so now the card belong to the deck
+		card.model.cardOwner = 2
 
 func onDeckTopCardPicked(card: CardInteractable, who: int) -> void:
 	if Global.gameFinished: return
@@ -140,10 +158,30 @@ func onDeckTopCardPicked(card: CardInteractable, who: int) -> void:
 	
 	#TODO: Detecter que le joueur à piocher plusieurs cartes
 
+var nbCheatSinceDistracted: int = 0
+const maxCheatPerDistraction: int = 2
+
+func analyseGameState() -> void:
+	#TODO: Mettre un delay de temps d'analyse
+	
+	if playerCardHand.cards.size() > Global.MAX_CARDS_IN_HAND:
+		# Here the pirate saw that the player have more than 4 cards
+		debugui.cheating()
+		cheatResolver(CHEAT_TYPE.TOO_MUCH_CARDS, null)
+	
+	
+
 func detectCheat() -> bool:
+	print("-- CHEAT DETECTED --")
+	
 	if Global.gameFinished: return false
 	
 	if distractionManager.isDistracted:
+		nbCheatSinceDistracted += 1
+		
+		if nbCheatSinceDistracted >= maxCheatPerDistraction:
+			distractionManager.stopDistraction()
+		
 		return false
 	
 	print("TRICHE ???")
@@ -154,17 +192,30 @@ enum CHEAT_TYPE {
 	DECK_STEAL = 0,
 	STEAL = 1,
 	HIDE = 2,
-	TRY_TO_PLAY_WRONG_TURN = 3
+	HIDE_IN_DECK = 3,
+	TRY_TO_PLAY_WRONG_TURN = 4,
+	TOO_MUCH_CARDS = 5
 }
 
 func cheatResolver(cheatType: CHEAT_TYPE, cardModel: CardModel) -> void:
 	if Global.gameFinished: return
 	
-	#match cheatType:
-		#CHEAT_TYPE.DECK_STEAL:
-			##TODO: A partir d'un model, récupérer la position de la carte et sa version CardInteractable
-			#var cardInteractable: CardInteractable = GlobalCardManager.getCardInteractableFromModel(cardModel)
-			#deck.addOnTop(cardInteractable)
+	# Special cheat case
+	match cheatType:
+		CHEAT_TYPE.TOO_MUCH_CARDS:
+			Global.canInteract = false
+			
+			var cardsToRemove: int = playerCardHand.cards.size() - Global.MAX_CARDS_IN_HAND
+			for i: int in cardsToRemove:
+				var cardIndex: int = randi_range(0, playerCardHand.cards.size() - 1)
+				var card: CardInteractable = GlobalCardManager.getCardInteractableFromModel(playerCardHand.cards[cardIndex].model)
+				card.model.cardOwner = 1 
+				pirateCardHand.onForceStoreCard(card)
+				
+				await get_tree().create_timer(0.25).timeout
+			
+			Global.canInteract = true
+			return
 	
 	var cardInteractable: CardInteractable = GlobalCardManager.getCardInteractableFromModel(cardModel)
 	
@@ -174,7 +225,7 @@ func cheatResolver(cheatType: CHEAT_TYPE, cardModel: CardModel) -> void:
 	
 	# Deck
 	elif cardModel.cardOwner == 2:
-		#deck.addOnTop(cardInteractable)
+		#deck.addOnTop(cardInteractable, 1)
 		
 		# The pirate confiscate the card as a punition
 		cardModel.cardOwner = 1 
@@ -186,8 +237,19 @@ func cheatResolver(cheatType: CHEAT_TYPE, cardModel: CardModel) -> void:
 
 var thinkingTime: float
 var cardPlayed: bool = false
+var wasDistracted: bool = false
 func _physics_process(delta: float) -> void:
 	if Global.gameFinished: return
+	
+	if distractionManager.isDistracted:
+		wasDistracted = true
+		return
+	
+	elif wasDistracted:
+		wasDistracted = false
+		nbCheatSinceDistracted = 0
+		thinkingTime = getNewThinkingTime()
+		analyseGameState()
 	
 	if not playerTurn:
 		thinkingTime -= delta
@@ -215,7 +277,7 @@ func selectCard() -> int:
 	var currentTotal: int = gameManager.currentGameTotalScore
 	
 	var bestIndex: int = -1
-	var bestTotal: int = 0
+	var bestTotal: int = -1000
 	
 	for i: int in pirateCardHand.cards.size():
 		var newTotal: int = currentTotal + pirateCardHand.cards[i].model.cardScore
