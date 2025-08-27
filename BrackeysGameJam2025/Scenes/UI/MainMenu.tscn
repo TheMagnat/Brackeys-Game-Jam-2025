@@ -1,18 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://comtniuw3st42"]
+[gd_scene load_steps=4 format=3 uid="uid://comtniuw3st42"]
 
 [ext_resource type="Script" uid="uid://cupwtnl614t8u" path="res://Scenes/UI/MainMenu.gd" id="1_g18y6"]
+[ext_resource type="Texture2D" uid="uid://c7f0n6j4xdxi2" path="res://Resources/UI/Title.png" id="2_72sra"]
 [ext_resource type="PackedScene" uid="uid://c16nmmpnwqcji" path="res://Scenes/UI/button.tscn" id="2_mjmdf"]
-
-[sub_resource type="Shader" id="Shader_g18y6"]
-code = "shader_type canvas_item;
-
-void vertex() {
-	VERTEX.x += cos(VERTEX.x * 10.0 + TIME * 0.5);
-	VERTEX.y += cos(VERTEX.y * 10.0 + TIME * 0.5) * 2.0;
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mjmdf"]
-shader = SubResource("Shader_g18y6")
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_g18y6")
@@ -21,6 +11,15 @@ script = ExtResource("1_g18y6")
 points = PackedVector2Array(0, 324, 1152, 324)
 width = 648.0
 default_color = Color(0, 0, 0, 1)
+
+[node name="bg" type="Node2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="Sprite2D" type="Sprite2D" parent="bg"]
+modulate = Color(1, 1, 1, 0.78431374)
+position = Vector2(-345.00003, -202.00002)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_72sra")
 
 [node name="Label2" type="Label" parent="."]
 modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
@@ -44,26 +43,11 @@ text = "Proudly brought to you by TheMagnat, Kryspou and ObaniGarage"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="bg" type="Node2D" parent="."]
-position = Vector2(576, 324)
-
-[node name="Label" type="Label" parent="bg"]
-modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
-material = SubResource("ShaderMaterial_mjmdf")
-custom_minimum_size = Vector2(1152, 256)
-offset_left = -576.0
-offset_top = -324.0
-offset_right = 576.0
-offset_bottom = -68.0
-theme_override_font_sizes/font_size = 128
-text = "Crooked Deck"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
-custom_minimum_size = Vector2(320, 520)
+custom_minimum_size = Vector2(320, 584)
 offset_left = 64.0
+offset_top = 64.0
 offset_right = 384.0
 offset_bottom = 648.0
 alignment = 1
