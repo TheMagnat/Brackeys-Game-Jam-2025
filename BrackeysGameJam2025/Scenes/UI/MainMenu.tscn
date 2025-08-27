@@ -23,13 +23,24 @@ width = 648.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="Label2" type="Label" parent="."]
-modulate = Color(0.83780426, 0.74183875, 0.6247251, 1)
+modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
 custom_minimum_size = Vector2(1152, 256)
 offset_top = 392.0
 offset_right = 1152.0
 offset_bottom = 648.0
 theme_override_font_sizes/font_size = 32
 text = "This amusement may be played with mice"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+modulate = Color(0.8392157, 0.7411765, 0.62352943, 0.39215687)
+custom_minimum_size = Vector2(1152, 128)
+offset_top = 520.0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_font_sizes/font_size = 24
+text = "Proudly brought to you by TheMagnat, Kryspou and ObaniGarage"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -50,6 +61,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
 custom_minimum_size = Vector2(320, 520)
 offset_left = 64.0
 offset_right = 384.0
@@ -57,6 +69,7 @@ offset_bottom = 648.0
 alignment = 1
 
 [node name="Play" parent="VBoxContainer" instance=ExtResource("2_mjmdf")]
+modulate = Color(1, 1, 1, 1)
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Commence"
@@ -66,6 +79,7 @@ layout_mode = 2
 theme_override_constants/separation = 32
 
 [node name="Fullscreen" parent="VBoxContainer" instance=ExtResource("2_mjmdf")]
+modulate = Color(1, 1, 1, 1)
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Immerse"
@@ -75,6 +89,7 @@ layout_mode = 2
 theme_override_constants/separation = 32
 
 [node name="Quit" parent="VBoxContainer" instance=ExtResource("2_mjmdf")]
+modulate = Color(1, 1, 1, 1)
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Flee"
