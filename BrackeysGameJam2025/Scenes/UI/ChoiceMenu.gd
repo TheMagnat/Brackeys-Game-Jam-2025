@@ -1,13 +1,13 @@
 extends CanvasLayer
 
-signal chose(int)
+signal chosen(int)
 
 func _ready() -> void:
 	$HBoxContainer.hide()
 	$HBoxContainer.modulate.a = 0.0
-	chose.connect(finish_choice)
+	chosen.connect(finish_choice)
 	
-	choice(["kill", "don't kill", "wtf m8"])
+	#choice(["kill", "don't kill", "wtf m8"])
 
 func finish_choice(_i: int) -> void:
 	for node in $HBoxContainer.get_children():
@@ -31,7 +31,7 @@ func choice(choices: Array[String]) -> void:
 	for i in choices.size():
 		var btn := $Resources/Button.duplicate()
 		btn.text = choices[i]
-		btn.pressed.connect(chose.emit.bind(i))
+		btn.pressed.connect(chosen.emit.bind(i))
 		$HBoxContainer.add_child(btn)
 	
 	$HBoxContainer.show()

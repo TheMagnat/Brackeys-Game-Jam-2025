@@ -1,51 +1,85 @@
-extends CanvasLayer
+extends Node3D
 
 signal chose(int)
 signal finished
 
-@onready var TEST_CHAR := $Characters/TestChar
+const ANIM_SPEED := 0.25
+const SOUND_SPEED_MIN := 0.125
+const SOUND_SPEED_MAX := 0.25
 
-@onready var DIALOG_TEXT := $Resources/DialogLabel
-@onready var DIALOG_BUTTON := $Resources/Button
+var talking := false
+var angry := false
+func start_talking(a: bool) -> void:
+	talking = true
+	
+	angry = a
+	talk_visuals()
+	talk_voice()
+	
+	$AudioStreamPlayer3D.volume_db = 6.0 if angry else 0.0
+	$AudioStreamPlayer3D.pitch_scale = 0.9 if angry else 0.5
 
-func write_text(c: DialogCharacter, t: String, angry := false) -> DialogLabel:
-	for child in $Text.get_children(): child.queue_free()
-	for child in $icon.get_children(): child.queue_free()
-	
-	var char := c.duplicate()
-	var text := DIALOG_TEXT.duplicate()
-	
-	$Text.add_child(text)
-	text.write(t)
-	
-	$icon.add_child(char)
-	char.start_talking(angry)
-	text.finished.connect(char.stop)
-	
-	return text
+func stop_talking() -> void:
+	talking = false
 
-func choice(c: DialogCharacter, t: String, choices: Array[String], angry := false) -> void:
-	var buttons := []
-	for i in choices.size():
-		buttons.append(DIALOG_BUTTON.duplicate())
-		buttons.back().text = choices[i]
-		buttons.back().pressed.connect(chose.emit.bind(i))
+func talk_voice() -> void:
+	if !talking:
+		return
 	
-	await write_text(c, t, angry).finished
-	
-	for btn in buttons:
-		await get_tree().create_timer(0.5).timeout
-		$Text.add_child(btn)
+	$AudioStreamPlayer3D.play()
+	get_tree().create_timer(randf_range(SOUND_SPEED_MIN, SOUND_SPEED_MAX) * (0.75 if angry else 1.0)).timeout.connect(talk_voice)
 
-func write(c: DialogCharacter, t: String, angry := false) -> void:
-	await write_text(c, t, angry).finished
+# nothing
+func talk_visuals() -> void:
+	return
+	get_tree().create_timer(ANIM_SPEED).timeout.connect(talk_visuals)
+
+
+
+static func process_text_length(word: String) -> int:
+	var l := 0
+	for letter in word:
+		l += 15
+	return l
+
+const TEXT_SPEED := 0.04
+const MAX_TEXT_SIZE := 800.0
+
+var writing := false
+var skip := false
+var timer : SceneTreeTimer
+func _write(t: String) -> void:
+	if is_instance_valid(timer):
+		for c in timer.timeout.get_connections():
+			timer.timeout.disconnect(c.callable)
 	
-	finished.emit()
+	writing = true
+	if skip or t.length() <= 1:
+		$Text.text += t
+		writing = false
+		finished.emit()
+	else:
+		var split_by_line : PackedStringArray = $Text.text.split("\n")
+		if t[0] == " " and (process_text_length(split_by_line[split_by_line.size() - 1] + " " + t.split(" ")[1])) > MAX_TEXT_SIZE:
+			t[0] = "\n"
+		
+		$Text.text += t[0]
+		timer = get_tree().create_timer(TEXT_SPEED)
+		timer.timeout.connect(_write.bind(t.right(-1)))
+	
+	skip = false
+
+
+func write(t: String, a := false) -> void:
+	_write(t)
+	
+	start_talking(a)
+	await finished
+	stop_talking()
+
 
 func _ready() -> void:
-	choice(TEST_CHAR, "yo do you want to play or die mate", ["play", "die"])
-	chose.connect(func(v: int):
-		if v == 0:
-			write(TEST_CHAR, "ok so for this one I'll make a longer dialog because I want to see how it turns out on the long run")
-		else:
-			write(TEST_CHAR, "FUCK YOU WHY WOULD YOU EVER WANT TO KILL YOURSELF", true), CONNECT_ONE_SHOT)
+	$Text.text = ""
+	await get_tree().create_timer(1.0).timeout
+	write("yo do you want to play or die mate I wanna try a bit like yo wadup what's up dilup didup yo bodup", true)
+	pass
