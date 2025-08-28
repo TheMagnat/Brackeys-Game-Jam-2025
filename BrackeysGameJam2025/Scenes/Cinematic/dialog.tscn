@@ -1,64 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://v0suyigmajrx"]
+[gd_scene load_steps=4 format=3 uid="uid://v0suyigmajrx"]
 
 [ext_resource type="Script" uid="uid://bjcgm5dl1gy0u" path="res://Scenes/Cinematic/dialog.gd" id="1_44o50"]
-[ext_resource type="PackedScene" uid="uid://dh65mbfrk17yw" path="res://Scenes/Cinematic/DialogCharacter.tscn" id="2_ffb6v"]
-[ext_resource type="Texture2D" uid="uid://chvqydhjc7w86" path="res://Resources/GFX/testcharacter.png" id="3_0h3y3"]
-[ext_resource type="PackedScene" uid="uid://dyrl1i5wag823" path="res://Scenes/Cinematic/DialogLabel.tscn" id="3_qptr5"]
 [ext_resource type="AudioStream" uid="uid://cxjcip623p76u" path="res://Resources/SFX/pirate/voice_harmonica.ogg" id="4_0h3y3"]
-[ext_resource type="PackedScene" uid="uid://c16nmmpnwqcji" path="res://Scenes/UI/button.tscn" id="35_gd4nd"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ffb6v"]
 random_pitch = 1.25
 streams_count = 1
 stream_0/stream = ExtResource("4_0h3y3")
 
-[sub_resource type="Shader" id="Shader_omxac"]
-code = "shader_type canvas_item;
-
-uniform float speed : hint_range(0.0, 100.0, 0.001) = 1.0;
-uniform float amplitude : hint_range(0.0, 10.0, 0.001) = 2.0;
-
-void vertex() {
-	VERTEX.y += cos(VERTEX.x * 20.0 + TIME * speed) * amplitude;
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ra1vm"]
-resource_local_to_scene = true
-shader = SubResource("Shader_omxac")
-shader_parameter/speed = 1.0000000475
-shader_parameter/amplitude = 2.000000095
-
-[node name="Dialog" type="CanvasLayer"]
+[node name="Dialog" type="Node3D"]
 script = ExtResource("1_44o50")
 
-[node name="Characters" type="Node2D" parent="."]
-visible = false
-
-[node name="TestChar" parent="Characters" instance=ExtResource("2_ffb6v")]
-texture = ExtResource("3_0h3y3")
-hframes = 4
-anim_speed = 0.125
-sound_speed_min = 0.09999999999126884
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_ffb6v")
+unit_size = 40.0
+max_db = 6.0
+panning_strength = 0.5
 
-[node name="Resources" type="Node2D" parent="."]
-visible = false
-
-[node name="DialogLabel" parent="Resources" instance=ExtResource("3_qptr5")]
-material = SubResource("ShaderMaterial_ra1vm")
-offset_bottom = 40.0
-text = ""
-
-[node name="Button" parent="Resources" instance=ExtResource("35_gd4nd")]
-theme_override_font_sizes/font_size = 32
+[node name="Text" type="Label3D" parent="."]
 text = "test"
-
-[node name="Text" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 256)
-offset_left = 256.0
-offset_right = 1152.0
-offset_bottom = 256.0
-alignment = 1
-
-[node name="icon" type="Marker2D" parent="."]
-position = Vector2(128, 128)
+font_size = 1024
+outline_size = 127
