@@ -19,3 +19,6 @@ signal objectHittedGround(object: Interactable)
 signal gameFinished(winner: int) # Winner is Player if 0, Pirate if 1
 signal cheatFinish
 signal resetCurrentGame
+
+## Text
+signal pirateTalk(t: String, angry: bool)

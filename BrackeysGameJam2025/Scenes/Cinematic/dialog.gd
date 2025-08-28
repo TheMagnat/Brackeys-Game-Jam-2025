@@ -80,11 +80,13 @@ func write(t: String, a := false) -> void:
 
 func clear():
 	$Text.text = ""
-
-
-
+	if is_instance_valid(timer):
+		for c in timer.timeout.get_connections():
+			timer.timeout.disconnect(c.callable)
 
 func _ready() -> void:
+	EventBus.pirateTalk.connect(write)
+	
 	clear()
 	
 	#example
