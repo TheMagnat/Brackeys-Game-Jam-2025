@@ -67,6 +67,11 @@ func attach() -> void:
 	
 	EventBus.isHandlingItem.emit(true)
 	hoveredObject.picked.emit(0)
+	
+	if hoveredObject is CardInteractable:
+		var card: CardInteractable = hoveredObject
+		if card.global_position.y < 20.0:
+			EventBus.pickedGroundCard.emit(card)
 
 func detach() -> void:
 	if Global.isTryingToHoldCard:
@@ -86,6 +91,8 @@ func detach() -> void:
 		requestDetach = true
 
 func _detach() -> void:
+	hoveredObject.onUnhovered()
+	
 	hoveredObject.can_sleep = true
 	
 	joint.node_b = NodePath("")
@@ -93,32 +100,35 @@ func _detach() -> void:
 	
 	EventBus.isHandlingItem.emit(false)
 
-func _unhandled_input(event: InputEvent) -> void:
+func _process(delta: float) -> void:
 	if not Global.canInteract: return
 	
-	if event is InputEventMouseMotion:
-		if joint.node_b:
-			var pos: Vector3 = RayHelper.getMouseGroundPosition(hoverPosition.y) + hoverOffset
-			pos.y = global_position.y
-			global_position = pos
-			return
+	#if event is InputEventMouseMotion:
+	if joint.node_b:
+		var pos: Vector3 = RayHelper.getMouseGroundPosition(hoverPosition.y) + hoverOffset
+		pos.y = global_position.y
+		global_position = pos
+		return
+	
+	var result: Dictionary = RayHelper.castMouseRay(0b11)
+	if result:
+		global_position = result.position# + Vector3.UP * 0.25
 		
-		var result: Dictionary = RayHelper.castMouseRay(0b11)
-		if result:
-			global_position = result.position# + Vector3.UP * 0.25
-			
-			var collider: CollisionObject3D = result.collider
-			if collider is Interactable and (collider as Interactable).activated:
-				hoveredObject = collider
-				hoverPosition = global_position
-				hoverOffset = global_position - RayHelper.getMouseGroundPosition(global_position.y)
-				targetY = global_position.y
-			else:
-				hoveredObject = null
-			
+		var collider: CollisionObject3D = result.collider
+		if collider is Interactable and (collider as Interactable).activated:
+			hoveredObject = collider
+			hoverPosition = global_position
+			hoverOffset = global_position - RayHelper.getMouseGroundPosition(global_position.y)
+			targetY = global_position.y + 7.5
 		else:
 			hoveredObject = null
-			global_position = Vector3.ZERO
+		
+	else:
+		hoveredObject = null
+		global_position = Vector3.ZERO
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not Global.canInteract: return
 	
 	if requestDetach: return
 	
@@ -128,9 +138,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif hoveredObject:
 			attach()
 	
-	if event.is_action_pressed("SCROLL_UP"):
-		if joint.node_b:
-			targetY += 2.0
-	if event.is_action_pressed("SCROLL_DOWN"):
-		if joint.node_b:
-			targetY -= 2.0
+	#if event.is_action_pressed("SCROLL_UP"):
+		#if joint.node_b:
+			#targetY += 2.0
+	#if event.is_action_pressed("SCROLL_DOWN"):
+		#if joint.node_b:
+			#targetY -= 2.0

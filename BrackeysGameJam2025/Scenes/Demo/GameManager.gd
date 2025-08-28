@@ -12,18 +12,60 @@ var currentGameTotalScore: int = 0
 
 var playedCardBuffer: Array[CardModel]
 
+var playerScore: int = 0
+var pirateScore: int = 0
+
 func _ready() -> void:
 	Global.canInteract = false
 	
 	hand.cardSelected.connect(onCardSelected)
 	EventBus.cardPlayed.connect(onCardPlayed)
 	EventBus.gameFinished.connect(onGameFinished)
+	EventBus.cheatFinish.connect(onCheatFinish)
 	
-	call_deferred("drawCards", 4)
+	call_deferred("drawCards", Global.MAX_CARDS_IN_HAND)
 
 func onGameFinished(whoWin: int) -> void:
 	Global.gameFinished = true
 	
+	if whoWin == 0:
+		playerScore += 1
+		if playerScore >= Global.GAME_TO_WIN_TO_FINISH:
+			onPlayerWin()
+			return
+		
+	else:
+		pirateScore += 1
+		if pirateScore >= Global.GAME_TO_WIN_TO_FINISH:
+			onPirateWin()
+			return
+	
+	EventBus.resetCurrentGame.emit()
+	
+	currentGameTotalScore = 0
+	deck.askShuffle(true)
+	
+	await deck.shuffleFinished
+	await drawCards(Global.MAX_CARDS_IN_HAND)
+	
+	Global.gameFinished = false
+
+func onCheatFinish() -> void:
+	Global.gameFinished = true
+	Global.gameTrulyFinished = true
+	tempoGameFinished()
+
+func onPlayerWin() -> void:
+	Global.gameFinished = true
+	Global.gameTrulyFinished = true
+	tempoGameFinished()
+ 
+func onPirateWin() -> void:
+	Global.gameFinished = true
+	Global.gameTrulyFinished = true
+	tempoGameFinished()
+
+func tempoGameFinished() -> void:
 	$"../Pirate/ShakerEmitter3D".emit = true
 	
 	for cardModel: CardModel in deck.cardsModels:
@@ -46,6 +88,7 @@ func onGameFinished(whoWin: int) -> void:
 		cardModel.cardInteractable.collision_layer = CardInteractable.PHYSICS_LAYER + 0b01
 
 func drawCards(nb: int) -> void:
+	Global.canInteract = false
 	Global.drawPhase = true
 	
 	for i: int in nb:
@@ -79,7 +122,7 @@ func onCardPlayed(card: CardInteractable, who: int) -> void:
 					cardToExcludeFromReshuffle.push_back(playedCardBuffer[i])
 					break
 			
-			deck.askShuffle(cardToExcludeFromReshuffle)
+			deck.askShuffle(false, cardToExcludeFromReshuffle)
 
 func onCardSelected(index: int) -> void:
 	var result: Dictionary = RayHelper.castHandCardRay()
@@ -111,6 +154,12 @@ func onCardSelected(index: int) -> void:
 	#animationPlayer.play("SetHandDown")
 
 func playPirateCard(index: int) -> void:
+	var card: Card = pirateCardHand.popCard(index)
+	var newCardInteractable: CardInteractable = GlobalCardManager.convertCardHandToInteractableCard(card)
+	
+	sendCardToCenter(newCardInteractable)
+
+func throwPirateCard(index: int) -> void:
 	var card: Card = pirateCardHand.popCard(index)
 	var newCardInteractable: CardInteractable = GlobalCardManager.convertCardHandToInteractableCard(card)
 	

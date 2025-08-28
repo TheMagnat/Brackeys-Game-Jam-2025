@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dghclx6pomr1h"]
+[gd_scene load_steps=28 format=3 uid="uid://dghclx6pomr1h"]
 
 [ext_resource type="Shader" uid="uid://dw43w80f7di26" path="res://Scenes/Parallax/Waves/parallaxShader.gdshader" id="1_snbp6"]
 [ext_resource type="Texture2D" uid="uid://dqmvn3x2yy41c" path="res://Resources/Assets/WavesParallax/parallax01.png" id="2_rawcd"]
@@ -46,7 +46,7 @@ render_priority = 0
 shader = ExtResource("1_snbp6")
 shader_parameter/parallaxTexture = ExtResource("4_lcjsi")
 shader_parameter/repeatScale = -8.0
-shader_parameter/timeScale = 0.19999999999708962
+shader_parameter/timeScale = 0.1999999999970896
 shader_parameter/offset = 0.0
 shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
 
@@ -68,6 +68,42 @@ shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
 size = Vector2(278, 18.482)
 subdivide_width = 8
 subdivide_depth = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgcjk"]
+render_priority = 0
+shader = ExtResource("1_snbp6")
+shader_parameter/parallaxTexture = ExtResource("2_rawcd")
+shader_parameter/repeatScale = -8.0
+shader_parameter/timeScale = 0.11999999999534339
+shader_parameter/offset = 0.0
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h583c"]
+render_priority = 0
+shader = ExtResource("1_snbp6")
+shader_parameter/parallaxTexture = ExtResource("3_dvl10")
+shader_parameter/repeatScale = -8.0
+shader_parameter/timeScale = 0.09999999999126885
+shader_parameter/offset = 0.0
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ymihp"]
+render_priority = 0
+shader = ExtResource("1_snbp6")
+shader_parameter/parallaxTexture = ExtResource("4_lcjsi")
+shader_parameter/repeatScale = -8.0
+shader_parameter/timeScale = 0.08000000000174623
+shader_parameter/offset = 0.0
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2nlky"]
+render_priority = 0
+shader = ExtResource("1_snbp6")
+shader_parameter/parallaxTexture = ExtResource("5_ww4fw")
+shader_parameter/repeatScale = -8.0
+shader_parameter/timeScale = 0.059999999997671694
+shader_parameter/offset = 0.0
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ii2se"]
 render_priority = 0
@@ -92,7 +128,7 @@ render_priority = 0
 shader = ExtResource("1_snbp6")
 shader_parameter/parallaxTexture = ExtResource("4_lcjsi")
 shader_parameter/repeatScale = 8.0
-shader_parameter/timeScale = 0.19999999999708962
+shader_parameter/timeScale = 0.1999999999970896
 shader_parameter/offset = 0.3000000000029104
 shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
 
@@ -102,6 +138,42 @@ shader = ExtResource("1_snbp6")
 shader_parameter/parallaxTexture = ExtResource("5_ww4fw")
 shader_parameter/repeatScale = 8.0
 shader_parameter/timeScale = 0.14999999999417923
+shader_parameter/offset = 0.3000000000029104
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ww4fw"]
+render_priority = 0
+shader = ExtResource("1_snbp6")
+shader_parameter/parallaxTexture = ExtResource("2_rawcd")
+shader_parameter/repeatScale = 8.0
+shader_parameter/timeScale = 0.11999999999534339
+shader_parameter/offset = 0.3000000000029104
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w1emh"]
+render_priority = 0
+shader = ExtResource("1_snbp6")
+shader_parameter/parallaxTexture = ExtResource("3_dvl10")
+shader_parameter/repeatScale = 8.0
+shader_parameter/timeScale = 0.09999999999126885
+shader_parameter/offset = 0.3000000000029104
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1cbur"]
+render_priority = 0
+shader = ExtResource("1_snbp6")
+shader_parameter/parallaxTexture = ExtResource("4_lcjsi")
+shader_parameter/repeatScale = 8.0
+shader_parameter/timeScale = 0.08000000000174623
+shader_parameter/offset = 0.3000000000029104
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cyoyg"]
+render_priority = 0
+shader = ExtResource("1_snbp6")
+shader_parameter/parallaxTexture = ExtResource("5_ww4fw")
+shader_parameter/repeatScale = 8.0
+shader_parameter/timeScale = 0.059999999997671694
 shader_parameter/offset = 0.3000000000029104
 shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
 
@@ -134,6 +206,33 @@ material_override = SubResource("ShaderMaterial_lcjsi")
 mesh = SubResource("QuadMesh_xmusv")
 skeleton = NodePath("../..")
 
+[node name="Left2" type="Node3D" parent="."]
+transform = Transform3D(-0.9961947, 0, 1.7431128, 0, 1, 0, -0.08715564, 0, -19.923895, -135, 0.423, 163.542)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Left2"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6, 0)
+material_override = SubResource("ShaderMaterial_fgcjk")
+mesh = SubResource("QuadMesh_rawcd")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Left2"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6.964, -1)
+material_override = SubResource("ShaderMaterial_h583c")
+mesh = SubResource("QuadMesh_g667v")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Left2"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 8.72, -2)
+material_override = SubResource("ShaderMaterial_ymihp")
+mesh = SubResource("QuadMesh_nikrg")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Left2"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 9.241, -3)
+material_override = SubResource("ShaderMaterial_2nlky")
+mesh = SubResource("QuadMesh_xmusv")
+skeleton = NodePath("../..")
+
 [node name="Right" type="Node3D" parent="."]
 transform = Transform3D(0.9961947, 0, 1.7431145, 0, 1, 0, -0.08715572, 0, 19.923895, -135, -11.118, -80)
 
@@ -158,5 +257,32 @@ skeleton = NodePath("../..")
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Right"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 9.241, -3)
 material_override = SubResource("ShaderMaterial_856vq")
+mesh = SubResource("QuadMesh_xmusv")
+skeleton = NodePath("../..")
+
+[node name="Right2" type="Node3D" parent="."]
+transform = Transform3D(0.9961947, 0, 3.398637, 0, 1, 0, -0.087155715, 0, 38.84661, -135, 0.42308426, -163.54195)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Right2"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6, 0)
+material_override = SubResource("ShaderMaterial_ww4fw")
+mesh = SubResource("QuadMesh_rawcd")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Right2"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6.964, -1)
+material_override = SubResource("ShaderMaterial_w1emh")
+mesh = SubResource("QuadMesh_g667v")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Right2"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 8.72, -2)
+material_override = SubResource("ShaderMaterial_1cbur")
+mesh = SubResource("QuadMesh_nikrg")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Right2"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 9.241, -3)
+material_override = SubResource("ShaderMaterial_cyoyg")
 mesh = SubResource("QuadMesh_xmusv")
 skeleton = NodePath("../..")

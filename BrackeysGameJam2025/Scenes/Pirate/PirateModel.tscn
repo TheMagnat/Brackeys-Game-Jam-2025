@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://hiengb0pep1m"]
+[gd_scene load_steps=39 format=3 uid="uid://hiengb0pep1m"]
 
 [ext_resource type="Texture2D" uid="uid://d3hxe0oewd2qo" path="res://Resources/Assets/Pirate/corps_pirate.png" id="1_jips7"]
 [ext_resource type="Script" uid="uid://cosngqolmc4ff" path="res://Scenes/Pirate/PirateModel.gd" id="1_upyiy"]
@@ -14,21 +14,14 @@
 [ext_resource type="Texture2D" uid="uid://b5xarjaxtlpon" path="res://Resources/Assets/Pirate/maingauche_pirate.png" id="8_t2ttu"]
 [ext_resource type="Texture2D" uid="uid://bxc5w13ns8an2" path="res://Resources/Assets/Pirate/brasdroit_pirate.png" id="9_gj2gq"]
 [ext_resource type="Texture2D" uid="uid://buk3n23obtfgw" path="res://Resources/Assets/Pirate/maindroite_pirate.png" id="10_p2p22"]
+[ext_resource type="Script" uid="uid://dulk70ijjn6vw" path="res://addons/shaker/src/Vector3/ShakerEmitter3D.gd" id="15_xu0v3"]
+[ext_resource type="Resource" uid="uid://dakufr1eoowxf" path="res://addons/shaker/data/resources/strong_shake3D.tres" id="16_t2ttu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kw3xa"]
 size = Vector3(6.5837708, 13.7413025, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sgsev"]
 size = Vector3(20.614624, 16.174683, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aw3yp"]
-transparency = 2
-alpha_scissor_threshold = 0.05
-alpha_antialiasing_mode = 0
-diffuse_mode = 3
-specular_mode = 1
-albedo_texture = ExtResource("1_jips7")
-texture_repeat = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kw3xa"]
 transparency = 2
@@ -102,6 +95,15 @@ specular_mode = 1
 albedo_texture = ExtResource("6_sgsev")
 texture_repeat = false
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aw3yp"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_jips7")
+texture_repeat = false
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ty8bk"]
 transparency = 2
 alpha_scissor_threshold = 0.05
@@ -138,6 +140,9 @@ specular_mode = 1
 albedo_texture = ExtResource("10_p2p22")
 texture_repeat = false
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_xu0v3"]
+radius = 300.0
+
 [sub_resource type="Animation" id="Animation_jips7"]
 resource_name = "Idle"
 length = 1.5
@@ -161,19 +166,19 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BrasGauche:position")
+tracks/0/path = NodePath("BodyHolder/BrasGauche:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(4.8785906, 4.755341, 0.099998474)]
+"values": [Vector3(8.287431, -0.0842015, 0.099998474)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BrasGauche:rotation")
+tracks/1/path = NodePath("BodyHolder/BrasGauche:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -182,6 +187,162 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BodyHolder/Body:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BodyHolder/Body:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HeadPosition/HeadHolder/HeadFront:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HeadPosition/HeadHolder/HeadFront:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("HeadPosition/HeadHolder/HeadFront/ExpressionColere:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("HeadPosition/HeadHolder/HeadFront/ExpressionTriste:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("BodyHolder/BrasGauche/MainGauche/ShakerEmitter3D:emit")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("HeadPosition:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.2439637, 7.218405, 5.4793205)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HeadPosition:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("BodyHolder:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("BodyHolder/BrasDroit:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-7.075, 1.529, 3.64)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("BodyHolder/BrasDroit:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.7347836, 0, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("BodyHolder/BrasGauche/MainGauche/ShakerEmitter3D:intensity")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
 
 [sub_resource type="Animation" id="Animation_kw3xa"]
 resource_name = "SortirCrochet"
@@ -189,31 +350,244 @@ length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BrasGauche:position")
+tracks/0/path = NodePath("BodyHolder/BrasGauche:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(8.287431, -0.0842015, 0.099998474), Vector3(8.02428, 2.613054, 0.85563725), Vector3(7.985971, 1.3462653, 3.6543403)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodyHolder/BrasGauche:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(-0.13014394, -0.020373225, 0.044158064), Vector3(-0.60914534, 0.0847077, -0.031616352)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BodyHolder/Body:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0.8944947, 1.0724443, 0), Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BodyHolder/Body:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.21471043), Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BodyHolder/BrasGauche/MainGauche/ShakerEmitter3D:emit")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HeadPosition:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(-1.2439637, 7.218405, 5.4793205), Vector3(-1.711913, 8.264263, 5.4793205), Vector3(-1.2439637, 7.218405, 5.4793205)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("HeadPosition:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.066776305), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sgsev"]
+resource_name = "LookCards"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HeadPosition/HeadHolder/HeadFront:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(4.8785906, 4.755341, 0.099998474), Vector3(3.2640152, 4.5768065, 0.099998474)]
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.11557293, 1.4463258)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BrasGauche:rotation")
+tracks/1/path = NodePath("HeadPosition/HeadHolder/HeadFront:rotation")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0.64751714, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HeadPosition/HeadHolder/HeadFront/ExpressionColere:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.73333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HeadPosition/HeadHolder/HeadFront/ExpressionTriste:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.73333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_xu0v3"]
+resource_name = "Explode"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HeadPosition:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(-1.2439637, 7.218405, 5.4793205), Vector3(-1.2439637, 10.208834, 5.4793205), Vector3(-1.2439637, 7.218405, 5.4793205)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodyHolder:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0, 2.9904277, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BodyHolder/BrasGauche:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(8.287431, -0.0842015, 0.099998474), Vector3(8.217382, 0.6409509, 2.8215652), Vector3(7.141788, 0.7156844, 2.8215652)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BodyHolder/BrasGauche:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(-0.46371648, 0, 0), Vector3(-0.37882194, 0.51194197, -0.42126328)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BodyHolder/BrasDroit:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector3(-6.984895, 0.21840787, 1.8187864), Vector3(-6.984895, 0.21840787, 0.33051777)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BodyHolder/BrasDroit:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector3(-0.29611263, 0, 0), Vector3(-0.05380857, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("BodyHolder/BrasGauche/MainGauche/ShakerEmitter3D:emit")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("BodyHolder/BrasGauche/MainGauche/ShakerEmitter3D:intensity")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-2.2587998e-09, -0.4373097, 1.2522215)]
+"values": [3.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fu7xw"]
 _data = {
+&"Explode": SubResource("Animation_xu0v3"),
 &"Idle": SubResource("Animation_jips7"),
+&"LookCards": SubResource("Animation_sgsev"),
 &"RESET": SubResource("Animation_upyiy"),
 &"SortirCrochet": SubResource("Animation_kw3xa")
 }
@@ -232,15 +606,8 @@ shape = SubResource("BoxShape3D_kw3xa")
 transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000002, 1.4863129, 0.1752216, -0.36647257)
 shape = SubResource("BoxShape3D_sgsev")
 
-[node name="Body" type="Sprite3D" parent="."]
-material_override = SubResource("StandardMaterial3D_aw3yp")
-shaded = true
-alpha_cut = 1
-alpha_scissor_threshold = 0.05
-texture = ExtResource("1_jips7")
-
 [node name="HeadPosition" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.99998796, 0.0049043484, 0, -0.0049043484, 0.99998796, -1.2439637, 7.218405, 5.4793205)
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -1.2439637, 7.218405, 5.4793205)
 
 [node name="AngrySprite" type="Sprite3D" parent="HeadPosition"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.650508, 3.0429072, 0.62253094)
@@ -251,19 +618,21 @@ texture = ExtResource("3_jxyhm")
 
 [node name="HeadHolder" type="Node3D" parent="HeadPosition"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13763085, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.020204283, 0)
 
 [node name="HeadSide" type="Sprite3D" parent="HeadPosition/HeadHolder"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.076, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_jxyhm")
+cast_shadow = 0
 texture = ExtResource("8_fu7xw")
 
 [node name="HeadFront" type="Sprite3D" parent="HeadPosition/HeadHolder"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1.0000004, 0, 0, 0, 1.0000004, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1.0000005, 0, 0, 0, 1.0000005, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_nmdm0")
+cast_shadow = 0
 shaded = true
 alpha_cut = 1
 alpha_scissor_threshold = 0.05
@@ -272,23 +641,28 @@ texture = ExtResource("2_upyiy")
 [node name="Chapeau" type="Sprite3D" parent="HeadPosition/HeadHolder/HeadFront"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2183267, 5.856144, 0.1035614)
 material_override = SubResource("StandardMaterial3D_y4a6v")
+cast_shadow = 0
 shaded = true
 alpha_cut = 1
 alpha_scissor_threshold = 0.05
 texture = ExtResource("3_fu7xw")
 
 [node name="ExpressionColere" type="Sprite3D" parent="HeadPosition/HeadHolder/HeadFront"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2988472, 2.5797806, 0.13892365)
 material_override = SubResource("StandardMaterial3D_vphqs")
+cast_shadow = 0
 shaded = true
 alpha_cut = 1
 alpha_scissor_threshold = 0.05
 texture = ExtResource("4_jxyhm")
 
 [node name="ExpressionTriste" type="Sprite3D" parent="HeadPosition/HeadHolder/HeadFront"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2988472, 2.5797806, 0.13892365)
 visible = false
 material_override = SubResource("StandardMaterial3D_sgsev")
+cast_shadow = 0
 shaded = true
 alpha_cut = 1
 alpha_scissor_threshold = 0.05
@@ -296,8 +670,9 @@ texture = ExtResource("8_kw3xa")
 
 [node name="MoustacheGauche" type="Sprite3D" parent="HeadPosition/HeadHolder/HeadFront"]
 unique_name_in_owner = true
-transform = Transform3D(0.99976534, 0.021647416, 0, -0.02164742, 0.9997652, 0, 0, 0, 0.9999998, 0.182, -0.318, 0.011)
+transform = Transform3D(0.9988147, 0.048667252, 0, -0.048667256, 0.9988146, 0, 0, 0, 0.9999998, 0.182, -0.318, 0.011)
 material_override = SubResource("StandardMaterial3D_d1ngp")
+cast_shadow = 0
 offset = Vector2(0, -200)
 shaded = true
 alpha_cut = 1
@@ -306,23 +681,34 @@ texture = ExtResource("5_kw3xa")
 
 [node name="MoustacheDroite" type="Sprite3D" parent="HeadPosition/HeadHolder/HeadFront"]
 unique_name_in_owner = true
-transform = Transform3D(0.99976563, -0.021647425, 0, 0.021647425, 0.9997656, 0, 0, 0, 0.9999999, 2.48, -0.318, 0.01)
+transform = Transform3D(0.998815, -0.048667267, 0, 0.04866727, 0.99881494, 0, 0, 0, 0.9999999, 2.48, -0.318, 0.01)
 material_override = SubResource("StandardMaterial3D_7k30j")
+cast_shadow = 0
 offset = Vector2(0, -200)
 shaded = true
 alpha_cut = 1
 alpha_scissor_threshold = 0.05
 texture = ExtResource("6_sgsev")
 
-[node name="BrasDroit" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7425606, 0.669779, 0, -0.669779, 0.7425606, -7.0747943, 1.5285702, 3.6403484)
+[node name="BodyHolder" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Body" type="Sprite3D" parent="BodyHolder"]
+material_override = SubResource("StandardMaterial3D_aw3yp")
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("1_jips7")
+
+[node name="BrasDroit" type="Sprite3D" parent="BodyHolder"]
+transform = Transform3D(1, 0, 0, 0, 0.74197584, 0.6704266, 0, -0.6704266, 0.74197584, -7.075, 1.529, 3.64)
 material_override = SubResource("StandardMaterial3D_ty8bk")
 shaded = true
 alpha_cut = 1
 alpha_scissor_threshold = 0.05
 texture = ExtResource("7_xu0v3")
 
-[node name="MainDroite" type="Sprite3D" parent="BrasDroit"]
+[node name="MainDroite" type="Sprite3D" parent="BodyHolder/BrasDroit"]
 transform = Transform3D(1.625, 0, 0, 0, 0.9999999, -2.9802322e-08, 0, 2.9802322e-08, 0.9999999, 5.872419, -4.3639965, -0.009999275)
 material_override = SubResource("StandardMaterial3D_b644d")
 shaded = true
@@ -330,24 +716,42 @@ alpha_cut = 1
 alpha_scissor_threshold = 0.05
 texture = ExtResource("8_t2ttu")
 
-[node name="BrasGauche" type="Sprite3D" parent="."]
-transform = Transform3D(1.0000014, 0, 0, 0, 1.0000012, 0, 0, 0, 1.0000007, 4.8785906, 4.755341, 0.099998474)
+[node name="BrasGauche" type="Sprite3D" parent="BodyHolder"]
+transform = Transform3D(1.0000012, 0, 0, 0, 1.0000014, 0, 0, 0, 1.0000013, 8.287431, -0.0842015, 0.099998474)
 material_override = SubResource("StandardMaterial3D_hoqe0")
-offset = Vector2(348.365, -489.71)
+cast_shadow = 0
 shaded = true
 alpha_cut = 1
 alpha_scissor_threshold = 0.05
 texture = ExtResource("9_gj2gq")
 
-[node name="MainGauche" type="Sprite3D" parent="BrasGauche"]
-transform = Transform3D(0.98157394, -0.19108313, 0, 0.19108313, 0.98157394, 0, 0, 0, 1, -1.2121196, -9.963984, -0.0099983215)
+[node name="MainGauche" type="Sprite3D" parent="BodyHolder/BrasGauche"]
+transform = Transform3D(0.9815738, -0.1910831, 0, 0.19108316, 0.98157394, 0, 0, 0, 1, -4.532837, -5.02389, -0.009998336)
 material_override = SubResource("StandardMaterial3D_jgvkr")
+cast_shadow = 0
 shaded = true
 alpha_cut = 1
 alpha_scissor_threshold = 0.05
 texture = ExtResource("10_p2p22")
 
+[node name="ShakerEmitter3D" type="Node3D" parent="BodyHolder/BrasGauche/MainGauche"]
+transform = Transform3D(2.9275262, -0.62151414, 0.20816687, 0.39356574, 2.4287345, 1.7165018, -0.524137, -1.6477245, 2.4515924, 24.717754, -9.644459, 19.321562)
+top_level = true
+script = ExtResource("15_xu0v3")
+intensity = 0.5
+duration = 1.0
+shakerPreset = ExtResource("16_t2ttu")
+metadata/_custom_type_script = "uid://dulk70ijjn6vw"
+
+[node name="Area3D" type="Area3D" parent="BodyHolder/BrasGauche/MainGauche/ShakerEmitter3D"]
+collision_layer = 512
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyHolder/BrasGauche/MainGauche/ShakerEmitter3D/Area3D"]
+shape = SubResource("SphereShape3D_xu0v3")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_fu7xw")
 }
+speed_scale = 2.0

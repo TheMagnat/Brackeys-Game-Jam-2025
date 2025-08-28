@@ -12,6 +12,9 @@ func _ready() -> void:
 	if meshInstance:
 		initialize()
 
+func _exit_tree() -> void:
+	outlineShader.set_shader_parameter("activated", 0.0)
+
 func initialize() -> void:
 	outlineShader = meshInstance.material_override.next_pass
 

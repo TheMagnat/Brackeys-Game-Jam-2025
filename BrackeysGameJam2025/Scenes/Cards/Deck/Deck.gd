@@ -3,6 +3,8 @@ class_name Deck extends Node3D
 signal topCardPicked(card: CardInteractable, who: int)
 signal topCardAdded(card: CardInteractable, who: int)
 
+signal shuffleFinished
+
 var cards: Array[CardInteractable]
 var cardsModels: Array[CardModel]
 @onready var cardHolder: Node3D = $CardHolder
@@ -109,7 +111,7 @@ var resetingDuration: float = 2.0
 func _physics_process(delta: float) -> void:
 	if isShuffling: return
 	
-	if cards.size() > 1 and not Global.gameFinished:
+	if cards.size() > 1 and not Global.gameTrulyFinished:
 		if reseting:
 			for i: int in cards.size():
 				var card: CardInteractable = cards[i]
@@ -130,6 +132,7 @@ func _physics_process(delta: float) -> void:
 				
 				resetingDuration = false
 				reseting = false
+				shuffleFinished.emit()
 			
 			return
 		
@@ -141,12 +144,12 @@ func _physics_process(delta: float) -> void:
 		
 		topCard.rotation.x = lerp_angle(topCard.rotation.x, PI / 2.0, delta * 10.0)
 		
-const RESET_DURATION: float = 1.0
+const RESET_DURATION: float = 1.5
 var reseting: bool = false
 var resetYRotation: PackedFloat32Array
 
 
-func resetCards(exclude: Array[CardModel]) -> void:
+func resetCards(includeHand: bool, exclude: Array[CardModel]) -> void:
 	cards.clear()
 	
 	resetYRotation = PackedFloat32Array()
@@ -157,9 +160,10 @@ func resetCards(exclude: Array[CardModel]) -> void:
 	
 	for i: int in indices:
 		var cardModel: CardModel = cardsModels[i]
-		if cardModel.inHand: continue
 		
-		var cardInteractable: CardInteractable = cardModel.cardInteractable
+		if not includeHand and cardModel.inHand: continue
+		
+		var cardInteractable: CardInteractable = GlobalCardManager.getCardInteractableFromModel(cardModel)
 		
 		if exclude.has(cardModel):
 			cardInteractable.sleeping = false
@@ -179,9 +183,9 @@ var isShuffling: bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("CANCEL"):
-		askShuffle()
+		askShuffle(false)
 
-func askShuffle(exclude: Array[CardModel] = []) -> void:
+func askShuffle(includeHand: bool, exclude: Array[CardModel] = []) -> void:
 	Global.canInteract = false
 	isShuffling = true
 	
@@ -207,7 +211,7 @@ func askShuffle(exclude: Array[CardModel] = []) -> void:
 		#child.top_level = false
 		#child.reset_physics_interpolation()
 	
-	resetCards(exclude)
+	resetCards(includeHand, exclude)
 	
 	for card: CardModel in exclude:
 		card.cardInteractable.collision_mask = CardInteractable.PHYSICS_LAYER + 0b10
@@ -304,7 +308,7 @@ func finishShuffle(exclude: Array[CardModel]) -> void:
 	isShuffling = false
 	Global.canInteract = true
 	
-	resetCards(exclude)
+	resetCards(false, exclude)
 	
 	resetingDuration = RESET_DURATION
 	reseting = true

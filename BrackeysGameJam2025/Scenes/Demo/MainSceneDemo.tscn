@@ -1,9 +1,10 @@
-[gd_scene load_steps=74 format=3 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=76 format=3 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
 [ext_resource type="Script" uid="uid://dme7n7ov1ou1l" path="res://addons/shaker/src/Vector3/shaker_component3D.gd" id="2_r3vws"]
 [ext_resource type="Material" uid="uid://dh6ykun8bv60u" path="res://Resources/Sky/day_sky.tres" id="2_y087b"]
+[ext_resource type="Script" uid="uid://bgikyidbypajq" path="res://Scenes/Demo/CameraMouseFollower.gd" id="3_jtovl"]
 [ext_resource type="PackedScene" uid="uid://wrkbrbbpdwy6" path="res://Scenes/Cards/CardHand/CardHand.tscn" id="3_rk0yb"]
 [ext_resource type="Script" uid="uid://hplad1nyntgv" path="res://Scenes/Demo/GameManager.gd" id="4_6dlwc"]
 [ext_resource type="Script" uid="uid://blgox76nom2g2" path="res://addons/shaker/src/Vector3/ShakerReceiver3D.gd" id="4_giv36"]
@@ -26,6 +27,7 @@
 [ext_resource type="Shader" uid="uid://ke0ojpsjcaaw" path="res://Scenes/Demo/windTest.gdshader" id="24_m5r7i"]
 [ext_resource type="Script" uid="uid://cqun2xsfmafoe" path="res://addons/shaker/data/Vector3/ShakerTypeSineWave3D.gd" id="25_jtovl"]
 [ext_resource type="Script" uid="uid://brw14p6k8jsht" path="res://addons/shaker/data/Vector3/ShakerPreset3D.gd" id="26_r5ebq"]
+[ext_resource type="PackedScene" uid="uid://dba1mbaih7hvo" path="res://Resources/Assets/Kenny/GLB format/ship-pirate-large.glb" id="27_3dcc7"]
 
 [sub_resource type="Sky" id="Sky_rk0yb"]
 sky_material = ExtResource("2_y087b")
@@ -46,8 +48,7 @@ fog_density = 1.0
 fog_aerial_perspective = 1.0
 fog_depth_curve = 0.90125084
 fog_depth_begin = 300.0
-fog_depth_end = 1095.0
-volumetric_fog_density = 0.0105
+fog_depth_end = 1711.9
 
 [sub_resource type="Resource" id="Resource_ntwkm"]
 script = ExtResource("25_jtovl")
@@ -176,15 +177,15 @@ size = Vector3(750, 40, 750)
 [sub_resource type="BoxShape3D" id="BoxShape3D_v63yj"]
 size = Vector3(500, 10, 500)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_aanud"]
+size = Vector3(400, 20, 400)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7j7j0"]
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.39635667, 0.251283, 0.1949147, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_aanud"]
-size = Vector3(400, 20, 400)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_aanud"]
 size = Vector3(400, 20, 400)
 
 [sub_resource type="BoxMesh" id="BoxMesh_f46tu"]
@@ -195,6 +196,28 @@ size = Vector3(180, 140, 50)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rxjow"]
 size = Vector3(300, 300, 20)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f46tu"]
+top_radius = 10.0
+bottom_radius = 10.0
+height = 500.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m5r7i"]
+frequency = 0.026
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rxjow"]
+noise = SubResource("FastNoiseLite_m5r7i")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rxjow"]
+render_priority = 0
+shader = ExtResource("24_m5r7i")
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_rxjow")
+
+[sub_resource type="QuadMesh" id="QuadMesh_m5r7i"]
+size = Vector2(300, 300)
+subdivide_width = 30
+subdivide_depth = 30
 
 [sub_resource type="Resource" id="Resource_hui0g"]
 script = ExtResource("25_jtovl")
@@ -223,28 +246,6 @@ script = ExtResource("26_r5ebq")
 PositionShake = Array[ExtResource("24_3dcc7")]([SubResource("Resource_hui0g"), SubResource("Resource_usaqk")])
 RotationShake = Array[ExtResource("24_3dcc7")]([SubResource("Resource_ohc42"), SubResource("Resource_3dcc7")])
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_f46tu"]
-top_radius = 10.0
-bottom_radius = 10.0
-height = 500.0
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_m5r7i"]
-frequency = 0.026
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rxjow"]
-noise = SubResource("FastNoiseLite_m5r7i")
-seamless = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rxjow"]
-render_priority = 0
-shader = ExtResource("24_m5r7i")
-shader_parameter/noiseTexture = SubResource("NoiseTexture2D_rxjow")
-
-[sub_resource type="QuadMesh" id="QuadMesh_m5r7i"]
-size = Vector2(300, 300)
-subdivide_width = 30
-subdivide_depth = 30
-
 [node name="MainSceneDemo" type="Node3D"]
 script = ExtResource("1_vp0ry")
 
@@ -258,25 +259,31 @@ directional_shadow_blend_splits = true
 directional_shadow_fade_start = 1.0
 directional_shadow_max_distance = 600.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.8578766, 0.5138558, 0, -0.5138558, 0.8578766, 2.3791512e-05, 72.86001, 59.879124)
+[node name="CameraHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9063078, 0.4226183, 0, -0.4226183, 0.9063078, 2.3791512e-05, 72.86001, 59.879124)
 
-[node name="ShakerComponent3D" type="Node3D" parent="Camera3D"]
+[node name="Camera3D" type="Camera3D" parent="CameraHolder"]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+script = ExtResource("3_jtovl")
+maxRotationOffset = Vector2(0.4, 0.25)
+
+[node name="ShakerComponent3D" type="Node3D" parent="CameraHolder"]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 script = ExtResource("2_r3vws")
 AutoPlay = true
 shake_speed = 0.5
 shakerPreset = SubResource("Resource_jtovl")
 metadata/_custom_type_script = "uid://dme7n7ov1ou1l"
 
-[node name="ShakerReceiver3D" type="Node3D" parent="Camera3D/ShakerComponent3D"]
+[node name="ShakerReceiver3D" type="Node3D" parent="CameraHolder/ShakerComponent3D"]
 script = ExtResource("4_giv36")
 metadata/_custom_type_script = "uid://blgox76nom2g2"
 
-[node name="Area3D" type="Area3D" parent="Camera3D/ShakerComponent3D/ShakerReceiver3D"]
+[node name="Area3D" type="Area3D" parent="CameraHolder/ShakerComponent3D/ShakerReceiver3D"]
 collision_layer = 0
 collision_mask = 512
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/ShakerComponent3D/ShakerReceiver3D/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraHolder/ShakerComponent3D/ShakerReceiver3D/Area3D"]
 shape = SubResource("SphereShape3D_giv36")
 
 [node name="Table" parent="." instance=ExtResource("1_ouq38")]
@@ -523,44 +530,63 @@ visible = false
 [node name="Ground" type="StaticBody3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ground"]
+shape = SubResource("BoxShape3D_aanud")
+
+[node name="Boat" type="Node3D" parent="Environment"]
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="Environment/Boat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.5, 0)
 material_override = SubResource("StandardMaterial3D_7j7j0")
 mesh = SubResource("BoxMesh_aanud")
 skeleton = NodePath("../../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ground"]
-shape = SubResource("BoxShape3D_aanud")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Boat"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.351, 10, 0)
 material_override = SubResource("StandardMaterial3D_7j7j0")
 mesh = SubResource("BoxMesh_f46tu")
+skeleton = NodePath("../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment/Boat"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -155.351, 10, 0)
 material_override = SubResource("StandardMaterial3D_7j7j0")
 mesh = SubResource("BoxMesh_f46tu")
+skeleton = NodePath("../..")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment/Boat"]
 transform = Transform3D(0.9773257, 0.052743386, -0.20506802, -0.12645887, 0.9221807, -0.36550087, 0.16983205, 0.38314602, 0.90794075, -119.43263, 73.24126, -353.91318)
 material_override = SubResource("StandardMaterial3D_7j7j0")
 mesh = SubResource("BoxMesh_f46tu")
+skeleton = NodePath("../..")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment"]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment/Boat"]
 transform = Transform3D(0.9773956, -0.05292064, 0.20468909, 0.12635879, 0.92244154, -0.36487678, -0.16950421, 0.38249317, 0.9082771, 119.433, 73.241, -353.913)
 material_override = SubResource("StandardMaterial3D_7j7j0")
 mesh = SubResource("BoxMesh_f46tu")
+skeleton = NodePath("../..")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment/Boat"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70, -200)
 material_override = SubResource("StandardMaterial3D_7j7j0")
 mesh = SubResource("BoxMesh_m5r7i")
+skeleton = NodePath("../..")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Environment"]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Environment/Boat"]
 transform = Transform3D(1, 0, 0, 0, 0.40372086, 0.9148822, 0, -0.9148822, 0.40372086, 0, 51.42309, -327.4479)
 material_override = SubResource("StandardMaterial3D_7j7j0")
 mesh = SubResource("BoxMesh_rxjow")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Environment/Boat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.506773, 54.744904, 153.50757)
+mesh = SubResource("CylinderMesh_f46tu")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Environment/Boat"]
+transform = Transform3D(0.92520964, -0.3794561, 0, 0.3518256, 0.8578394, 0.37460652, -0.14214677, -0.34658962, 0.9271837, -31.837, 305.561, 187.797)
+material_override = SubResource("ShaderMaterial_rxjow")
+mesh = SubResource("QuadMesh_m5r7i")
+skeleton = NodePath("../..")
 
 [node name="WavesParallax" parent="Environment" instance=ExtResource("23_f46tu")]
 transform = Transform3D(-2.2642499e-07, 0, -3.995, 0, 5.075, 0, 5.18, 0, -1.7462699e-07, 0, -57.766613, 5.755)
@@ -572,14 +598,9 @@ intensity = 5.0
 shakerPreset = SubResource("Resource_6e0n7")
 metadata/_custom_type_script = "uid://dme7n7ov1ou1l"
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.506773, 54.744904, 153.50757)
-mesh = SubResource("CylinderMesh_f46tu")
-
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(0.92520964, -0.3794561, 0, 0.3518256, 0.8578394, 0.37460652, -0.14214677, -0.34658962, 0.9271837, -31.837, 305.561, 187.797)
-material_override = SubResource("ShaderMaterial_rxjow")
-mesh = SubResource("QuadMesh_m5r7i")
+[node name="ship-pirate-large2" parent="." instance=ExtResource("27_3dcc7")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -2.6868896, -280.51404, -272.82632)
+visible = false
 
 [connection signal="body_entered" from="OffTableDetector" to="GameManager" method="_on_off_table_detector_body_entered"]
 [connection signal="body_entered" from="OffTableDetector" to="Pirate/PirateAI" method="_on_off_table_detector_body_entered"]

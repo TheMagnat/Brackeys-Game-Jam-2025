@@ -5,7 +5,7 @@ render_mode unshaded;
 uniform float activated: hint_range(0.0, 1.0) = 0.0;
 
 void vertex() {
-	VERTEX *= 1.1;
+	VERTEX *= 1.0;
 }
 
 void fragment() {

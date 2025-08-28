@@ -1,6 +1,7 @@
 extends Node
 
 signal isHandlingItem(isIt: bool)
+signal pickedGroundCard(card: CardInteractable)
 signal droppedItem(object: Interactable)
 signal storeCard(card: CardInteractable)
 signal forceStoreCard(card: CardInteractable)
@@ -16,3 +17,5 @@ signal deckCardInPlayArea(card: CardInteractable)
 signal objectHittedGround(object: Interactable)
 
 signal gameFinished(winner: int) # Winner is Player if 0, Pirate if 1
+signal cheatFinish
+signal resetCurrentGame

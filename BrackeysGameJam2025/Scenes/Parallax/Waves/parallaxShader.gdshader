@@ -12,7 +12,7 @@ float rand(float co) { return fract(sin(co*(91.3458)) * 47453.5453); }
 
 
 void vertex() {
-	float t = (offset + timeScale * 5.0) + TIME * 0.25;
+	float t = (offset + timeScale * 8.0) + TIME * 0.25;
 	float d = sign(repeatScale);
 	float f = min(0.0, d);
 	
@@ -27,7 +27,7 @@ void vertex() {
 }
 
 void fragment() {
-	float t = offset + TIME * timeScale * 2.0;
+	float t = offset + TIME * timeScale * 4.0;
 	
 	vec2 uv = UV;
 	uv.x *= -repeatScale;

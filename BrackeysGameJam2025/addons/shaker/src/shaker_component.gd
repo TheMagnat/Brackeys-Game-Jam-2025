@@ -137,7 +137,7 @@ func _reset() -> void:
 	_initalize_target()
 
 # Called every frame
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_playing:
 		if shakerProperty != null:
 			if timer <= duration || duration == 0.0:
