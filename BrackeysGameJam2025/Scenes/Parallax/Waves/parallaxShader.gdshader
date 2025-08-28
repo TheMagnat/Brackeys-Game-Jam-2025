@@ -27,7 +27,7 @@ void vertex() {
 }
 
 void fragment() {
-	float t = offset + TIME * timeScale * 4.0;
+	float t = offset + TIME * timeScale * 1.5;
 	
 	vec2 uv = UV;
 	uv.x *= -repeatScale;

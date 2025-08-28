@@ -8,6 +8,9 @@ class_name GameManager extends Node3D
 
 @onready var centerToAim: Marker3D = %CenterToAim
 
+@onready var pirateModel: PirateModel = %PirateModel
+
+
 var currentGameTotalScore: int = 0
 
 var playedCardBuffer: Array[CardModel]
@@ -29,12 +32,14 @@ func onGameFinished(whoWin: int) -> void:
 	Global.gameFinished = true
 	
 	if whoWin == 0:
+		pirateModel.sadLook()
 		playerScore += 1
 		if playerScore >= Global.GAME_TO_WIN_TO_FINISH:
 			onPlayerWin()
 			return
 		
 	else:
+		pirateModel.normalLook()
 		pirateScore += 1
 		if pirateScore >= Global.GAME_TO_WIN_TO_FINISH:
 			onPirateWin()
@@ -48,6 +53,7 @@ func onGameFinished(whoWin: int) -> void:
 	await deck.shuffleFinished
 	await drawCards(Global.MAX_CARDS_IN_HAND)
 	
+	pirateModel.normalLook()
 	Global.gameFinished = false
 
 func onCheatFinish() -> void:

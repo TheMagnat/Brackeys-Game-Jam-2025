@@ -65,13 +65,19 @@ func lookCards() -> void:
 	headFront.position = Vector3(0.0, -0.116, 1.446)
 	headFront.rotation = Vector3(0.6458, 0.0, 0.0)
 	
-	expressionColere.hide()
-	expressionTriste.show()
+	sadLook()
 
 func lookPlayer() -> void:
 	headFront.position = Vector3.ZERO
 	headFront.rotation = Vector3.ZERO
 	
+	normalLook()
+
+func sadLook() -> void:
+	expressionColere.hide()
+	expressionTriste.show()
+
+func normalLook() -> void:
 	expressionTriste.hide()
 	expressionColere.show()
 

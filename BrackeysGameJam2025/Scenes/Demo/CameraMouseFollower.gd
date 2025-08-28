@@ -20,5 +20,5 @@ func _physics_process(delta: float) -> void:
 	
 	var targetRotation: Vector3 = baseRotation + Vector3(-currentRotationOffset.y, -currentRotationOffset.x, 0.0)
 	
-	rotation = lerp(rotation, targetRotation, delta * 1.5)
+	rotation = lerp(rotation, targetRotation, delta * 2.5)
 	
