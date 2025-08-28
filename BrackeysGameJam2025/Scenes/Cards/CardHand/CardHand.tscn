@@ -1,6 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://wrkbrbbpdwy6"]
+[gd_scene load_steps=13 format=3 uid="uid://wrkbrbbpdwy6"]
 
 [ext_resource type="Script" uid="uid://cak6g5se6ko0u" path="res://Scenes/Cards/CardHand/CardHand.gd" id="1_o22as"]
+[ext_resource type="Texture2D" uid="uid://cqksf4v8o8lnu" path="res://Resources/Assets/Hand/main_back.png" id="2_ux8dq"]
+[ext_resource type="Texture2D" uid="uid://b7pjjcw43l1e7" path="res://Resources/Assets/Hand/main_front.png" id="3_l6mpd"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_657ah"]
 noise_type = 0
@@ -145,6 +147,20 @@ _data = {
 &"TuckHand": SubResource("Animation_m3g2y")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xkt6t"]
+transparency = 2
+alpha_scissor_threshold = 0.01
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("2_ux8dq")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l6mpd"]
+transparency = 2
+alpha_scissor_threshold = 0.01
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("3_l6mpd")
+texture_repeat = false
+
 [node name="CardHand" type="Node3D"]
 script = ExtResource("1_o22as")
 spaceBetweenSelected = 1.0
@@ -172,3 +188,19 @@ libraries = {
 &"": SubResource("AnimationLibrary_657ah")
 }
 speed_scale = 2.0
+
+[node name="HandSprites" type="Node3D" parent="."]
+
+[node name="Back" type="Sprite3D" parent="HandSprites"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.6103196)
+material_override = SubResource("StandardMaterial3D_xkt6t")
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_ux8dq")
+
+[node name="Front" type="Sprite3D" parent="HandSprites"]
+transform = Transform3D(0.7071065, -0.70710695, 0, 0.70710695, 0.7071065, 0, 0, 0, 1, -3.9999986, 0, 0.909)
+material_override = SubResource("StandardMaterial3D_l6mpd")
+shaded = true
+alpha_cut = 1
+texture = ExtResource("3_l6mpd")

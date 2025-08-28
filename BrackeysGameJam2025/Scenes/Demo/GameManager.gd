@@ -123,15 +123,3 @@ func sendCardToCenter(cardInteractable: CardInteractable) -> void:
 	cardInteractable.angular_velocity = Vector3.ZERO
 	cardInteractable.linear_velocity = Vector3.ZERO
 	cardInteractable.apply_central_force(direction * distance * 200.0)
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("SECONDARY_ACTION"):
-		var cardToExcludeFromReshuffle: Array[CardModel]
-		for i: int in range(playedCardBuffer.size() - 1, -1, -1):
-			if playedCardBuffer[i].cardOwner == 3 and not playedCardBuffer[i].inHand:
-				cardToExcludeFromReshuffle.push_back(playedCardBuffer[i])
-				break
-		
-		playedCardBuffer = cardToExcludeFromReshuffle
-		
-		deck.askReset(cardToExcludeFromReshuffle)

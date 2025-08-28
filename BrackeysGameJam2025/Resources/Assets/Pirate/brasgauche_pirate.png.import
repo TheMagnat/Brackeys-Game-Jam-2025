@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu34tnpvc5eth"
-path.s3tc="res://.godot/imported/shooting_star_sampler.png-83e3023ae7f3d8e30598e8f3d8a9c802.s3tc.ctex"
+uid="uid://cqkirbhaq40g5"
+path.s3tc="res://.godot/imported/brasgauche_pirate.png-99c5488ec056400905cbc4dbe0f3072c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Resources/Sky/shooting_star_sampler.png"
-dest_files=["res://.godot/imported/shooting_star_sampler.png-83e3023ae7f3d8e30598e8f3d8a9c802.s3tc.ctex"]
+source_file="res://Resources/Assets/Pirate/brasgauche_pirate.png"
+dest_files=["res://.godot/imported/brasgauche_pirate.png-99c5488ec056400905cbc4dbe0f3072c.s3tc.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ShakerPreset3D" load_steps=6 format=3 uid="uid://bgwupdyecxqic"]
+[gd_resource type="Resource" script_class="ShakerPreset3D" load_steps=7 format=3 uid="uid://bgwupdyecxqic"]
 
 [ext_resource type="Script" uid="uid://bab5y7yuyg22q" path="res://addons/shaker/data/Vector3/BaseShakerType3D.gd" id="1_ohc42"]
 [ext_resource type="Script" uid="uid://cqun2xsfmafoe" path="res://addons/shaker/data/Vector3/ShakerTypeSineWave3D.gd" id="2_lj1xu"]
@@ -6,14 +6,21 @@
 
 [sub_resource type="Resource" id="Resource_hui0g"]
 script = ExtResource("2_lj1xu")
-frequency = Vector3(0.75, 1, 1)
-amplitude = Vector3(0.04, 0.08, 0)
+frequency = Vector3(0, 0.5, 1)
+amplitude = Vector3(0, 3, 0)
 
 [sub_resource type="Resource" id="Resource_usaqk"]
 script = ExtResource("2_lj1xu")
-phase = Vector3(1.5, 1, 1)
-amplitude = Vector3(0.02, 0, 0)
+frequency = Vector3(1, 0.25, 1)
+amplitude = Vector3(0, 1, 0)
+
+[sub_resource type="Resource" id="Resource_ohc42"]
+script = ExtResource("2_lj1xu")
+frequency = Vector3(0.3, 0, 0)
+amplitude = Vector3(0.005, 0.002, 0.002)
+metadata/_custom_type_script = "uid://cqun2xsfmafoe"
 
 [resource]
 script = ExtResource("3_1llgx")
 PositionShake = Array[ExtResource("1_ohc42")]([SubResource("Resource_hui0g"), SubResource("Resource_usaqk")])
+RotationShake = Array[ExtResource("1_ohc42")]([SubResource("Resource_ohc42")])

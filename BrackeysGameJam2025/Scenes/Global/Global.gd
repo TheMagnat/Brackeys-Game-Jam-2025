@@ -14,3 +14,6 @@ var drawPhase: bool = true
 ## Game Rules
 const TOTAL_TO_NOT_REACH: int = 50
 const MAX_CARDS_IN_HAND: int = 4
+
+## Pirate settings
+const ANGRY_DURATION: float = 2.0

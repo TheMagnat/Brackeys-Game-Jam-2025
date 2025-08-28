@@ -4,6 +4,8 @@ class_name DistractionManager extends Node3D
 @onready var mesh_instance_3d: MeshInstance3D = $"../MeshInstance3D"
 @onready var material: StandardMaterial3D = mesh_instance_3d.material_override
 
+@onready var pirateModel: PirateModel = %PirateModel
+
 var isDistracted: bool = false
 
 var remainingDistractionTime: float = 0.0
@@ -17,13 +19,14 @@ func _process(delta: float) -> void:
 func stopDistraction() -> void:
 	isDistracted = false
 	remainingDistractionTime = 0.0
-	material.albedo_color = Color("fffc4a")
+	
+	pirateModel.showFrontFace()
 
-func getDistracted(_pos: Vector3) -> void:
+func getDistracted(pos: Vector3) -> void:
 	remainingDistractionTime = 4.0
 	isDistracted = true
 	
-	material.albedo_color = Color.RED
+	pirateModel.showSideFace(pos.x < 0.0)
 
 var objectThatAlreadyDistracted: Dictionary[Node3D, int]
 func _on_ground_detector_body_entered(body: Node3D) -> void:

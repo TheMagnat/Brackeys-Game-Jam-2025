@@ -12,6 +12,8 @@ var turnState: int = 0 # 0 = Play card, 1 = draw card
 @onready var table: Table = %Table
 @onready var distractionManager: DistractionManager = $"../DistractionManager"
 
+@onready var pirateModel: PirateModel = %PirateModel
+
 ##DEBUG
 @onready var debugui: DebugUI = $"../../DEBUGUI"
 
@@ -27,7 +29,7 @@ func _ready() -> void:
 	playerCardHand.cardAdded.connect(onPlayerAddCardToHand)
 
 func getNewThinkingTime() -> float:
-	return 0.0
+	#return 0.0
 	var factor: float = 1.0 if turnState == 0 else 0.1
 	return randf_range(0.7, 1.5) * factor
 	#return 2.0
@@ -172,8 +174,6 @@ func analyseGameState() -> void:
 	
 
 func detectCheat() -> bool:
-	print("-- CHEAT DETECTED --")
-	
 	if Global.gameFinished: return false
 	
 	if distractionManager.isDistracted:
@@ -184,7 +184,9 @@ func detectCheat() -> bool:
 		
 		return false
 	
-	print("TRICHE ???")
+	pirateModel.onCheatDetected()
+	
+	#TODO: Remove
 	debugui.cheating()
 	return true
 

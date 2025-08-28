@@ -1,0 +1,353 @@
+[gd_scene load_steps=34 format=3 uid="uid://hiengb0pep1m"]
+
+[ext_resource type="Texture2D" uid="uid://d3hxe0oewd2qo" path="res://Resources/Assets/Pirate/corps_pirate.png" id="1_jips7"]
+[ext_resource type="Script" uid="uid://cosngqolmc4ff" path="res://Scenes/Pirate/PirateModel.gd" id="1_upyiy"]
+[ext_resource type="Texture2D" uid="uid://der4o2h03ictr" path="res://Resources/Assets/Pirate/teteface_pirate.png" id="2_upyiy"]
+[ext_resource type="Texture2D" uid="uid://dbkxtsr4tk6hv" path="res://Resources/Assets/Pirate/chapeau_pirate.png" id="3_fu7xw"]
+[ext_resource type="Texture2D" uid="uid://bx37xgd2y4deh" path="res://Resources/Assets/Pirate/vu01.png" id="3_jxyhm"]
+[ext_resource type="Texture2D" uid="uid://c8e4yqc6vqdof" path="res://Resources/Assets/Pirate/expression01_pirate.png" id="4_jxyhm"]
+[ext_resource type="Texture2D" uid="uid://wp0yg2rip4me" path="res://Resources/Assets/Pirate/moustachegauche_pirate.png" id="5_kw3xa"]
+[ext_resource type="Texture2D" uid="uid://cvwww0beeyr5h" path="res://Resources/Assets/Pirate/moustachedroite_pirate.png" id="6_sgsev"]
+[ext_resource type="Texture2D" uid="uid://cqkirbhaq40g5" path="res://Resources/Assets/Pirate/brasgauche_pirate.png" id="7_xu0v3"]
+[ext_resource type="Texture2D" uid="uid://cl3r0e2mg3pvl" path="res://Resources/Assets/Pirate/tetecote_pirate.png" id="8_fu7xw"]
+[ext_resource type="Texture2D" uid="uid://dxw54lpaefyyt" path="res://Resources/Assets/Pirate/expression02_pirate.png" id="8_kw3xa"]
+[ext_resource type="Texture2D" uid="uid://b5xarjaxtlpon" path="res://Resources/Assets/Pirate/maingauche_pirate.png" id="8_t2ttu"]
+[ext_resource type="Texture2D" uid="uid://bxc5w13ns8an2" path="res://Resources/Assets/Pirate/brasdroit_pirate.png" id="9_gj2gq"]
+[ext_resource type="Texture2D" uid="uid://buk3n23obtfgw" path="res://Resources/Assets/Pirate/maindroite_pirate.png" id="10_p2p22"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kw3xa"]
+size = Vector3(6.5837708, 13.7413025, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sgsev"]
+size = Vector3(20.614624, 16.174683, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aw3yp"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_jips7")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kw3xa"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("3_jxyhm")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxyhm"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("8_fu7xw")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nmdm0"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_upyiy")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4a6v"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("3_fu7xw")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vphqs"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("4_jxyhm")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgsev"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("8_kw3xa")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d1ngp"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("5_kw3xa")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7k30j"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("6_sgsev")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ty8bk"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("7_xu0v3")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b644d"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("8_t2ttu")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hoqe0"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("9_gj2gq")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jgvkr"]
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("10_p2p22")
+texture_repeat = false
+
+[sub_resource type="Animation" id="Animation_jips7"]
+resource_name = "Idle"
+length = 1.5
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HeadPosition/HeadHolder:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.244, 7.078, 5.479)]
+}
+
+[sub_resource type="Animation" id="Animation_upyiy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BrasGauche:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(4.8785906, 4.755341, 0.099998474)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BrasGauche:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kw3xa"]
+resource_name = "SortirCrochet"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BrasGauche:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(4.8785906, 4.755341, 0.099998474), Vector3(3.2640152, 4.5768065, 0.099998474)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BrasGauche:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-2.2587998e-09, -0.4373097, 1.2522215)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fu7xw"]
+_data = {
+&"Idle": SubResource("Animation_jips7"),
+&"RESET": SubResource("Animation_upyiy"),
+&"SortirCrochet": SubResource("Animation_kw3xa")
+}
+
+[node name="PirateModel" type="Node3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+script = ExtResource("1_upyiy")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000002, -0.11250305, 9.20747, 5.05688)
+shape = SubResource("BoxShape3D_kw3xa")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000002, 1.4863129, 0.1752216, -0.36647257)
+shape = SubResource("BoxShape3D_sgsev")
+
+[node name="Body" type="Sprite3D" parent="."]
+material_override = SubResource("StandardMaterial3D_aw3yp")
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("1_jips7")
+
+[node name="HeadPosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99998796, 0.0049043484, 0, -0.0049043484, 0.99998796, -1.2439637, 7.218405, 5.4793205)
+
+[node name="AngrySprite" type="Sprite3D" parent="HeadPosition"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.650508, 3.0429072, 0.62253094)
+visible = false
+material_override = SubResource("StandardMaterial3D_kw3xa")
+cast_shadow = 0
+texture = ExtResource("3_jxyhm")
+
+[node name="HeadHolder" type="Node3D" parent="HeadPosition"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13763085, 0)
+
+[node name="HeadSide" type="Sprite3D" parent="HeadPosition/HeadHolder"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.076, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_jxyhm")
+texture = ExtResource("8_fu7xw")
+
+[node name="HeadFront" type="Sprite3D" parent="HeadPosition/HeadHolder"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1.0000004, 0, 0, 0, 1.0000004, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_nmdm0")
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("2_upyiy")
+
+[node name="Chapeau" type="Sprite3D" parent="HeadPosition/HeadHolder/HeadFront"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2183267, 5.856144, 0.1035614)
+material_override = SubResource("StandardMaterial3D_y4a6v")
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("3_fu7xw")
+
+[node name="ExpressionColere" type="Sprite3D" parent="HeadPosition/HeadHolder/HeadFront"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2988472, 2.5797806, 0.13892365)
+material_override = SubResource("StandardMaterial3D_vphqs")
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("4_jxyhm")
+
+[node name="ExpressionTriste" type="Sprite3D" parent="HeadPosition/HeadHolder/HeadFront"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2988472, 2.5797806, 0.13892365)
+visible = false
+material_override = SubResource("StandardMaterial3D_sgsev")
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("8_kw3xa")
+
+[node name="MoustacheGauche" type="Sprite3D" parent="HeadPosition/HeadHolder/HeadFront"]
+unique_name_in_owner = true
+transform = Transform3D(0.99976534, 0.021647416, 0, -0.02164742, 0.9997652, 0, 0, 0, 0.9999998, 0.182, -0.318, 0.011)
+material_override = SubResource("StandardMaterial3D_d1ngp")
+offset = Vector2(0, -200)
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("5_kw3xa")
+
+[node name="MoustacheDroite" type="Sprite3D" parent="HeadPosition/HeadHolder/HeadFront"]
+unique_name_in_owner = true
+transform = Transform3D(0.99976563, -0.021647425, 0, 0.021647425, 0.9997656, 0, 0, 0, 0.9999999, 2.48, -0.318, 0.01)
+material_override = SubResource("StandardMaterial3D_7k30j")
+offset = Vector2(0, -200)
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("6_sgsev")
+
+[node name="BrasDroit" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7425606, 0.669779, 0, -0.669779, 0.7425606, -7.0747943, 1.5285702, 3.6403484)
+material_override = SubResource("StandardMaterial3D_ty8bk")
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("7_xu0v3")
+
+[node name="MainDroite" type="Sprite3D" parent="BrasDroit"]
+transform = Transform3D(1.625, 0, 0, 0, 0.9999999, -2.9802322e-08, 0, 2.9802322e-08, 0.9999999, 5.872419, -4.3639965, -0.009999275)
+material_override = SubResource("StandardMaterial3D_b644d")
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("8_t2ttu")
+
+[node name="BrasGauche" type="Sprite3D" parent="."]
+transform = Transform3D(1.0000014, 0, 0, 0, 1.0000012, 0, 0, 0, 1.0000007, 4.8785906, 4.755341, 0.099998474)
+material_override = SubResource("StandardMaterial3D_hoqe0")
+offset = Vector2(348.365, -489.71)
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("9_gj2gq")
+
+[node name="MainGauche" type="Sprite3D" parent="BrasGauche"]
+transform = Transform3D(0.98157394, -0.19108313, 0, 0.19108313, 0.98157394, 0, 0, 0, 1, -1.2121196, -9.963984, -0.0099983215)
+material_override = SubResource("StandardMaterial3D_jgvkr")
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.05
+texture = ExtResource("10_p2p22")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fu7xw")
+}

@@ -141,7 +141,7 @@ func _physics_process(delta: float) -> void:
 		
 		topCard.rotation.x = lerp_angle(topCard.rotation.x, PI / 2.0, delta * 10.0)
 		
-const RESET_DURATION: float = 0.5
+const RESET_DURATION: float = 1.0
 var reseting: bool = false
 var resetYRotation: PackedFloat32Array
 

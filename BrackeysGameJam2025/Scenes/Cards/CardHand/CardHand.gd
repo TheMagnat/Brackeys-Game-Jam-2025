@@ -45,9 +45,16 @@ var elapsedTime: float = 0.0
 var curveLength: float
 var curveCenterLength: float
 
+# Sprites
+@onready var handSprites: Node3D = $HandSprites
+@onready var back: Sprite3D = $HandSprites/Back
+@onready var front: Sprite3D = $HandSprites/Front
+
 const CARD_PACKED_SCENE: PackedScene = preload("uid://da4c2limit5rl")
 
 func _ready() -> void:
+	if not isPlayer:
+		handSprites.hide()
 	
 	# Initialize Hand Curve
 	path.curve_changed.connect(initializeCurveData)
@@ -63,7 +70,7 @@ func _ready() -> void:
 	# Initialize cards
 	initializeCards()
 	
-	updateCardsPosition()
+	updateCardsPosition(0.0)
 	
 	# Connect Player events
 	#player.spellsUpdated.connect(updateHandFromPlayer)
@@ -175,8 +182,22 @@ func onCardDeviewed(card: Card) -> void:
 #region Cards Positions Managing
 
 var lastInsertionIndex: int = 0
-func updateCardsPosition() -> void:
-	if cardsInHand == 0: return
+func updateCardsPosition(delta: float) -> void:
+	if cardsInHand == 0:
+		var handSpritesPosition := Vector3.ZERO
+		if hidingHand and (not Engine.is_editor_hint() and not Global.isTryingToHoldCard):
+			handSpritesPosition.y = -6.0
+	
+		handSprites.position = lerp(handSprites.position, handSpritesPosition, delta * 5.0)
+		front.rotation.z = lerp_angle(front.rotation.z, PI / 4.0, delta * 5.0)
+		front.position.x = lerp(front.position.x, -4.0, delta * 5.0)
+		
+		return
+	
+	else:
+		front.rotation.z = lerp_angle(front.rotation.z, 0.0, delta * 5.0)
+		front.position.x = lerp(front.position.x, 0.0, delta * 5.0)
+
 	
 	var handViewedCard: int = viewedCard
 	if not Engine.is_editor_hint() and not Global.isHandActive:
@@ -216,6 +237,9 @@ func updateCardsPosition() -> void:
 	
 	lastInsertionIndex = 0
 	
+	
+	var handSpritesPosition := Vector3.ZERO
+	
 	var handIndex: int = 0
 	var accOffset: float = 0.0
 	for i: int in cards.size():
@@ -250,6 +274,7 @@ func updateCardsPosition() -> void:
 		if isHandViewedCard:
 			newPos.z += 2.0
 			newPos.y += 4.0
+			handSpritesPosition.x = newPos.x * 0.2
 			#scaling = 0.75
 		else:
 			newCardBasis = Basis(newUpVec, currentCardRotation) * Basis(Vector3.BACK, -Vector2(newUpVec.x, newUpVec.y).angle_to(Vector2.DOWN))
@@ -270,13 +295,18 @@ func updateCardsPosition() -> void:
 		card.requestedCardScale = Vector3(scaling, scaling, scaling)
 		
 		handIndex += 1
-
+	
+	if hidingHand and (not Engine.is_editor_hint() and not Global.isTryingToHoldCard):
+		handSpritesPosition.y = -6.0
+	
+	handSprites.position = lerp(handSprites.position, handSpritesPosition, delta * 5.0)
+	
 func _physics_process(delta: float) -> void:
 #func _process(delta: float) -> void:
 	if moving:
 		elapsedTime += delta * 10.0
 	
-	updateCardsPosition()
+	updateCardsPosition(delta)
 
 #endregion
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu34tnpvc5eth"
-path.s3tc="res://.godot/imported/shooting_star_sampler.png-83e3023ae7f3d8e30598e8f3d8a9c802.s3tc.ctex"
+uid="uid://der4o2h03ictr"
+path.s3tc="res://.godot/imported/teteface_pirate.png-60112287b35b5597bf67a403eb61067d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Resources/Sky/shooting_star_sampler.png"
-dest_files=["res://.godot/imported/shooting_star_sampler.png-83e3023ae7f3d8e30598e8f3d8a9c802.s3tc.ctex"]
+source_file="res://Resources/Assets/Pirate/teteface_pirate.png"
+dest_files=["res://.godot/imported/teteface_pirate.png-60112287b35b5597bf67a403eb61067d.s3tc.ctex"]
 
 [params]
 

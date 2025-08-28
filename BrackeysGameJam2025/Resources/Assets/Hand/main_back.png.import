@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu34tnpvc5eth"
-path.s3tc="res://.godot/imported/shooting_star_sampler.png-83e3023ae7f3d8e30598e8f3d8a9c802.s3tc.ctex"
+uid="uid://cqksf4v8o8lnu"
+path.bptc="res://.godot/imported/main_back.png-114ac676052745cdcd66cc4030741e3b.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,13 +11,13 @@ metadata={
 
 [deps]
 
-source_file="res://Resources/Sky/shooting_star_sampler.png"
-dest_files=["res://.godot/imported/shooting_star_sampler.png-83e3023ae7f3d8e30598e8f3d8a9c802.s3tc.ctex"]
+source_file="res://Resources/Assets/Hand/main_back.png"
+dest_files=["res://.godot/imported/main_back.png-114ac676052745cdcd66cc4030741e3b.bptc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

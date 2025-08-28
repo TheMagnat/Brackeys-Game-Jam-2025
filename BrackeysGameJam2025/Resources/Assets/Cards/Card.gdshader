@@ -1,6 +1,7 @@
 shader_type spatial;
+render_mode diffuse_toon;
 
-uniform sampler2D frontTexture: source_color;
+uniform sampler2D frontTexture: source_color, filter_linear;
 uniform sampler2D backTexture: source_color;
 uniform vec3 sideColor: source_color;
 

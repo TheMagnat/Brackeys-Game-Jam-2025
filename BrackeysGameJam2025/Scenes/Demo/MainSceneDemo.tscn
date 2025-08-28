@@ -1,10 +1,9 @@
-[gd_scene load_steps=52 format=3 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=74 format=3 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
 [ext_resource type="Script" uid="uid://dme7n7ov1ou1l" path="res://addons/shaker/src/Vector3/shaker_component3D.gd" id="2_r3vws"]
 [ext_resource type="Material" uid="uid://dh6ykun8bv60u" path="res://Resources/Sky/day_sky.tres" id="2_y087b"]
-[ext_resource type="Resource" uid="uid://bgwupdyecxqic" path="res://addons/shaker/data/resources/shaker_head_blob3D.tres" id="3_egw5o"]
 [ext_resource type="PackedScene" uid="uid://wrkbrbbpdwy6" path="res://Scenes/Cards/CardHand/CardHand.tscn" id="3_rk0yb"]
 [ext_resource type="Script" uid="uid://hplad1nyntgv" path="res://Scenes/Demo/GameManager.gd" id="4_6dlwc"]
 [ext_resource type="Script" uid="uid://blgox76nom2g2" path="res://addons/shaker/src/Vector3/ShakerReceiver3D.gd" id="4_giv36"]
@@ -18,9 +17,15 @@
 [ext_resource type="Shader" uid="uid://biqfsci2di0f4" path="res://Scenes/Demo/eau.gdshader" id="10_8eesi"]
 [ext_resource type="Resource" uid="uid://cvklw5ika1tao" path="res://addons/shaker/data/resources/shaker_earthquake3D.tres" id="10_giv36"]
 [ext_resource type="PackedScene" uid="uid://cgn6wlmg2y0k8" path="res://Scenes/Cards/Deck/Deck.tscn" id="11_ckiob"]
+[ext_resource type="PackedScene" uid="uid://hiengb0pep1m" path="res://Scenes/Pirate/PirateModel.tscn" id="11_lts0r"]
 [ext_resource type="Script" uid="uid://by8grrlpsjf1o" path="res://Scenes/AI/DistractionManager.gd" id="12_v63yj"]
 [ext_resource type="PackedScene" uid="uid://bvyor2v2tnwwj" path="res://Scenes/Cinematic/intro.tscn" id="19_4173f"]
 [ext_resource type="PackedScene" uid="uid://c7m7jk5jjk5mj" path="res://Scenes/UI/GameMenu.tscn" id="19_mggys"]
+[ext_resource type="PackedScene" uid="uid://dghclx6pomr1h" path="res://Scenes/Parallax/Waves/WavesParallax.tscn" id="23_f46tu"]
+[ext_resource type="Script" uid="uid://bab5y7yuyg22q" path="res://addons/shaker/data/Vector3/BaseShakerType3D.gd" id="24_3dcc7"]
+[ext_resource type="Shader" uid="uid://ke0ojpsjcaaw" path="res://Scenes/Demo/windTest.gdshader" id="24_m5r7i"]
+[ext_resource type="Script" uid="uid://cqun2xsfmafoe" path="res://addons/shaker/data/Vector3/ShakerTypeSineWave3D.gd" id="25_jtovl"]
+[ext_resource type="Script" uid="uid://brw14p6k8jsht" path="res://addons/shaker/data/Vector3/ShakerPreset3D.gd" id="26_r5ebq"]
 
 [sub_resource type="Sky" id="Sky_rk0yb"]
 sky_material = ExtResource("2_y087b")
@@ -32,7 +37,41 @@ sky = SubResource("Sky_rk0yb")
 ambient_light_color = Color(0.3515629, 0.3515629, 0.35156283, 1)
 ambient_light_sky_contribution = 0.65
 tonemap_mode = 2
+ssao_enabled = true
+ssao_radius = 10.0
 glow_enabled = true
+fog_enabled = true
+fog_mode = 1
+fog_density = 1.0
+fog_aerial_perspective = 1.0
+fog_depth_curve = 0.90125084
+fog_depth_begin = 300.0
+fog_depth_end = 1095.0
+volumetric_fog_density = 0.0105
+
+[sub_resource type="Resource" id="Resource_ntwkm"]
+script = ExtResource("25_jtovl")
+frequency = Vector3(0.2, 0.5, 0.25)
+amplitude = Vector3(0.5, 2, 0.5)
+metadata/_custom_type_script = "uid://cqun2xsfmafoe"
+
+[sub_resource type="Resource" id="Resource_r5ebq"]
+script = ExtResource("25_jtovl")
+frequency = Vector3(0.2, 0.25, 0.5)
+amplitude = Vector3(0.005, 0.005, 0.02)
+metadata/_custom_type_script = "uid://cqun2xsfmafoe"
+
+[sub_resource type="Resource" id="Resource_aw3yp"]
+script = ExtResource("25_jtovl")
+frequency = Vector3(1, 0.5, 1)
+amplitude = Vector3(0, 0.002, 0)
+metadata/_custom_type_script = "uid://cqun2xsfmafoe"
+
+[sub_resource type="Resource" id="Resource_jtovl"]
+script = ExtResource("26_r5ebq")
+PositionShake = Array[ExtResource("24_3dcc7")]([SubResource("Resource_ntwkm")])
+RotationShake = Array[ExtResource("24_3dcc7")]([SubResource("Resource_r5ebq"), SubResource("Resource_aw3yp")])
+metadata/_custom_type_script = "uid://brw14p6k8jsht"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_giv36"]
 radius = 300.0
@@ -101,15 +140,6 @@ stencil_flags = 2
 [sub_resource type="BoxMesh" id="BoxMesh_vp0ry"]
 size = Vector3(8, 12, 0.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7j7j0"]
-albedo_color = Color(0.16, 0.09167999, 0.062399995, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_aanud"]
-size = Vector3(400, 20, 400)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_aanud"]
-size = Vector3(400, 20, 400)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_e327d"]
 size = Vector3(8, 200, 200)
 
@@ -146,6 +176,75 @@ size = Vector3(750, 40, 750)
 [sub_resource type="BoxShape3D" id="BoxShape3D_v63yj"]
 size = Vector3(500, 10, 500)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7j7j0"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.39635667, 0.251283, 0.1949147, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_aanud"]
+size = Vector3(400, 20, 400)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aanud"]
+size = Vector3(400, 20, 400)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f46tu"]
+size = Vector3(10, 20, 400)
+
+[sub_resource type="BoxMesh" id="BoxMesh_m5r7i"]
+size = Vector3(180, 140, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rxjow"]
+size = Vector3(300, 300, 20)
+
+[sub_resource type="Resource" id="Resource_hui0g"]
+script = ExtResource("25_jtovl")
+frequency = Vector3(0, 0.5, 1)
+amplitude = Vector3(0, 3, 0)
+
+[sub_resource type="Resource" id="Resource_usaqk"]
+script = ExtResource("25_jtovl")
+frequency = Vector3(1, 0.25, 1)
+amplitude = Vector3(0, 1, 0)
+
+[sub_resource type="Resource" id="Resource_ohc42"]
+script = ExtResource("25_jtovl")
+frequency = Vector3(0.3, 0, 0)
+amplitude = Vector3(0.005, 0.002, 0.002)
+metadata/_custom_type_script = "uid://cqun2xsfmafoe"
+
+[sub_resource type="Resource" id="Resource_3dcc7"]
+script = ExtResource("25_jtovl")
+frequency = Vector3(0.15, 1, 1)
+amplitude = Vector3(0.003, 0, 0)
+metadata/_custom_type_script = "uid://cqun2xsfmafoe"
+
+[sub_resource type="Resource" id="Resource_6e0n7"]
+script = ExtResource("26_r5ebq")
+PositionShake = Array[ExtResource("24_3dcc7")]([SubResource("Resource_hui0g"), SubResource("Resource_usaqk")])
+RotationShake = Array[ExtResource("24_3dcc7")]([SubResource("Resource_ohc42"), SubResource("Resource_3dcc7")])
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f46tu"]
+top_radius = 10.0
+bottom_radius = 10.0
+height = 500.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m5r7i"]
+frequency = 0.026
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rxjow"]
+noise = SubResource("FastNoiseLite_m5r7i")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rxjow"]
+render_priority = 0
+shader = ExtResource("24_m5r7i")
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_rxjow")
+
+[sub_resource type="QuadMesh" id="QuadMesh_m5r7i"]
+size = Vector2(300, 300)
+subdivide_width = 30
+subdivide_depth = 30
+
 [node name="MainSceneDemo" type="Node3D"]
 script = ExtResource("1_vp0ry")
 
@@ -153,9 +252,11 @@ script = ExtResource("1_vp0ry")
 environment = SubResource("Environment_6dlwc")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+transform = Transform3D(-0.92158765, 0.30435702, 0.24092135, -0.17618805, -0.8810246, 0.4390367, 0.34588158, 0.36216336, 0.8655655, 0, 65.90869, 0)
 shadow_enabled = true
-directional_shadow_max_distance = 400.0
+directional_shadow_blend_splits = true
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 600.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.8578766, 0.5138558, 0, -0.5138558, 0.8578766, 2.3791512e-05, 72.86001, 59.879124)
@@ -163,9 +264,8 @@ transform = Transform3D(1, 0, 0, 0, 0.8578766, 0.5138558, 0, -0.5138558, 0.85787
 [node name="ShakerComponent3D" type="Node3D" parent="Camera3D"]
 script = ExtResource("2_r3vws")
 AutoPlay = true
-intensity = 5.0
-shake_speed = 0.25
-shakerPreset = ExtResource("3_egw5o")
+shake_speed = 0.5
+shakerPreset = SubResource("Resource_jtovl")
 metadata/_custom_type_script = "uid://dme7n7ov1ou1l"
 
 [node name="ShakerReceiver3D" type="Node3D" parent="Camera3D/ShakerComponent3D"]
@@ -188,7 +288,7 @@ script = ExtResource("4_6dlwc")
 
 [node name="Deck" parent="." instance=ExtResource("11_ckiob")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.122993, 42, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.122993, 42, 3.0529022)
 
 [node name="PlayerHandManager" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -219,9 +319,13 @@ cardRotationBasedOnDist = 0.03500000000349246
 [node name="Pirate" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45, -50)
 
+[node name="PirateModel" parent="Pirate" instance=ExtResource("11_lts0r")]
+unique_name_in_owner = true
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 6.905, 0)
+
 [node name="PirateCardHand" parent="Pirate" instance=ExtResource("3_rk0yb")]
 unique_name_in_owner = true
-transform = Transform3D(-1, 6.8512634e-08, -5.4302447e-08, 0, 0.62114763, 0.7836932, 8.742278e-08, 0.7836932, -0.62114763, 0, -1.5800018, 5.241703)
+transform = Transform3D(-1, 6.851265e-08, -5.4302447e-08, 2.5816622e-08, 0.82487667, 0.5653126, 8.3523915e-08, 0.5653126, -0.82487667, 0, -0.2068634, 9.918999)
 isPlayer = false
 cardRotationBasedOnDist = 0.03500000000349246
 
@@ -245,6 +349,7 @@ shape = SubResource("SphereShape3D_v63yj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pirate"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26.088585)
+visible = false
 material_override = SubResource("StandardMaterial3D_giv36")
 mesh = SubResource("CapsuleMesh_giv36")
 
@@ -301,18 +406,6 @@ mesh = SubResource("BoxMesh_vp0ry")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Entities/Card"]
 shape = ExtResource("7_vp0ry")
-
-[node name="Ground" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = SubResource("StandardMaterial3D_7j7j0")
-mesh = SubResource("BoxMesh_aanud")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("BoxShape3D_aanud")
 
 [node name="Cage" type="Node3D" parent="."]
 
@@ -424,6 +517,69 @@ visible = false
 
 [node name="intro" parent="." instance=ExtResource("19_4173f")]
 visible = false
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_7j7j0")
+mesh = SubResource("BoxMesh_aanud")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ground"]
+shape = SubResource("BoxShape3D_aanud")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.351, 10, 0)
+material_override = SubResource("StandardMaterial3D_7j7j0")
+mesh = SubResource("BoxMesh_f46tu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -155.351, 10, 0)
+material_override = SubResource("StandardMaterial3D_7j7j0")
+mesh = SubResource("BoxMesh_f46tu")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(0.9773257, 0.052743386, -0.20506802, -0.12645887, 0.9221807, -0.36550087, 0.16983205, 0.38314602, 0.90794075, -119.43263, 73.24126, -353.91318)
+material_override = SubResource("StandardMaterial3D_7j7j0")
+mesh = SubResource("BoxMesh_f46tu")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(0.9773956, -0.05292064, 0.20468909, 0.12635879, 0.92244154, -0.36487678, -0.16950421, 0.38249317, 0.9082771, 119.433, 73.241, -353.913)
+material_override = SubResource("StandardMaterial3D_7j7j0")
+mesh = SubResource("BoxMesh_f46tu")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70, -200)
+material_override = SubResource("StandardMaterial3D_7j7j0")
+mesh = SubResource("BoxMesh_m5r7i")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 0.40372086, 0.9148822, 0, -0.9148822, 0.40372086, 0, 51.42309, -327.4479)
+material_override = SubResource("StandardMaterial3D_7j7j0")
+mesh = SubResource("BoxMesh_rxjow")
+
+[node name="WavesParallax" parent="Environment" instance=ExtResource("23_f46tu")]
+transform = Transform3D(-2.2642499e-07, 0, -3.995, 0, 5.075, 0, 5.18, 0, -1.7462699e-07, 0, -57.766613, 5.755)
+
+[node name="ShakerComponent3D" type="Node3D" parent="Environment/WavesParallax"]
+script = ExtResource("2_r3vws")
+AutoPlay = true
+intensity = 5.0
+shakerPreset = SubResource("Resource_6e0n7")
+metadata/_custom_type_script = "uid://dme7n7ov1ou1l"
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.506773, 54.744904, 153.50757)
+mesh = SubResource("CylinderMesh_f46tu")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(0.92520964, -0.3794561, 0, 0.3518256, 0.8578394, 0.37460652, -0.14214677, -0.34658962, 0.9271837, -31.837, 305.561, 187.797)
+material_override = SubResource("ShaderMaterial_rxjow")
+mesh = SubResource("QuadMesh_m5r7i")
 
 [connection signal="body_entered" from="OffTableDetector" to="GameManager" method="_on_off_table_detector_body_entered"]
 [connection signal="body_entered" from="OffTableDetector" to="Pirate/PirateAI" method="_on_off_table_detector_body_entered"]
