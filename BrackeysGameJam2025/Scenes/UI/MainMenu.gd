@@ -2,7 +2,14 @@ extends Node2D
 
 const MAIN_SCENE := preload("res://Scenes/Demo/MainSceneDemo.tscn")
 
+func update_viewport():
+	$CanvasLayer/SubViewport.size = get_window().size
+
 func _ready() -> void:
+	get_window().size_changed.connect(update_viewport)
+	update_viewport()
+	
+	
 	SeaSound.inside()
 	$VBoxContainer/Play.pressed.connect(play)
 	$VBoxContainer/Quit.pressed.connect(quit)
