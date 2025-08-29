@@ -93,5 +93,4 @@ func isOnGround() -> bool:
 
 # Separate method even if it only call isOnGround now, if we want to add things
 func isVisible() -> bool:
-	print(global_position.y)
 	return not isOnGround()

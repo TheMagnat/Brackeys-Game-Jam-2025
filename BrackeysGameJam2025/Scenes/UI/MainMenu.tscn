@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://comtniuw3st42"]
+[gd_scene load_steps=5 format=3 uid="uid://comtniuw3st42"]
 
 [ext_resource type="Script" uid="uid://cupwtnl614t8u" path="res://Scenes/UI/MainMenu.gd" id="1_g18y6"]
 [ext_resource type="Texture2D" uid="uid://c7f0n6j4xdxi2" path="res://Resources/UI/Title.png" id="2_72sra"]
 [ext_resource type="PackedScene" uid="uid://c16nmmpnwqcji" path="res://Scenes/UI/button.tscn" id="2_mjmdf"]
+[ext_resource type="PackedScene" uid="uid://p2ou23fcr2l3" path="res://Scenes/Cinematic/MenuEnvironmentScene.tscn" id="2_t6w0q"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_g18y6")
 
 [node name="Line2D" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(0, 324, 1152, 324)
 width = 648.0
 default_color = Color(0, 0, 0, 1)
@@ -77,3 +79,21 @@ modulate = Color(1, 1, 1, 1)
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Flee"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -5
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="MenuEnvironmentScene" parent="CanvasLayer/SubViewportContainer/SubViewport" instance=ExtResource("2_t6w0q")]
