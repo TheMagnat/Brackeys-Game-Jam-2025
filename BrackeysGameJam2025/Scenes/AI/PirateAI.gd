@@ -253,12 +253,12 @@ func analyseGameState() -> void:
 				return
 			
 			nbLostCardTrigger += 1
-			EventBus.startSimpleDialog.emit("T'as encore perdu des cartes ? Tu te foutrais pas un peu de ma gueule ? Démerde toi avec ça maintenant.", true)
+			EventBus.startSimpleDialog.emit(PirateDialogs.notEnoughCardsAngry.pick_random(), true)
 			onCheatDetected()
 			return
 		
 		# Here the player "lost" cards, maybe force him to draw some ?
-		EventBus.startSimpleDialog.emit("Tien ? t'as perdu des cartes ?", false)
+		EventBus.startSimpleDialog.emit(PirateDialogs.notEnoughCards.pick_random(), false)
 		
 		nbLostCardTrigger += 1
 		
@@ -349,7 +349,7 @@ func cheatResolver(cheatType: CHEAT_TYPE, cardModel: CardModel) -> void:
 func tooMuchCardsCheatResolver(visibleCards: Array[CardModel], nbCardsToRemove: int) -> void:
 	if Global.gameFinished: return
 	
-	EventBus.startSimpleDialog.emit("T'as trop de cartes !", true)
+	EventBus.startSimpleDialog.emit(PirateDialogs.tooManyCards.pick_random(), true)
 	
 	Global.canInteract = false
 	

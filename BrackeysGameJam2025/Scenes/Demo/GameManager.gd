@@ -32,6 +32,14 @@ func _ready() -> void:
 	
 	call_deferred("startIntroduction1")
 
+const YES : Array[String] = [
+	"Yes", "Sure", "For sure", "Aye"
+]
+
+const NO : Array[String] = [
+	"No", "Nope", "Nae", "Certainly not"
+]
+
 func startIntroduction1() -> void:
 	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[0], false)
 	await EventBus.simpleDialogFinished
@@ -44,7 +52,7 @@ func startIntroduction1() -> void:
 	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[4], false)
 	await EventBus.simpleDialogFinished
 	
-	EventBus.startQuestionDialog.emit(PirateDialogs.introductionText[5], false, ["Yes", "No"] as Array[String], introduction1Answer)
+	EventBus.startQuestionDialog.emit(PirateDialogs.introductionText[5], false, [YES.pick_random(), NO.pick_random()] as Array[String], introduction1Answer)
 
 func introduction1Answer(answer: int) -> void:
 	if answer == 1:
@@ -126,7 +134,7 @@ func startTutorial(angry: bool = false) -> void:
 		tutorialPart2(0)
 		return
 	
-	EventBus.startQuestionDialog.emit(PirateDialogs.tutorialText[4], angry, ["Yes", "No"] as Array[String], tutorialPart2)
+	EventBus.startQuestionDialog.emit(PirateDialogs.tutorialText[4], angry, [YES.pick_random(), NO.pick_random()] as Array[String], tutorialPart2)
 
 var repeatCount: int = 0
 func tutorialPart2(answer: int) -> void:
@@ -134,10 +142,10 @@ func tutorialPart2(answer: int) -> void:
 		var angry: bool
 		if repeatCount == 0:
 			angry = false
-			EventBus.startSimpleDialog.emit("Ok. I will repeat for ya", false)
+			EventBus.startSimpleDialog.emit(PirateDialogs.tutorialRepeat, false)
 		else:
 			angry = true
-			EventBus.startSimpleDialog.emit("ARE YA STUPID ? Ok, I will repeat one LAST time.", true)
+			EventBus.startSimpleDialog.emit(PirateDialogs.tutorialRepeatAngry, true)
 		
 		repeatCount += 1
 		await EventBus.simpleDialogFinished
@@ -169,7 +177,7 @@ func onGameFinished(whoWin: int) -> void:
 	
 	EventBus.resetCurrentGame.emit()
 	
-	EventBus.startQuestionDialog.emit("La partie est terminé, %d - %d pour toi. Prêt pour continuer ?" % [playerScore, pirateScore], false, ["Oui"] as Array[String], restartGame)
+	EventBus.startQuestionDialog.emit("La partie est terminé, %d - %d pour toi. Prêt pour continuer ?" % [playerScore, pirateScore], false, [YES.pick_random()] as Array[String], restartGame)
 
 func restartGame(_answer: int = 0) -> void:
 	currentGameTotalScore = 0
@@ -246,9 +254,9 @@ func onCardPlayed(card: CardInteractable, who: int) -> void:
 		return
 	
 	if who == 1:
-		EventBus.startRemnantDialog.emit("We're at %d." % currentGameTotalScore, false)
+		EventBus.startRemnantDialog.emit(PirateDialogs.count.pick_random() % currentGameTotalScore, false)
 	else:
-		EventBus.startSimpleDialog.emit("Pas mal comme choix.", false)
+		EventBus.startSimpleDialog.emit(PirateDialogs.playing.pick_random(), false)
 	
 	card.model.cardOwner = 3
 	playedCardBuffer.push_back(card.model)
@@ -261,7 +269,7 @@ func onCardPlayed(card: CardInteractable, who: int) -> void:
 				cardToExcludeFromReshuffle.push_back(playedCardBuffer[i])
 				break
 		
-		EventBus.startSimpleDialog.emit("Eh bah, on a déjà plus de cartes, je dois admetre que tu n'est pas si mauvais.", false)
+		EventBus.startSimpleDialog.emit(PirateDialogs.shuffleCards.pick_random(), false)
 		
 		deck.askShuffle(false, cardToExcludeFromReshuffle)
 
