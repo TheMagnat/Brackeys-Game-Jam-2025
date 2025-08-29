@@ -1,5 +1,10 @@
 extends Node
 
+# Introduction
+signal skipIntroduction
+signal introductionFinished
+signal introductionStarted
+
 signal isHandlingItem(isIt: bool)
 signal pickedGroundCard(card: CardInteractable)
 signal droppedItem(object: Interactable)

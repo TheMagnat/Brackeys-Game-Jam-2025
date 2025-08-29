@@ -21,6 +21,8 @@ var pirateScore: int = 0
 func _ready() -> void:
 	Global.canInteract = false
 	
+	EventBus.skipIntroduction.connect(onSkipIntroduction)
+	
 	hand.cardSelected.connect(onCardSelected)
 	EventBus.cardPlayed.connect(onCardPlayed)
 	EventBus.gameFinished.connect(onGameFinished)
@@ -47,21 +49,29 @@ const NO : Array[String] = [
 	"No", "Nope", "Nae", "Certainly not"
 ]
 
+var introductionFinished: bool = false
+func onSkipIntroduction() -> void:
+	introductionFinished = true
+	EventBus.clearDialog.emit()
+	EventBus.choosenChoice.emit(-1)
+	startIntroduction3()
+
 func startIntroduction1() -> void:
-	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[0], false)
-	await EventBus.simpleDialogFinished
-	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[1], false)
-	await EventBus.simpleDialogFinished
-	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[2], false)
-	await EventBus.simpleDialogFinished
-	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[3], false)
-	await EventBus.simpleDialogFinished
-	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[4], false)
-	await EventBus.simpleDialogFinished
+	EventBus.introductionStarted.emit()
+	
+	if introductionFinished: return
+	
+	for i in 5:
+		EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[i], false)
+		await EventBus.simpleDialogFinished
+		
+		if introductionFinished: return
 	
 	EventBus.startQuestionDialog.emit(PirateDialogs.introductionText[5], false, [YES.pick_random(), NO.pick_random()] as Array[String], introduction1Answer)
 
 func introduction1Answer(answer: int) -> void:
+	if introductionFinished: return
+	
 	if answer == 1:
 		startTutorial()
 		return
@@ -69,21 +79,26 @@ func introduction1Answer(answer: int) -> void:
 	startIntroduction2()
 	
 func startIntroduction2() -> void:
-	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[0], false)
-	await EventBus.simpleDialogFinished
-	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[1], false)
-	await EventBus.simpleDialogFinished
-	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[2], false)
-	await EventBus.simpleDialogFinished
+	if introductionFinished: return
+	
+	for i in 3:
+		EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[i], false)
+		await EventBus.simpleDialogFinished
+		
+		if introductionFinished: return
 	
 	showCookieArea()
 	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[3], false)
 	await EventBus.simpleDialogFinished
 	
+	if introductionFinished: return
+	
 	EventBus.startQuestionDialog.emit(PirateDialogs.introduction2Text[4], false, PirateDialogs.introduction2Answers, introduction2Answer)
 
 var intro2State: int = -1
 func introduction2Answer(answer: int) -> void:
+	if introductionFinished: return
+	
 	if intro2State == -1:
 		if answer == 2:
 			startIntroduction3()
@@ -121,6 +136,9 @@ func introduction2Answer(answer: int) -> void:
 		EventBus.startQuestionDialog.emit(PirateDialogs.subIntroduction2Text[subIndex], angry, answers, startIntroduction3)
 
 func startIntroduction3(_answer: int = 0) -> void:
+	introductionFinished = true
+	EventBus.introductionFinished.emit()
+	
 	EventBus.startSimpleDialog.emit(PirateDialogs.introduction3Text[0], false)
 	await EventBus.simpleDialogFinished
 	
@@ -130,14 +148,13 @@ func startIntroduction3(_answer: int = 0) -> void:
 	startGame()
 
 func startTutorial(angry: bool = false) -> void:
-	EventBus.startSimpleDialog.emit(PirateDialogs.tutorialText[0], angry)
-	await EventBus.simpleDialogFinished
-	EventBus.startSimpleDialog.emit(PirateDialogs.tutorialText[1], angry)
-	await EventBus.simpleDialogFinished
-	EventBus.startSimpleDialog.emit(PirateDialogs.tutorialText[2], angry)
-	await EventBus.simpleDialogFinished
-	EventBus.startSimpleDialog.emit(PirateDialogs.tutorialText[3], angry)
-	await EventBus.simpleDialogFinished
+	if introductionFinished: return
+	
+	for i in 4:
+		EventBus.startSimpleDialog.emit(PirateDialogs.tutorialText[i], angry)
+		await EventBus.simpleDialogFinished
+		
+		if introductionFinished: return
 	
 	if angry:
 		tutorialPart2(0)
@@ -147,6 +164,8 @@ func startTutorial(angry: bool = false) -> void:
 
 var repeatCount: int = 0
 func tutorialPart2(answer: int) -> void:
+	if introductionFinished: return
+	
 	if answer == 1 and repeatCount < 2:
 		var angry: bool
 		if repeatCount == 0:
@@ -158,6 +177,7 @@ func tutorialPart2(answer: int) -> void:
 		
 		repeatCount += 1
 		await EventBus.simpleDialogFinished
+		
 		startTutorial(angry)
 		return
 	

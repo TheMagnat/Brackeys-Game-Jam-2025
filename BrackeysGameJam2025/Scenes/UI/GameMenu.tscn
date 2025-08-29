@@ -43,3 +43,14 @@ theme_override_constants/separation = 32
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Back to the holds"
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer"]
+modulate = Color(0.011764706, 0.011764706, 0.011764706, 0)
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Skip" parent="VBoxContainer" instance=ExtResource("2_ac63f")]
+modulate = Color(0.46587992, 0.6728827, 0.60396665, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Skip introduction"

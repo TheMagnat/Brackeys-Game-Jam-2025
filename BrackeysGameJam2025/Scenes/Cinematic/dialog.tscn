@@ -18,6 +18,10 @@ max_db = 6.0
 panning_strength = 0.5
 
 [node name="Text" type="Label3D" parent="."]
+alpha_cut = 1
+alpha_scissor_threshold = 0.573
+alpha_antialiasing_mode = 2
+alpha_antialiasing_edge = 0.54
 text = "test"
 font_size = 1024
 outline_size = 127

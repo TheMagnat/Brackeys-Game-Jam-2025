@@ -83,9 +83,9 @@ func _write(t: String) -> void:
 func write(t: String, a := false) -> void:
 	clear()
 	
-	_write(t)
-	
 	_start_talking(a)
+	
+	_write(t)
 
 func onDialogFinished() -> void:
 	_stop_talking()
