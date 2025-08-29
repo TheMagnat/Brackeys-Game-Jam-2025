@@ -176,7 +176,7 @@ subdivide_width = 30
 subdivide_depth = 30
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ckiob"]
-size = Vector3(750, 40, 750)
+size = Vector3(750, 15, 750)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v63yj"]
 size = Vector3(500, 10, 500)
@@ -493,13 +493,14 @@ material_override = SubResource("ShaderMaterial_ckiob")
 mesh = SubResource("PlaneMesh_aj4hj")
 
 [node name="OffTableDetector" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OffTableDetector"]
 shape = SubResource("BoxShape3D_ckiob")
+debug_color = Color(0.89, 0, 0.78616655, 1)
 
 [node name="GroundDetector" type="Area3D" parent="."]
 collision_layer = 0

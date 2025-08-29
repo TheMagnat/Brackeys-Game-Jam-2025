@@ -78,7 +78,20 @@ func _ready() -> void:
 
 var lastPosition: Vector3
 var lastVelocity: Vector3
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if activated:
 		lastVelocity = global_position - lastPosition
 		lastPosition = global_position
+
+
+## Helper
+func isOnGround() -> bool:
+	if global_position.y < 20.0:
+		return true
+	
+	return false
+
+# Separate method even if it only call isOnGround now, if we want to add things
+func isVisible() -> bool:
+	print(global_position.y)
+	return not isOnGround()

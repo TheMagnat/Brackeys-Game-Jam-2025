@@ -74,7 +74,19 @@ var cardId: int
 @export var color: COLOR
 @export var value: VALUE
 var cardScore: int
-var cardOwner: int = 0 # 0 = Player, 1 = Pirate, 2 = deck, 3 = table
+var cardOwner: int = 0: # 0 = Player, 1 = Pirate, 2 = deck, 3 = table
+	set(value):
+		if value == cardOwner:
+			return
+		
+		if cardOwner == 0:
+			playerCardTracker.erase(self)
+		elif value == 0:
+			playerCardTracker[self] = 0
+		
+		cardOwner = value
+
+static var playerCardTracker: Dictionary[CardModel, int]
 
 func setColorAndValueFromId(cardIdParam: int) -> void:
 	cardId = cardIdParam

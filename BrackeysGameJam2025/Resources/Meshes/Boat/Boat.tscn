@@ -1,18 +1,34 @@
-[gd_scene load_steps=11 format=3 uid="uid://de0eaa8ej7skl"]
+[gd_scene load_steps=12 format=3 uid="uid://de0eaa8ej7skl"]
 
 [ext_resource type="ArrayMesh" uid="uid://kn3arhgkljf3" path="res://Resources/Meshes/Boat/mainBoat.res" id="1_e51uh"]
 [ext_resource type="ArrayMesh" uid="uid://cg0wdi20akasx" path="res://Resources/Meshes/Boat/mainFences.res" id="2_0veyl"]
 [ext_resource type="ArrayMesh" uid="uid://b0tdgf6l3y5bc" path="res://Resources/Meshes/Boat/topFences.res" id="3_0veyl"]
-[ext_resource type="ArrayMesh" uid="uid://c14kx7gne6rj7" path="res://Resources/Meshes/Boat/cylinder.res" id="4_6yqv0"]
+[ext_resource type="ArrayMesh" uid="uid://bgvj21s3uuqys" path="res://Resources/Meshes/Boat/cylinder.res" id="4_6yqv0"]
 [ext_resource type="Shader" uid="uid://qaytmjyuum1j" path="res://Resources/Meshes/Boat/WindVoile.gdshader" id="5_6aqwr"]
-[ext_resource type="ArrayMesh" uid="uid://w75e1jng6hc1" path="res://Resources/Meshes/Boat/voile.res" id="5_dhbx5"]
+[ext_resource type="ArrayMesh" uid="uid://xnj0io3l4ark" path="res://Resources/Meshes/Boat/voile.res" id="5_dhbx5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6aqwr"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 1.0
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0veyl"]
+next_pass = SubResource("StandardMaterial3D_6aqwr")
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.4, 0.26826668, 0.19200002, 1)
 metallic = 0.35
 roughness = 0.75
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 1.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_qqdde"]
 frequency = 0.0116

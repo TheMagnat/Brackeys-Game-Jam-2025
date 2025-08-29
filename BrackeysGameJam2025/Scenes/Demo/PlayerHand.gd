@@ -74,7 +74,7 @@ func attach() -> void:
 	
 	if hoveredObject is CardInteractable:
 		var card: CardInteractable = hoveredObject
-		if card.global_position.y < 20.0:
+		if card.isOnGround():
 			EventBus.pickedGroundCard.emit(card)
 
 func detach() -> void:

@@ -1,7 +1,7 @@
 @tool
 class_name CardHand extends Node3D
 
-signal cardAdded(index: int)
+signal cardAdded(index: int, who: int)
 signal cardSelected(index: int)
 
 @onready var animationPlayer: AnimationPlayer = %AnimationPlayer
@@ -321,12 +321,12 @@ func onHandlingItem(isHandling: bool) -> void:
 		card.area.input_ray_pickable = not isHandling
 
 func onForceStoreCard(cardInteractable: CardInteractable) -> void:
-	storeCard(cardInteractable, 0)
+	storeCard(cardInteractable, 0, 1)
 
 func onStoreCard(cardInteractable: CardInteractable) -> void:
-	storeCard(cardInteractable, lastInsertionIndex)
+	storeCard(cardInteractable, lastInsertionIndex, 0)
 
-func storeCard(cardInteractable: CardInteractable, index: int) -> void:
+func storeCard(cardInteractable: CardInteractable, index: int, who: int) -> void:
 	var cardModel: CardModel = cardInteractable.model
 	
 	var oldTransform: Transform3D = cardInteractable.global_transform
@@ -347,7 +347,7 @@ func storeCard(cardInteractable: CardInteractable, index: int) -> void:
 	cardModel.hand = self
 	cardModel.handCard = newCard
 	
-	cardAdded.emit(index)
+	cardAdded.emit(index, who)
 
 func _input(event: InputEvent) -> void:
 	if not isPlayer: return

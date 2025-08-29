@@ -35,6 +35,14 @@ func onResetCurrentGame() -> void:
 	turnState = 0
 	getNewThinkingTime(2.0)
 
+func moveToPirateTurn() -> void:
+	playerTurn = false
+	turnState = 0
+	cardPlayed = false
+	eyeDown = false
+	eyeUp = false
+	getNewThinkingTime()
+
 func getNewThinkingTime(factor: float = 1.0, offset: float = 0.0) -> void:
 	thinkingTime = randf_range(1.5, 2.5) * factor
 	eyeDownTime = thinkingTime * 0.2 + offset
@@ -67,23 +75,23 @@ func onDroppedItem(object: Interactable) -> void:
 func onDeckCardInPlayArea(card: CardInteractable) -> void:
 	deck.addOnTop(card, 1)
 
-func onPlayerAddCardToHand(index: int) -> void:
+func onPlayerAddCardToHand(index: int, who: int) -> void:
 	if Global.gameFinished: return
 	
-	if Global.drawPhase:
-		playerCardHand.cards[index].model.cardOwner = 0
+	var cardModel: CardModel = playerCardHand.cards[index].model
+	
+	# Pirate initated this so ignore
+	if who == 1:
+		cardModel.cardOwner = 0
 		return
 	
-	var cardModel: CardModel = playerCardHand.cards[index].model
+	if Global.drawPhase:
+		cardModel.cardOwner = 0
+		return
+	
 	if playerTurn and turnState == 1 and cardModel.cardOwner == 2:
 		# OK, Picked from deck, prepare Pirate Turn
-		playerTurn = false
-		turnState = 0
-		cardPlayed = false
-		eyeDown = false
-		eyeUp = false
-		getNewThinkingTime()
-		#pirateModel.lookCards()
+		moveToPirateTurn()
 	
 	elif cardModel.cardOwner != 0:
 		var busted: bool = detectCheat(true)
@@ -193,18 +201,71 @@ const cheatLimitToExplode: int = 3
 var nbCheatSinceDistracted: int = 0
 const maxCheatPerDistraction: int = 2
 
+var nbLostCardTrigger: int = 0
+var lastLostTriggerNbMissingCards: int = 0
 func analyseGameState() -> void:
 	if Global.gameFinished: return
 	#TODO: Mettre un delay de temps d'analyse
 	
-	if playerCardHand.cards.size() > Global.MAX_CARDS_IN_HAND:
-		# Here the pirate saw that the player have more than 4 cards
+	var visibleCards: Array[CardModel]
+	for cardModel: CardModel in CardModel.playerCardTracker:
+		if cardModel.inHand:
+			visibleCards.push_back(cardModel)
+		
+		elif cardModel.cardInteractable.isVisible():
+			visibleCards.push_back(cardModel)
+	
+	var nbCardsToRemove: int
+	
+	var isPlayerDrawTurn: bool = false
+	if playerTurn and turnState == 1:
+		isPlayerDrawTurn = true
+		nbCardsToRemove = visibleCards.size() - (Global.MAX_CARDS_IN_HAND - 1)
+		
+	else:
+		nbCardsToRemove = visibleCards.size() - Global.MAX_CARDS_IN_HAND
+
+	
+	if nbCardsToRemove > 0:
+		# Here the pirate saw that the player have more than 4 cards (or 3 if he need to pick a card)
+		#TODO: If in state 1 and now have 4, maybe pass state to pirate turn ?
+		if isPlayerDrawTurn and nbCardsToRemove == 1:
+			moveToPirateTurn()
+			return
 		
 		# When onCheatDetected return false, the game is over
 		if not onCheatDetected(): return
 		
-		cheatResolver(CHEAT_TYPE.TOO_MUCH_CARDS, null)
-
+		tooMuchCardsCheatResolver(visibleCards, nbCardsToRemove)
+	
+	elif nbCardsToRemove < 0:
+		if nbLostCardTrigger > 0:
+			var precedentNb: int = lastLostTriggerNbMissingCards
+			lastLostTriggerNbMissingCards = abs(nbCardsToRemove)
+			
+			if precedentNb >= lastLostTriggerNbMissingCards:
+				# To prevent repeating this event even if the nb missing not changed between method trigger
+				return
+			
+			if visibleCards.size() == 0:
+				# To prevent soft lock if 0 cards in hand, finish the game on a cheat
+				onCheatFinishGame()
+				return
+			
+			nbLostCardTrigger += 1
+			EventBus.startSimpleDialog.emit("T'as encore perdu des cartes ? Tu te foutrais pas un peu de ma gueule ? Démerde toi avec ça maintenant.", true)
+			onCheatDetected()
+			return
+		
+		# Here the player "lost" cards, maybe force him to draw some ?
+		EventBus.startSimpleDialog.emit("Tien ? t'as perdu des cartes ?", false)
+		
+		nbLostCardTrigger += 1
+		
+		for i: int in abs(nbCardsToRemove):
+			var newCard: CardInteractable = deck.pickTopCard(1)
+			EventBus.forceStoreCard.emit(newCard)
+	
 func detectCheat(addToDistractedCount: bool) -> bool:
 	if Global.gameFinished: return false
 	
@@ -266,24 +327,6 @@ func cheatResolver(cheatType: CHEAT_TYPE, cardModel: CardModel) -> void:
 	if Global.gameFinished: return
 	
 	EventBus.startSimpleDialog.emit("Tu triche enculé. Tu peux modifier la phrase ici en fonction du type de triche.", true)
-
-	
-	# Special cheat case
-	match cheatType:
-		CHEAT_TYPE.TOO_MUCH_CARDS:
-			Global.canInteract = false
-			
-			var cardsToRemove: int = playerCardHand.cards.size() - Global.MAX_CARDS_IN_HAND
-			for i: int in cardsToRemove:
-				var cardIndex: int = randi_range(0, playerCardHand.cards.size() - 1)
-				var card: CardInteractable = GlobalCardManager.getCardInteractableFromModel(playerCardHand.cards[cardIndex].model)
-				card.model.cardOwner = 1 
-				pirateCardHand.onForceStoreCard(card)
-				
-				await get_tree().create_timer(0.25).timeout
-			
-			Global.canInteract = true
-			return
 	
 	var cardInteractable: CardInteractable = GlobalCardManager.getCardInteractableFromModel(cardModel)
 	
@@ -302,6 +345,26 @@ func cheatResolver(cheatType: CHEAT_TYPE, cardModel: CardModel) -> void:
 	# Table or Pirate
 	elif cardModel.cardOwner == 3 or cardModel.cardOwner == 1:
 		gameManager.sendCardToCenter(cardInteractable)
+
+func tooMuchCardsCheatResolver(visibleCards: Array[CardModel], nbCardsToRemove: int) -> void:
+	if Global.gameFinished: return
+	
+	EventBus.startSimpleDialog.emit("T'as trop de cartes !", true)
+	
+	Global.canInteract = false
+	
+	for i: int in nbCardsToRemove:
+		var cardIndex: int = randi_range(0, visibleCards.size() - 1)
+		var cardModelToSteal: CardModel = visibleCards.pop_at(cardIndex)
+		
+		var card: CardInteractable = GlobalCardManager.getCardInteractableFromModel(cardModelToSteal)
+		card.model.cardOwner = 1 
+		pirateCardHand.onForceStoreCard(card)
+		
+		await get_tree().create_timer(0.25).timeout
+	
+	Global.canInteract = true
+	return
 
 var thinkingTime: float
 var eyeDownTime: float
