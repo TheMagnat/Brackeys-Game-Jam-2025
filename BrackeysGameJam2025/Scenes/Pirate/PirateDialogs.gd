@@ -87,3 +87,24 @@ const playing: Array[String] = [
 	"tricksy",
 	"ya wily old fox"
 ]
+
+
+const pirateWin: Array[String] = [
+	"A win!",
+	"And the winner is... me!",
+	"Ye lost!",
+	"A win, ye lose!"
+]
+
+const pirateLost: Array[String] = [
+	"A lost...",
+	"Ya win this one",
+	"Ya won...",
+	"Nicely played, A lost"
+]
+
+const points: Array[String] = [
+	"%d for ya, %d for me. Ready for another one?",
+	"Ya got %d, me %d. Wanna play again?",
+	"%d for me, %d for ya. Again?",
+]

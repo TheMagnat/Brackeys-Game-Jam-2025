@@ -157,11 +157,16 @@ func tutorialPart2(answer: int) -> void:
 func startGame() -> void:
 	call_deferred("drawCards", Global.MAX_CARDS_IN_HAND)
 
+const WINNER_PLAYER := 0
+const WINNER_PIRATE := 1
+
 func onGameFinished(whoWin: int) -> void:
 	Global.gameFinished = true
 	Global.canInteract = false
 	
-	if whoWin == 0:
+	var dialogString := ""
+	if whoWin == WINNER_PLAYER:
+		dialogString += PirateDialogs.pirateLost.pick_random()
 		pirateModel.sadLook()
 		playerScore += 1
 		if playerScore >= Global.GAME_TO_WIN_TO_FINISH:
@@ -169,6 +174,7 @@ func onGameFinished(whoWin: int) -> void:
 			return
 		
 	else:
+		dialogString += PirateDialogs.pirateWin.pick_random()
 		pirateModel.normalLook()
 		pirateScore += 1
 		if pirateScore >= Global.GAME_TO_WIN_TO_FINISH:
@@ -177,7 +183,8 @@ func onGameFinished(whoWin: int) -> void:
 	
 	EventBus.resetCurrentGame.emit()
 	
-	EventBus.startQuestionDialog.emit("La partie est terminé, %d - %d pour toi. Prêt pour continuer ?" % [playerScore, pirateScore], false, [YES.pick_random()] as Array[String], restartGame)
+	dialogString += "\n" + PirateDialogs.points.pick_random() % [playerScore, pirateScore]
+	EventBus.startQuestionDialog.emit(dialogString, false, [YES.pick_random()] as Array[String], restartGame)
 
 func restartGame(_answer: int = 0) -> void:
 	currentGameTotalScore = 0
