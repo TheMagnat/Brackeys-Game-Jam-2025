@@ -1,11 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://bypsfov7yltrj"]
+[gd_scene load_steps=10 format=3 uid="uid://bypsfov7yltrj"]
 
 [ext_resource type="AudioStream" uid="uid://ckc4j7ynjkckd" path="res://Resources/SFX/ambient/sealoop.ogg" id="1_v2toe"]
 [ext_resource type="Script" uid="uid://ddws86x3aluyf" path="res://Scenes/Global/SeaSound.gd" id="2_6ewcn"]
 [ext_resource type="AudioStream" uid="uid://dbqhl1ksyis1h" path="res://Resources/SFX/ambient/woodcrackles.ogg" id="3_1msrb"]
 [ext_resource type="AudioStream" uid="uid://d31cyegc4eu2" path="res://Resources/SFX/ambient/harmonica_loop.ogg" id="4_6t1l2"]
 [ext_resource type="AudioStream" uid="uid://bvo02jkueq3nm" path="res://Resources/SFX/UI/select1.ogg" id="5_2bnq2"]
+[ext_resource type="AudioStream" uid="uid://cis674sdci2e4" path="res://Resources/SFX/ambient/whistle_loop.ogg" id="5_6y42k"]
 [ext_resource type="AudioStream" uid="uid://c55cngt8ye4ci" path="res://Resources/SFX/UI/select3.ogg" id="6_6y42k"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jcaig"]
+streams_count = 2
+stream_0/stream = ExtResource("4_6t1l2")
+stream_1/stream = ExtResource("5_6y42k")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_sb8uj"]
 streams_count = 2
@@ -24,7 +30,7 @@ pitch_scale = 0.9
 bus = &"SeaSounds"
 
 [node name="HarmonicaLoop" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_6t1l2")
+stream = SubResource("AudioStreamRandomizer_jcaig")
 volume_db = -12.0
 bus = &"SeaSounds"
 
