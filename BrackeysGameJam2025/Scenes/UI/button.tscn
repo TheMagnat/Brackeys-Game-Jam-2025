@@ -8,6 +8,7 @@
 modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_constants/outline_size = 8
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ypx1p")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ypx1p")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ypx1p")

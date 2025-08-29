@@ -47,7 +47,6 @@ func deactivate() -> void:
 	max_contacts_reported = 0
 
 @onready var hit: AudioStreamPlayer3D = hit_sound.instantiate()
-@onready var pick: AudioStreamPlayer3D = pick_sound.instantiate()
 
 # kinda works
 func body_hit(_body: Node3D) -> void:
@@ -55,11 +54,12 @@ func body_hit(_body: Node3D) -> void:
 	hit.play()
 
 func picked_card(_i: int) -> void:
-	pick.play()
+	var p := pick_sound.instantiate()
+	get_parent().add_child(p)
+	p.global_position = global_position
 
 func _ready() -> void:
 	add_child(hit)
-	add_child(pick)
 	picked.connect(picked_card)
 	
 	body_entered.connect(body_hit)
