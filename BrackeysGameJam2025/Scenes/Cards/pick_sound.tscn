@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bodfedid73ird"]
+[gd_scene load_steps=9 format=3 uid="uid://bodfedid73ird"]
 
 [ext_resource type="AudioStream" uid="uid://dnuib8bqsdkje" path="res://Resources/SFX/material/card_pick1.ogg" id="1_ikvw3"]
 [ext_resource type="AudioStream" uid="uid://cgyp70qukt12h" path="res://Resources/SFX/material/card_pick2.ogg" id="2_fd8ux"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://dl80oaqo42yqv" path="res://Resources/SFX/material/card_pick4.ogg" id="4_oa6sf"]
 [ext_resource type="AudioStream" uid="uid://sjxlemcph2g1" path="res://Resources/SFX/material/card_pick5.ogg" id="5_cs22q"]
 [ext_resource type="AudioStream" uid="uid://bwjn1acxywo8y" path="res://Resources/SFX/material/card_pick6.ogg" id="6_ab7j4"]
+[ext_resource type="Script" uid="uid://bfqffdkchravr" path="res://Scenes/Cards/autofree_sound.gd" id="7_fd8ux"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4tv1v"]
 random_pitch = 1.1
@@ -21,3 +22,4 @@ stream_5/stream = ExtResource("6_ab7j4")
 stream = SubResource("AudioStreamRandomizer_4tv1v")
 unit_size = 45.0
 attenuation_filter_db = -12.0
+script = ExtResource("7_fd8ux")

@@ -327,6 +327,8 @@ func onStoreCard(cardInteractable: CardInteractable) -> void:
 	storeCard(cardInteractable, lastInsertionIndex, 0)
 
 func storeCard(cardInteractable: CardInteractable, index: int, who: int) -> void:
+	cardInteractable.picked_card(index)
+	
 	var cardModel: CardModel = cardInteractable.model
 	
 	var oldTransform: Transform3D = cardInteractable.global_transform
