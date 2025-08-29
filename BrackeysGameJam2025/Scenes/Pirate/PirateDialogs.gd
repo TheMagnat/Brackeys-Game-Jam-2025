@@ -104,7 +104,8 @@ const pirateLost: Array[String] = [
 ]
 
 const points: Array[String] = [
-	"%d for ya, %d for me. Ready for another one?",
-	"Ya got %d, me %d. Wanna play again?",
-	"%d for me, %d for ya. Again?",
+	"%d for ya, %d for me\nReady for another one?",
+	"Ya got %d, me %d\nWanna play again?",
+	"%d for ya, %d for me\nAgain?",
+	"%d to %d\nCare to play again?"
 ]
