@@ -53,7 +53,7 @@ func _talk(t: String) -> void:
 		
 		if last_word.ends_with(","):
 			duration *= 2.5
-		elif last_word.ends_with(".") or last_word.ends_with("!") or last_word.ends_with("?"):
+		elif last_word.ends_with(".") or last_word.ends_with("!") or last_word.ends_with("?") or last_word.ends_with("\n"):
 			duration *= 5.0
 		
 		var next_text := t.right(-last_word.length() - 1)

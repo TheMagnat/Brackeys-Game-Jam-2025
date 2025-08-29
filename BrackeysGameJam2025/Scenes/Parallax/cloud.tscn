@@ -1,0 +1,55 @@
+[gd_scene load_steps=13 format=3 uid="uid://x1dl2bnkdrjo"]
+
+[ext_resource type="Texture2D" uid="uid://cyim73qh68m3m" path="res://Resources/Assets/Clouds/cloud1.png" id="1_8flvf"]
+[ext_resource type="Texture2D" uid="uid://be5arvi3hrw50" path="res://Resources/Assets/Clouds/cloud2.png" id="2_xl2t2"]
+[ext_resource type="Texture2D" uid="uid://dkkxol05yvvg1" path="res://Resources/Assets/Clouds/cloud3.png" id="3_cwoxs"]
+[ext_resource type="Texture2D" uid="uid://bv6o7e2priip7" path="res://Resources/Assets/Clouds/cloud4.png" id="4_tqa5r"]
+[ext_resource type="Texture2D" uid="uid://d0er6tcrwd4wa" path="res://Resources/Assets/Clouds/cloud5.png" id="5_rvvsr"]
+[ext_resource type="Texture2D" uid="uid://devjv5f72a82k" path="res://Resources/Assets/Clouds/cloud6.png" id="6_m1wsp"]
+[ext_resource type="Texture2D" uid="uid://beyd62rikorgp" path="res://Resources/Assets/Clouds/cloud7.png" id="7_5axlh"]
+[ext_resource type="Texture2D" uid="uid://cdavl4ij0c4cr" path="res://Resources/Assets/Clouds/cloud8.png" id="8_7jsc2"]
+[ext_resource type="Texture2D" uid="uid://cfdnt0haf6a6b" path="res://Resources/Assets/Clouds/cloud9.png" id="9_h4pn1"]
+[ext_resource type="Texture2D" uid="uid://djbkikvehpcs7" path="res://Resources/Assets/Clouds/cloud10.png" id="10_n36wc"]
+[ext_resource type="Script" uid="uid://roqor72wdq25" path="res://Scenes/Parallax/cloud.gd" id="11_xl2t2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_33rjj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8flvf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_xl2t2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cwoxs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tqa5r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_rvvsr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_m1wsp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5axlh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7jsc2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_h4pn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_n36wc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Cloud" type="AnimatedSprite3D"]
+sprite_frames = SubResource("SpriteFrames_33rjj")
+script = ExtResource("11_xl2t2")
