@@ -21,8 +21,12 @@ var requestDetach: bool = false
 @onready var joint: Joint3D = $PinJoint3D
 @onready var deck: Deck = %Deck
 
+var center: Vector3
+var center2d: Vector2
 func _ready() -> void:
 	GlobalCardManager.playerHand = self
+	center = global_position
+	center2d = Vector2(center.x, center.z)
 
 var lastPos: Vector3
 var velocity: Vector3
@@ -100,14 +104,24 @@ func _detach() -> void:
 	
 	EventBus.isHandlingItem.emit(false)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
+	#TODO: Le mettre en physics process aussi
 	if not Global.canInteract: return
 	
 	#if event is InputEventMouseMotion:
 	if joint.node_b:
 		var pos: Vector3 = RayHelper.getMouseGroundPosition(hoverPosition.y) + hoverOffset
+		
 		pos.y = global_position.y
 		global_position = pos
+		
+		var pos2d := Vector2(global_position.x, global_position.z)
+		const limit: float = 150.0
+		if center2d.distance_to(pos2d) > limit:
+			var posLimit2d := center2d + center2d.direction_to(pos2d) * limit
+			global_position.x = posLimit2d.x
+			global_position.z = posLimit2d.y
+		
 		return
 	
 	var result: Dictionary = RayHelper.castMouseRay(0b11)

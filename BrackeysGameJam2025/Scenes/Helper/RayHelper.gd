@@ -29,7 +29,7 @@ func castMouseRay(mask: int) -> Dictionary:
 	var origin: Vector3 = get_viewport().get_camera_3d().project_ray_origin(mousePos)
 	var direction: Vector3 = get_viewport().get_camera_3d().project_ray_normal(mousePos)
 	
-	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, origin + direction * 600.0, mask)
+	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, origin + direction * 150.0, mask)
 	
 	var result: Dictionary = space_state.intersect_ray(query)
 	

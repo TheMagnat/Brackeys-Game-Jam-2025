@@ -147,9 +147,10 @@ func onCardAddedInPlayArea(card: CardInteractable) -> void:
 			turnState = 1
 			getNewThinkingTime(0.2)
 	
-	# Now the owner is the table
-	card.model.cardOwner = 3
 	EventBus.cardPlayed.emit(card, card.model.cardOwner)
+	
+	# Now the owner is the table (Maybe useless since the GameManager does it too)
+	card.model.cardOwner = 3
 
 func onDeckTopCardAdded(card: CardInteractable, who: int) -> void:
 	if Global.gameFinished: return
@@ -263,6 +264,9 @@ enum CHEAT_TYPE {
 
 func cheatResolver(cheatType: CHEAT_TYPE, cardModel: CardModel) -> void:
 	if Global.gameFinished: return
+	
+	EventBus.startSimpleDialog.emit("Tu triche enculé. Tu peux modifier la phrase ici en fonction du type de triche.", true)
+
 	
 	# Special cheat case
 	match cheatType:

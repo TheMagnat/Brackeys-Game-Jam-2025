@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://de0eaa8ej7skl"]
+
+[ext_resource type="ArrayMesh" uid="uid://kn3arhgkljf3" path="res://Resources/Meshes/Boat/mainBoat.res" id="1_e51uh"]
+[ext_resource type="ArrayMesh" uid="uid://cg0wdi20akasx" path="res://Resources/Meshes/Boat/mainFences.res" id="2_0veyl"]
+[ext_resource type="ArrayMesh" uid="uid://b0tdgf6l3y5bc" path="res://Resources/Meshes/Boat/topFences.res" id="3_0veyl"]
+[ext_resource type="ArrayMesh" uid="uid://c14kx7gne6rj7" path="res://Resources/Meshes/Boat/cylinder.res" id="4_6yqv0"]
+[ext_resource type="Shader" uid="uid://qaytmjyuum1j" path="res://Resources/Meshes/Boat/WindVoile.gdshader" id="5_6aqwr"]
+[ext_resource type="ArrayMesh" uid="uid://w75e1jng6hc1" path="res://Resources/Meshes/Boat/voile.res" id="5_dhbx5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0veyl"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.4, 0.26826668, 0.19200002, 1)
+metallic = 0.35
+roughness = 0.75
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qqdde"]
+frequency = 0.0116
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d48g8"]
+noise = SubResource("FastNoiseLite_qqdde")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0475y"]
+render_priority = 0
+shader = ExtResource("5_6aqwr")
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_d48g8")
+
+[node name="Boat" type="Node3D"]
+
+[node name="MeshHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0991659, 0)
+
+[node name="Main" type="MeshInstance3D" parent="MeshHolder"]
+material_override = SubResource("StandardMaterial3D_0veyl")
+mesh = ExtResource("1_e51uh")
+skeleton = NodePath("../..")
+
+[node name="MainFences" type="MeshInstance3D" parent="MeshHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.8898, 28.289455, 69.273315)
+material_override = SubResource("StandardMaterial3D_0veyl")
+mesh = ExtResource("2_0veyl")
+
+[node name="TopFences" type="MeshInstance3D" parent="MeshHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.143456, 103.8686, -291.06314)
+material_override = SubResource("StandardMaterial3D_0veyl")
+mesh = ExtResource("3_0veyl")
+
+[node name="TopCylinder" type="MeshInstance3D" parent="MeshHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 172.85481, -258.54047)
+material_override = SubResource("StandardMaterial3D_0veyl")
+mesh = ExtResource("4_6yqv0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshHolder/TopCylinder"]
+transform = Transform3D(1, 0, 0, 0, 0.21245056, -0.9771718, 0, 0.9771718, 0.21245056, 0, 124.336395, -28.41034)
+material_override = SubResource("ShaderMaterial_0475y")
+mesh = ExtResource("5_dhbx5")

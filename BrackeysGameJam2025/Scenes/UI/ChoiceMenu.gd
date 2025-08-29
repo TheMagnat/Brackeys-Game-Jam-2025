@@ -1,11 +1,12 @@
 extends CanvasLayer
 
-signal chosen(int)
 
 func _ready() -> void:
+	EventBus.pirateAsk.connect(choice)
+	
 	$HBoxContainer.hide()
 	$HBoxContainer.modulate.a = 0.0
-	chosen.connect(finish_choice)
+	EventBus.choosenChoice.connect(finish_choice)
 	
 	#choice(["kill", "don't kill", "wtf m8"])
 
@@ -31,7 +32,7 @@ func choice(choices: Array[String]) -> void:
 	for i in choices.size():
 		var btn := $Resources/Button.duplicate()
 		btn.text = choices[i]
-		btn.pressed.connect(chosen.emit.bind(i))
+		btn.pressed.connect(EventBus.choosenChoice.emit.bind(i))
 		$HBoxContainer.add_child(btn)
 	
 	$HBoxContainer.show()

@@ -26,10 +26,132 @@ func _ready() -> void:
 	EventBus.gameFinished.connect(onGameFinished)
 	EventBus.cheatFinish.connect(onCheatFinish)
 	
+	if Debug.DEBUG:
+		startGame()
+		return
+	
+	call_deferred("startIntroduction1")
+
+func startIntroduction1() -> void:
+	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[0], false)
+	await EventBus.simpleDialogFinished
+	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[1], false)
+	await EventBus.simpleDialogFinished
+	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[2], false)
+	await EventBus.simpleDialogFinished
+	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[3], false)
+	await EventBus.simpleDialogFinished
+	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[4], false)
+	await EventBus.simpleDialogFinished
+	
+	EventBus.startQuestionDialog.emit(PirateDialogs.introductionText[5], false, ["Yes", "No"] as Array[String], introduction1Answer)
+
+func introduction1Answer(answer: int) -> void:
+	if answer == 1:
+		startTutorial()
+		return
+	
+	startIntroduction2()
+	
+func startIntroduction2() -> void:
+	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[0], false)
+	await EventBus.simpleDialogFinished
+	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[1], false)
+	await EventBus.simpleDialogFinished
+	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[2], false)
+	await EventBus.simpleDialogFinished
+	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[3], false)
+	await EventBus.simpleDialogFinished
+	
+	EventBus.startQuestionDialog.emit(PirateDialogs.introduction2Text[4], false, PirateDialogs.introduction2Answers, introduction2Answer)
+
+var intro2State: int = -1
+func introduction2Answer(answer: int) -> void:
+	if intro2State == -1:
+		if answer == 2:
+			startIntroduction3()
+			return
+		
+		var answers: Array[String] = PirateDialogs.introduction2Answers.duplicate()
+		var subIndex: int
+		var angry: bool = false
+		if answer == 0:
+			intro2State = 0
+			answers.remove_at(0)
+			subIndex = 0
+		else:
+			intro2State = 1
+			answers.remove_at(1)
+			subIndex = 1
+			angry = true
+		
+		EventBus.startQuestionDialog.emit(PirateDialogs.subIntroduction2Text[subIndex], angry, answers, introduction2Answer)
+	
+	else:
+		if answer == 1:
+			startIntroduction3()
+			return
+		
+		var answers: Array[String] = [PirateDialogs.introduction2Answers[2]]
+		var subIndex: int
+		var angry: bool = false
+		if intro2State == 0:
+			angry = true
+			subIndex = 1
+		else:
+			subIndex = 0
+		
+		EventBus.startQuestionDialog.emit(PirateDialogs.subIntroduction2Text[subIndex], angry, answers, startIntroduction3)
+
+func startIntroduction3(_answer: int = 0) -> void:
+	EventBus.startSimpleDialog.emit(PirateDialogs.introduction3Text[0], false)
+	await EventBus.simpleDialogFinished
+	
+	EventBus.startSimpleDialog.emit(PirateDialogs.introduction3Text[1], false)
+	await EventBus.simpleDialogFinished
+	
+	startGame()
+
+func startTutorial(angry: bool = false) -> void:
+	EventBus.startSimpleDialog.emit(PirateDialogs.tutorialText[0], angry)
+	await EventBus.simpleDialogFinished
+	EventBus.startSimpleDialog.emit(PirateDialogs.tutorialText[1], angry)
+	await EventBus.simpleDialogFinished
+	EventBus.startSimpleDialog.emit(PirateDialogs.tutorialText[2], angry)
+	await EventBus.simpleDialogFinished
+	EventBus.startSimpleDialog.emit(PirateDialogs.tutorialText[3], angry)
+	await EventBus.simpleDialogFinished
+	
+	if angry:
+		tutorialPart2(0)
+		return
+	
+	EventBus.startQuestionDialog.emit(PirateDialogs.tutorialText[4], angry, ["Yes", "No"] as Array[String], tutorialPart2)
+
+var repeatCount: int = 0
+func tutorialPart2(answer: int) -> void:
+	if answer == 1 and repeatCount < 2:
+		var angry: bool
+		if repeatCount == 0:
+			angry = false
+			EventBus.startSimpleDialog.emit("Ok. I will repeat for ya", false)
+		else:
+			angry = true
+			EventBus.startSimpleDialog.emit("ARE YA STUPID ? Ok, I will repeat one LAST time.", true)
+		
+		repeatCount += 1
+		await EventBus.simpleDialogFinished
+		startTutorial(angry)
+		return
+	
+	startIntroduction2()
+
+func startGame() -> void:
 	call_deferred("drawCards", Global.MAX_CARDS_IN_HAND)
 
 func onGameFinished(whoWin: int) -> void:
 	Global.gameFinished = true
+	Global.canInteract = false
 	
 	if whoWin == 0:
 		pirateModel.sadLook()
@@ -47,6 +169,9 @@ func onGameFinished(whoWin: int) -> void:
 	
 	EventBus.resetCurrentGame.emit()
 	
+	EventBus.startQuestionDialog.emit("La partie est terminé, %d - %d pour toi. Prêt pour continuer ?" % [playerScore, pirateScore], false, ["Oui"] as Array[String], restartGame)
+
+func restartGame(_answer: int = 0) -> void:
 	currentGameTotalScore = 0
 	deck.askShuffle(true)
 	
@@ -112,23 +237,33 @@ func drawCards(nb: int) -> void:
 	Global.canInteract = true
 
 func onCardPlayed(card: CardInteractable, who: int) -> void:
-	playedCardBuffer.push_back(card.model)
-	
 	var cardValue: int = card.model.cardScore
 	currentGameTotalScore = maxi(0, currentGameTotalScore + cardValue)
 	
 	#EventBus.gameFinished.emit(1 - who)
 	if currentGameTotalScore >= Global.TOTAL_TO_NOT_REACH:
 		EventBus.gameFinished.emit(1 - who)
+		return
+	
+	if who == 1:
+		EventBus.startRemnantDialog.emit("We're at %d." % currentGameTotalScore, false)
 	else:
-		if deck.cards.is_empty():
-			var cardToExcludeFromReshuffle: Array[CardModel]
-			for i: int in range(playedCardBuffer.size() - 1, -1, -1):
-				if playedCardBuffer[i].cardOwner == 3 and not playedCardBuffer[i].inHand:
-					cardToExcludeFromReshuffle.push_back(playedCardBuffer[i])
-					break
-			
-			deck.askShuffle(false, cardToExcludeFromReshuffle)
+		EventBus.startSimpleDialog.emit("Pas mal comme choix.", false)
+	
+	card.model.cardOwner = 3
+	playedCardBuffer.push_back(card.model)
+	
+	if deck.cards.is_empty():
+		var cardToExcludeFromReshuffle: Array[CardModel]
+		#TODO: Maybe useless since push_back is just above ??
+		for i: int in range(playedCardBuffer.size() - 1, -1, -1):
+			if playedCardBuffer[i].cardOwner == 3 and not playedCardBuffer[i].inHand:
+				cardToExcludeFromReshuffle.push_back(playedCardBuffer[i])
+				break
+		
+		EventBus.startSimpleDialog.emit("Eh bah, on a déjà plus de cartes, je dois admetre que tu n'est pas si mauvais.", false)
+		
+		deck.askShuffle(false, cardToExcludeFromReshuffle)
 
 func onCardSelected(index: int) -> void:
 	var result: Dictionary = RayHelper.castHandCardRay()

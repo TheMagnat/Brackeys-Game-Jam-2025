@@ -10,7 +10,3 @@ func _ready() -> void:
 	else:
 		$intro.finished.connect(SeaSound.outside)
 
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("SECONDARY_ACTION"):
-		EventBus.pirateTalk.emit("test comment ça va les loulous", false)

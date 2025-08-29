@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=75 format=3 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
@@ -29,8 +29,9 @@
 [ext_resource type="PackedScene" path="res://Scenes/UI/ChoiceMenu.tscn" id="25_6e0n7"]
 [ext_resource type="Script" uid="uid://cqun2xsfmafoe" path="res://addons/shaker/data/Vector3/ShakerTypeSineWave3D.gd" id="25_jtovl"]
 [ext_resource type="Script" uid="uid://brw14p6k8jsht" path="res://addons/shaker/data/Vector3/ShakerPreset3D.gd" id="26_r5ebq"]
-[ext_resource type="PackedScene" uid="uid://bvi0lrc0ddayd" path="res://Resources/Meshes/boat.glb" id="26_y4a6v"]
 [ext_resource type="PackedScene" uid="uid://dba1mbaih7hvo" path="res://Resources/Assets/Kenny/GLB format/ship-pirate-large.glb" id="27_3dcc7"]
+[ext_resource type="PackedScene" uid="uid://de0eaa8ej7skl" path="res://Resources/Meshes/Boat/Boat.tscn" id="28_y4a6v"]
+[ext_resource type="Script" uid="uid://j5wlt146ylot" path="res://Scenes/Demo/DialogManager.gd" id="32_nmdm0"]
 
 [sub_resource type="Sky" id="Sky_rk0yb"]
 sky_material = ExtResource("2_y087b")
@@ -183,23 +184,6 @@ size = Vector3(500, 10, 500)
 [sub_resource type="BoxShape3D" id="BoxShape3D_aanud"]
 size = Vector3(400, 20, 400)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7j7j0"]
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(0.39635667, 0.251283, 0.1949147, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_aanud"]
-size = Vector3(400, 20, 400)
-
-[sub_resource type="BoxMesh" id="BoxMesh_f46tu"]
-size = Vector3(10, 20, 400)
-
-[sub_resource type="BoxMesh" id="BoxMesh_m5r7i"]
-size = Vector3(180, 140, 50)
-
-[sub_resource type="BoxMesh" id="BoxMesh_rxjow"]
-size = Vector3(300, 300, 20)
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_f46tu"]
 top_radius = 10.0
 bottom_radius = 10.0
@@ -302,7 +286,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.122993, 42, 3.0529022)
 
 [node name="PlayerHandManager" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95669633, 2.5913124, 0.4887122)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95669633, 42.08834, 58.04981)
 script = ExtResource("6_aanud")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerHandManager"]
@@ -444,6 +428,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0
 shape = SubResource("BoxShape3D_e327d")
 
 [node name="DEBUGUI" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -541,57 +526,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ground"]
 shape = SubResource("BoxShape3D_aanud")
 
-[node name="Boat" type="Node3D" parent="Environment"]
-visible = false
+[node name="Boat2" parent="Environment" instance=ExtResource("28_y4a6v")]
 
-[node name="MeshInstance3D9" type="MeshInstance3D" parent="Environment/Boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.5, 0)
-material_override = SubResource("StandardMaterial3D_7j7j0")
-mesh = SubResource("BoxMesh_aanud")
-skeleton = NodePath("../../..")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.351, 10, 0)
-material_override = SubResource("StandardMaterial3D_7j7j0")
-mesh = SubResource("BoxMesh_f46tu")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment/Boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -155.351, 10, 0)
-material_override = SubResource("StandardMaterial3D_7j7j0")
-mesh = SubResource("BoxMesh_f46tu")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment/Boat"]
-transform = Transform3D(0.9773257, 0.052743386, -0.20506802, -0.12645887, 0.9221807, -0.36550087, 0.16983205, 0.38314602, 0.90794075, -119.43263, 73.24126, -353.91318)
-material_override = SubResource("StandardMaterial3D_7j7j0")
-mesh = SubResource("BoxMesh_f46tu")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment/Boat"]
-transform = Transform3D(0.9773956, -0.05292064, 0.20468909, 0.12635879, 0.92244154, -0.36487678, -0.16950421, 0.38249317, 0.9082771, 119.433, 73.241, -353.913)
-material_override = SubResource("StandardMaterial3D_7j7j0")
-mesh = SubResource("BoxMesh_f46tu")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment/Boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70, -200)
-material_override = SubResource("StandardMaterial3D_7j7j0")
-mesh = SubResource("BoxMesh_m5r7i")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Environment/Boat"]
-transform = Transform3D(1, 0, 0, 0, 0.40372086, 0.9148822, 0, -0.9148822, 0.40372086, 0, 51.42309, -327.4479)
-material_override = SubResource("StandardMaterial3D_7j7j0")
-mesh = SubResource("BoxMesh_rxjow")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Environment/Boat"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Environment/Boat2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.506773, 54.744904, 153.50757)
 mesh = SubResource("CylinderMesh_f46tu")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="Environment/Boat"]
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Environment/Boat2"]
 transform = Transform3D(0.92520964, -0.3794561, 0, 0.3518256, 0.8578394, 0.37460652, -0.14214677, -0.34658962, 0.9271837, -31.837, 305.561, 187.797)
 material_override = SubResource("ShaderMaterial_rxjow")
 mesh = SubResource("QuadMesh_m5r7i")
@@ -607,12 +549,12 @@ intensity = 5.0
 shakerPreset = SubResource("Resource_6e0n7")
 metadata/_custom_type_script = "uid://dme7n7ov1ou1l"
 
-[node name="boat" parent="Environment" instance=ExtResource("26_y4a6v")]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, -1.002, 0)
-
 [node name="ship-pirate-large2" parent="." instance=ExtResource("27_3dcc7")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -2.6868896, -280.51404, -272.82632)
 visible = false
+
+[node name="DialogManager" type="Node3D" parent="."]
+script = ExtResource("32_nmdm0")
 
 [connection signal="body_entered" from="OffTableDetector" to="GameManager" method="_on_off_table_detector_body_entered"]
 [connection signal="body_entered" from="OffTableDetector" to="Pirate/PirateAI" method="_on_off_table_detector_body_entered"]

@@ -1,10 +1,11 @@
 extends Node3D
 
-signal finished
 
 const ANIM_SPEED := 0.25
 const SOUND_SPEED_MIN := 0.125
 const SOUND_SPEED_MAX := 0.25
+
+@onready var label: Label3D = $Text
 
 var talking := false
 var angry := false
@@ -26,7 +27,9 @@ func _talk_voice() -> void:
 		return
 	
 	$AudioStreamPlayer3D.play()
-	get_tree().create_timer(randf_range(SOUND_SPEED_MIN, SOUND_SPEED_MAX) * (0.75 if angry else 1.0)).timeout.connect(_talk_voice)
+	var sceneTree: SceneTree = get_tree()
+	if sceneTree:
+		sceneTree.create_timer(randf_range(SOUND_SPEED_MIN, SOUND_SPEED_MAX) * (0.75 if angry else 1.0)).timeout.connect(_talk_voice)
 
 # nothing
 func _talk_visuals() -> void:
@@ -54,17 +57,21 @@ func _write(t: String) -> void:
 	
 	writing = true
 	if skip or t.length() <= 1:
-		$Text.text += t
+		label.text += t
 		writing = false
-		finished.emit()
+		EventBus.dialogFinished.emit()
 	else:
-		var split_by_line : PackedStringArray = $Text.text.split("\n")
+		var split_by_line : PackedStringArray = label.text.split("\n")
 		if t[0] == " " and (_process_text_length(split_by_line[split_by_line.size() - 1] + " " + t.split(" ")[1])) > MAX_TEXT_SIZE:
 			t[0] = "\n"
 		
-		$Text.text += t[0]
-		timer = get_tree().create_timer(TEXT_SPEED)
-		timer.timeout.connect(_write.bind(t.right(-1)))
+		label.text += t[0]
+		
+		# To prevent crash when closing game
+		var sceneTree: SceneTree = get_tree()
+		if sceneTree:
+			timer = sceneTree.create_timer(TEXT_SPEED)
+			timer.timeout.connect(_write.bind(t.right(-1)))
 	
 	skip = false
 
@@ -75,22 +82,26 @@ func write(t: String, a := false) -> void:
 	_write(t)
 	
 	_start_talking(a)
-	await finished
+
+func onDialogFinished() -> void:
 	_stop_talking()
 
-func clear():
-	$Text.text = ""
+func clear() -> void:
+	label.text = ""
 	if is_instance_valid(timer):
 		for c in timer.timeout.get_connections():
 			timer.timeout.disconnect(c.callable)
 
 func _ready() -> void:
+	EventBus.dialogFinished.connect(onDialogFinished)
+	
 	EventBus.pirateTalk.connect(write)
+	EventBus.clearDialog.connect(clear)
 	
 	clear()
 	
 	#example
-	await get_tree().create_timer(1.0).timeout
-	write("yo do you want to play or die mate I wanna try a bit like yo wadup what's up dilup didup yo bodup", true)
-	await get_tree().create_timer(6.0).timeout
-	clear()
+	#await get_tree().create_timer(1.0).timeout
+	#write("yo do you want to play or die mate I wanna try a bit like yo wadup what's up dilup didup yo bodup", true)
+	#await get_tree().create_timer(6.0).timeout
+	#clear()

@@ -21,4 +21,14 @@ signal cheatFinish
 signal resetCurrentGame
 
 ## Text
-signal pirateTalk(t: String, angry: bool)
+signal clearDialog
+signal pirateTalk(text: String, angry: bool)
+signal pirateAsk(choices: Array[String])
+signal dialogFinished
+signal choosenChoice(choice: int)
+
+## Complete dialog request
+signal startSimpleDialog(text: String, angry: bool)
+signal startRemnantDialog(text: String, angry: bool)
+signal startQuestionDialog(text: String, angry: bool, choices: Array[String], callback: Callable)
+signal simpleDialogFinished
