@@ -26,7 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://dghclx6pomr1h" path="res://Scenes/Parallax/Waves/WavesParallax.tscn" id="23_f46tu"]
 [ext_resource type="Script" uid="uid://bab5y7yuyg22q" path="res://addons/shaker/data/Vector3/BaseShakerType3D.gd" id="24_3dcc7"]
 [ext_resource type="Shader" uid="uid://ke0ojpsjcaaw" path="res://Scenes/Demo/windTest.gdshader" id="24_m5r7i"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/ChoiceMenu.tscn" id="25_6e0n7"]
+[ext_resource type="PackedScene" uid="uid://147q4fwq5jsn" path="res://Scenes/UI/ChoiceMenu.tscn" id="25_6e0n7"]
 [ext_resource type="Script" uid="uid://cqun2xsfmafoe" path="res://addons/shaker/data/Vector3/ShakerTypeSineWave3D.gd" id="25_jtovl"]
 [ext_resource type="Script" uid="uid://brw14p6k8jsht" path="res://addons/shaker/data/Vector3/ShakerPreset3D.gd" id="26_r5ebq"]
 [ext_resource type="PackedScene" uid="uid://dba1mbaih7hvo" path="res://Resources/Assets/Kenny/GLB format/ship-pirate-large.glb" id="27_3dcc7"]

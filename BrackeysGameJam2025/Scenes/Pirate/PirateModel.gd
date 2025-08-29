@@ -98,8 +98,8 @@ func talk(duration: float) -> void:
 	
 	var factor: float = duration / 0.25
 	
-	var inDuration: float = duration * (1.0 / 3.0)
-	var outDuration: float = duration * (2.0 / 3.0)
+	var inDuration: float = duration * (1.0 / 2.0)
+	var outDuration: float = duration
 	
 	talkTween.tween_property(moustacheGaucheHolder, "position:y", talkAfterPosition.x * factor, inDuration)
 	talkTween.parallel().tween_property(moustacheDroiteHolder, "position:y", talkAfterPosition.y * factor, inDuration)

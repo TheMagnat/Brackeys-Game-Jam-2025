@@ -9,4 +9,3 @@ func _ready() -> void:
 		SeaSound.outside()
 	else:
 		$intro.finished.connect(SeaSound.outside)
-
