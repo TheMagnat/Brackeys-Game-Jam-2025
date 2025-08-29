@@ -58,7 +58,7 @@ func onChoosenChoice(choice: int) -> void:
 	
 	EventBus.clearDialog.emit()
 	
-	callback.call(choice)
+	if callback.is_valid(): callback.call(choice)
 
 func _physics_process(delta: float) -> void:
 	if shouldHide:

@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3 uid="uid://ba41y3mm1l3qi"]
+
+[ext_resource type="ArrayMesh" uid="uid://db8k46w6xujjn" path="res://Resources/Meshes/FromRIB/TableEtTabouret/table.res" id="1_82vhb"]
+[ext_resource type="ArrayMesh" uid="uid://bgvcye0dgx4ev" path="res://Resources/Meshes/FromRIB/TableEtTabouret/tabouret.res" id="2_xa84e"]
+[ext_resource type="ArrayMesh" uid="uid://ccpbyhusmqg7c" path="res://Resources/Meshes/FromRIB/Forest/lanterne.res" id="3_jjxyd"]
+[ext_resource type="ArrayMesh" uid="uid://b10dfh076c2em" path="res://Resources/Meshes/FromRIB/Couteau/couteau.res" id="4_mhbp0"]
+[ext_resource type="ArrayMesh" uid="uid://br8mvamk01ah3" path="res://Resources/Meshes/FromRIB/Chevet/chevet.res" id="5_o6kt1"]
+[ext_resource type="ArrayMesh" uid="uid://by5mx2k30wobw" path="res://Resources/Meshes/FromRIB/diams.res" id="6_2lswb"]
+[ext_resource type="ArrayMesh" uid="uid://72xhpos1drbq" path="res://Resources/Meshes/FromRIB/rubis.res" id="7_2lswb"]
+[ext_resource type="ArrayMesh" uid="uid://du8jrf4pahx40" path="res://Resources/Meshes/FromRIB/cadreBig.res" id="8_j4ga1"]
+[ext_resource type="ArrayMesh" uid="uid://du8jrf4pahx40" path="res://Resources/Meshes/FromRIB/cadreSmall.res" id="9_2rbup"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Table" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -238.02252, 0, 0)
+mesh = ExtResource("1_82vhb")
+
+[node name="Tabouret" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230.76741, 0, 0)
+mesh = ExtResource("2_xa84e")
+
+[node name="Lanterne" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -170.98723, 0, 0)
+mesh = ExtResource("3_jjxyd")
+
+[node name="Couteau" type="MeshInstance3D" parent="."]
+transform = Transform3D(72.78, 0, 0, 0, 72.78, 0, 0, 0, 72.78, -159.50421, 54.07431, 11.156517)
+mesh = ExtResource("4_mhbp0")
+
+[node name="Chevet" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -190.5278, 0, 123.75346)
+mesh = ExtResource("5_o6kt1")
+
+[node name="Diams" type="MeshInstance3D" parent="."]
+transform = Transform3D(9.425, 0, 0, 0, 9.425, 0, 0, 0, 9.425, -236.28377, 56.823586, 71.89356)
+mesh = ExtResource("6_2lswb")
+
+[node name="Rubis" type="MeshInstance3D" parent="."]
+transform = Transform3D(9.425, 0, 0, 0, 9.425, 0, 0, 0, 9.425, -233.4746, 57.32744, 2.529564)
+mesh = ExtResource("7_2lswb")
+
+[node name="CadreSmall" type="MeshInstance3D" parent="."]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -233.68068, 69.70241, 99.128624)
+mesh = ExtResource("8_j4ga1")
+
+[node name="CadreBig" type="MeshInstance3D" parent="."]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -233.71677, 69.75599, 99.16895)
+mesh = ExtResource("9_2rbup")

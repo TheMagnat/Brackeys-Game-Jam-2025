@@ -9,6 +9,7 @@ var isPicked: bool = false
 var outlineShader: ShaderMaterial
 
 func _ready() -> void:
+	collision_layer = 0b1000001
 	if meshInstance:
 		initialize()
 

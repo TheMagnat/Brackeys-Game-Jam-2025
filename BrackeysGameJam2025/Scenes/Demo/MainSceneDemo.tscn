@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=77 format=3 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
@@ -33,6 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://de0eaa8ej7skl" path="res://Resources/Meshes/Boat/Boat.tscn" id="28_y4a6v"]
 [ext_resource type="Script" uid="uid://j5wlt146ylot" path="res://Scenes/Demo/DialogManager.gd" id="32_nmdm0"]
 [ext_resource type="PackedScene" uid="uid://bl4c1a1vauw8u" path="res://Scenes/CookieArea/CookieArea.tscn" id="33_y4a6v"]
+[ext_resource type="PackedScene" uid="uid://bkt3cddomhukk" path="res://Resources/Assets/Items/Diams.tscn" id="34_vphqs"]
 
 [sub_resource type="Sky" id="Sky_rk0yb"]
 sky_material = ExtResource("2_y087b")
@@ -559,6 +560,9 @@ script = ExtResource("32_nmdm0")
 [node name="CookieArea" parent="." instance=ExtResource("33_y4a6v")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -70)
+
+[node name="Diams" parent="." instance=ExtResource("34_vphqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.700306, 45.171368, 21.674572)
 
 [connection signal="body_entered" from="OffTableDetector" to="GameManager" method="_on_off_table_detector_body_entered"]
 [connection signal="body_entered" from="OffTableDetector" to="Pirate/PirateAI" method="_on_off_table_detector_body_entered"]
