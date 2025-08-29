@@ -1,0 +1,65 @@
+[gd_scene load_steps=15 format=3 uid="uid://ns3iku3rxhs4"]
+
+[ext_resource type="Texture2D" uid="uid://bkwyv2e4nypg6" path="res://Resources/Assets/Birds/far_bird1.png" id="1_8guu7"]
+[ext_resource type="Texture2D" uid="uid://cvv61bahb2ptj" path="res://Resources/Assets/Birds/far_bird2.png" id="2_ka82a"]
+[ext_resource type="Texture2D" uid="uid://blk1a5lu8iedt" path="res://Resources/Assets/Birds/far_bird3.png" id="3_hsr4e"]
+[ext_resource type="Texture2D" uid="uid://s2c04pq8e4sc" path="res://Resources/Assets/Birds/far_bird4.png" id="4_rud7x"]
+[ext_resource type="Texture2D" uid="uid://6w2e5blissoc" path="res://Resources/Assets/Birds/far_bird5.png" id="5_b0lvg"]
+[ext_resource type="Texture2D" uid="uid://du3wwikw3xmwh" path="res://Resources/Assets/Birds/far_bird6.png" id="6_7grdm"]
+[ext_resource type="Texture2D" uid="uid://jyapw4g23vue" path="res://Resources/Assets/Birds/far_bird7.png" id="7_fgpph"]
+[ext_resource type="Texture2D" uid="uid://blyghvpqfcvif" path="res://Resources/Assets/Birds/far_bird8.png" id="8_5ol8u"]
+[ext_resource type="Texture2D" uid="uid://dcpsoow1b8mam" path="res://Resources/Assets/Birds/far_bird9.png" id="9_1436k"]
+[ext_resource type="Texture2D" uid="uid://b5rf0ok28k2v2" path="res://Resources/Assets/Birds/far_bird13.png" id="10_8guu7"]
+[ext_resource type="Texture2D" uid="uid://cyhvgq7g14x7i" path="res://Resources/Assets/Birds/far_bird12.png" id="10_jgjwn"]
+[ext_resource type="Texture2D" uid="uid://u5h6141gwujx" path="res://Resources/Assets/Birds/far_bird11.png" id="12_sppll"]
+[ext_resource type="Script" uid="uid://dupnhdv07jh5j" path="res://Scenes/Parallax/bird.gd" id="13_a1mu1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d4bcx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ka82a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hsr4e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rud7x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_b0lvg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_7grdm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fgpph")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5ol8u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_1436k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_jgjwn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_8guu7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_sppll")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_8guu7")
+}],
+"loop": false,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="Bird" type="AnimatedSprite3D"]
+sprite_frames = SubResource("SpriteFrames_d4bcx")
+frame = 11
+frame_progress = 0.741376
+script = ExtResource("13_a1mu1")
