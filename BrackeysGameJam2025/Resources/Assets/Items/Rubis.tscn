@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1n5mlm7dlqxq"]
+
+[ext_resource type="Script" uid="uid://dlsurt871l1yt" path="res://Scenes/Interactable/Interactable.gd" id="1_crqns"]
+[ext_resource type="ArrayMesh" uid="uid://72xhpos1drbq" path="res://Resources/Meshes/FromRIB/rubis.res" id="2_4utbr"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_crqns"]
+points = PackedVector3Array(0.13395035, 0.5538778, 0.39100105, -0.33056092, 0.5538778, 0.2400356, 0.005553037, 0.0012670755, -0.0042025447, 0.42105997, 0.5538778, -0.0042025447, 0.14616466, 2.0013971, 0.3825217, -0.3114301, 2.0062294, 0.32383138, -0.33056092, 0.5538778, -0.24844071, 0.13395035, 0.5538778, -0.39940616, 0.089066476, 1.9846131, -0.45826274, 0.3705104, 1.9576564, -0.043855935, -0.044407845, 2.5992746, 0.02156797, -0.2836904, 1.9746951, -0.20088992)
+
+[node name="Rubis" type="RigidBody3D"]
+mass = 20.0
+script = ExtResource("1_crqns")
+metadata/_custom_type_script = "uid://dlsurt871l1yt"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, 0, 0)
+mesh = ExtResource("2_4utbr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_crqns")

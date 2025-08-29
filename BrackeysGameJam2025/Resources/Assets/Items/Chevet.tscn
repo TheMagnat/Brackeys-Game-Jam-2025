@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqiri0xdm0xcx"]
+
+[ext_resource type="ArrayMesh" uid="uid://br8mvamk01ah3" path="res://Resources/Meshes/FromRIB/Chevet/chevet.res" id="1_3mm8n"]
+
+[node name="Chevet" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(95, 0, 0, 0, 95, 0, 0, 0, 95, 0, 0, 0)
+mesh = ExtResource("1_3mm8n")

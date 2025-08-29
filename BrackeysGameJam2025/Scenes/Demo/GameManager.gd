@@ -10,6 +10,7 @@ class_name GameManager extends Node3D
 
 @onready var pirateModel: PirateModel = %PirateModel
 
+@onready var animationPlayer: AnimationPlayer = %AnimationPlayer
 
 var currentGameTotalScore: int = 0
 
@@ -27,13 +28,7 @@ func _ready() -> void:
 	EventBus.cardPlayed.connect(onCardPlayed)
 	EventBus.gameFinished.connect(onGameFinished)
 	EventBus.cheatFinish.connect(onCheatFinish)
-	
-	if Debug.DEBUG:
-		startGame()
-		return
-	
-	call_deferred("startIntroduction1")
-	
+
 @onready var cookieArea: Node3D = %CookieArea
 
 var showCookieAreaTween: Tween
@@ -228,23 +223,32 @@ func restartGame(_answer: int = 0) -> void:
 func onCheatFinish() -> void:
 	Global.gameFinished = true
 	Global.gameTrulyFinished = true
-	tempoGameFinished()
+	
+	EventBus.startQuestionDialog.emit("Tu vas passer un sale quart d'heure enfoiré !", true, ["Retry"] as Array[String], onRetry)
+	explodeCards()
 
 func onPlayerWin() -> void:
 	Global.gameFinished = true
 	Global.gameTrulyFinished = true
-	tempoGameFinished()
+	#explodeCards()
+	playerWinEvent()
  
 func onPirateWin() -> void:
 	Global.gameFinished = true
 	Global.gameTrulyFinished = true
-	tempoGameFinished()
+	EventBus.startQuestionDialog.emit("Hahahah j'ai gagné, bon c'était marrant, à la planche maintenant !", true, ["Retry"] as Array[String], onRetry)
 
-func tempoGameFinished() -> void:
+func onRetry(_choice: int) -> void:
+	animationPlayer.play_backwards("OpenScene")
+	await animationPlayer.animation_finished
+	
+	get_tree().reload_current_scene()
+
+func explodeCards() -> void:
 	$"../Pirate/ShakerEmitter3D".emit = true
 	
 	for cardModel: CardModel in deck.cardsModels:
-		var cardInteractable: CardInteractable = GlobalCardManager.getCardInteractableFromModel(cardModel)
+		var cardInteractable: CardInteractable = Global.cardManager.getCardInteractableFromModel(cardModel)
 		cardInteractable.activate()
 		cardInteractable.gravity_scale = 0.2
 		cardInteractable.collision_layer = CardInteractable.PHYSICS_LAYER + 0b10
@@ -261,6 +265,34 @@ func tempoGameFinished() -> void:
 	for cardModel: CardModel in deck.cardsModels:
 		cardModel.cardInteractable.gravity_scale = 1.0
 		cardModel.cardInteractable.collision_layer = CardInteractable.PHYSICS_LAYER + 0b01
+
+func playerWinEvent() -> void:
+	EventBus.startSimpleDialog.emit("J'ai perdu :'(", false)
+	await EventBus.simpleDialogFinished
+	
+	EventBus.startSimpleDialog.emit("Rigolo", false)
+	await EventBus.simpleDialogFinished
+	
+	EventBus.startSimpleDialog.emit("Lol", false)
+	await EventBus.simpleDialogFinished
+	
+	EventBus.startQuestionDialog.emit("Tu veux me rejoindre ?", true, [YES.pick_random(), NO.pick_random()] as Array[String], playerWinEventAnswer)
+
+
+const OUTRO = preload("uid://cl1oreqg680v2")
+func playerWinEventAnswer(answer: int) -> void:
+	if answer == 0:
+		# If yes (good ending)
+		EventBus.startSimpleDialog.emit("Ok tu viens dans mon crew xd", false)
+		Global.goodEnding = true
+		
+	else:
+		# If no (bad ending)
+		EventBus.startSimpleDialog.emit("Je te tue xd", true)
+		Global.goodEnding = false
+	
+	await EventBus.simpleDialogFinished
+	get_tree().change_scene_to_packed(OUTRO)
 
 func drawCards(nb: int) -> void:
 	Global.canInteract = false
@@ -321,7 +353,7 @@ func onCardSelected(index: int) -> void:
 	else:
 		handPosition = cardModelPosition
 	
-	var newInteractable: CardInteractable = GlobalCardManager.convertCardHandToInteractableCard(card)
+	var newInteractable: CardInteractable = Global.cardManager.convertCardHandToInteractableCard(card)
 	
 	playerHandManager.hold(newInteractable, handPosition)
 
@@ -340,13 +372,13 @@ func onCardSelected(index: int) -> void:
 
 func playPirateCard(index: int) -> void:
 	var card: Card = pirateCardHand.popCard(index)
-	var newCardInteractable: CardInteractable = GlobalCardManager.convertCardHandToInteractableCard(card)
+	var newCardInteractable: CardInteractable = Global.cardManager.convertCardHandToInteractableCard(card)
 	
 	sendCardToCenter(newCardInteractable)
 
 func throwPirateCard(index: int) -> void:
 	var card: Card = pirateCardHand.popCard(index)
-	var newCardInteractable: CardInteractable = GlobalCardManager.convertCardHandToInteractableCard(card)
+	var newCardInteractable: CardInteractable = Global.cardManager.convertCardHandToInteractableCard(card)
 	
 	sendCardToCenter(newCardInteractable)
 

@@ -24,7 +24,7 @@ var requestDetach: bool = false
 var center: Vector3
 var center2d: Vector2
 func _ready() -> void:
-	GlobalCardManager.playerHand = self
+	Global.cardManager.playerHand = self
 	center = global_position
 	center2d = Vector2(center.x, center.z)
 
@@ -48,7 +48,7 @@ func _physics_process(delta: float) -> void:
 		if hoveredObject is CardInteractable:
 			var viewport: Viewport = get_viewport()
 			var mouseRatio: Vector2 = viewport.get_mouse_position() / viewport.get_visible_rect().size
-			if mouseRatio.y > 0.75:
+			if mouseRatio.y > 0.75 and mouseRatio.x > 0.25 and mouseRatio.x < 0.75:
 				Global.isTryingToHoldCard = true
 				Global.mouseRelativeXPos = mouseRatio.x
 	
@@ -85,8 +85,13 @@ func detach() -> void:
 	else:
 		if hoveredObject is CardInteractable:
 			var card: CardInteractable = hoveredObject
-			#if card.cardIsHidden:
-			var result: Dictionary = RayHelper.castAreaRay(card.global_position, card.global_position + Vector3.DOWN * 50.0, 65536, true)
+			var layer: int
+			if card.cardIsHidden:
+				layer = 65536
+			else:
+				layer = 131072
+			
+			var result: Dictionary = RayHelper.castAreaRay(card.global_position, card.global_position + Vector3.DOWN * 50.0, layer, true)
 			if result and (result.collider as Node3D).is_in_group("DeckDropArea"):
 				_detach()
 				deck.helpDropOnTop(card, 0)

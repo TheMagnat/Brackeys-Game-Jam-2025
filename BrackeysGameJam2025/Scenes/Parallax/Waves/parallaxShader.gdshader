@@ -1,5 +1,6 @@
 shader_type spatial;
 render_mode diffuse_toon, specular_toon, unshaded;
+stencil_mode write, compare_always, 2;
 
 uniform sampler2D parallaxTexture: repeat_enable, filter_linear;
 uniform float repeatScale;
@@ -15,11 +16,11 @@ void vertex() {
 	float t = (offset + timeScale * 8.0) + TIME * 0.25;
 	float d = sign(repeatScale);
 	float f = min(0.0, d);
-	
+
 	float xUv = f - UV.x * d;
-	
+
 	float noiseValue = texture(noiseTexture, vec2(xUv * 0.25 + t * 0.1, t * 0.1)).r * 20.0;
-	
+
 	if (UV.y < 1.0)
 		VERTEX.y += noiseValue;// * (1.0 - UV.y);
 	else
@@ -28,21 +29,21 @@ void vertex() {
 
 void fragment() {
 	float t = offset + TIME * timeScale * 1.5;
-	
+
 	vec2 uv = UV;
 	uv.x *= -repeatScale;
 	uv.x -= t;
-	
-	
-	
+
+
+
 	// Cylindre
 	//uv.y = (UV.y + 0.0) * 1.9;
-	
+
 	vec4 color = texture(parallaxTexture, uv);
 	ALBEDO = color.rgb;
 	ALPHA = color.a;
 	ALPHA_SCISSOR_THRESHOLD = 0.05;
-	
+
 	//ALBEDO = vec3(UV, 0.0);
 	//ALPHA = 1.0;
 }

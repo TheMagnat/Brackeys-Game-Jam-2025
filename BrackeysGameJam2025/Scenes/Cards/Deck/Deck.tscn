@@ -1,9 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgn6wlmg2y0k8"]
+[gd_scene load_steps=5 format=3 uid="uid://cgn6wlmg2y0k8"]
 
 [ext_resource type="Script" uid="uid://gjaho4xt7hie" path="res://Scenes/Cards/Deck/Deck.gd" id="1_hu43h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_earu4"]
 size = Vector3(40, 20, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c2ho8"]
+size = Vector3(9, 20, 12)
 
 [sub_resource type="Curve3D" id="Curve3D_earu4"]
 _data = {
@@ -23,6 +26,15 @@ monitoring = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_earu4")
 debug_color = Color(0, 0.64, 0.37333328, 0.59607846)
+
+[node name="SmallArea" type="Area3D" parent="." groups=["DeckDropArea"]]
+collision_layer = 131072
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SmallArea"]
+shape = SubResource("BoxShape3D_c2ho8")
+debug_color = Color(0.5645797, 0.42069358, 0.93851954, 0.59607846)
 
 [node name="ShuffleHelperTop" type="Node3D" parent="."]
 

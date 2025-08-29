@@ -163,7 +163,7 @@ func resetCards(includeHand: bool, exclude: Array[CardModel]) -> void:
 		
 		if not includeHand and cardModel.inHand: continue
 		
-		var cardInteractable: CardInteractable = GlobalCardManager.getCardInteractableFromModel(cardModel)
+		var cardInteractable: CardInteractable = Global.cardManager.getCardInteractableFromModel(cardModel)
 		
 		if exclude.has(cardModel):
 			cardInteractable.sleeping = false

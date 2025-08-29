@@ -1,8 +1,11 @@
-extends Node3D
+class_name CardManager extends Node3D
 
 var playerHand: PlayerHandManager
 
 const CARD_COLLISION_SHAPE = preload("uid://bm58nbans4mp1")
+
+func _ready() -> void:
+	Global.cardManager = self
 
 func convertCardHandToInteractableCard(card: Card) -> CardInteractable:
 	var cardModel: CardModel = card.model

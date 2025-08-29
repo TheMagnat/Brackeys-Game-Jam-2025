@@ -1,5 +1,6 @@
 shader_type spatial;
 render_mode diffuse_toon;
+//stencil_mode write, compare_always, 2;
 
 uniform sampler2D frontTexture: source_color, filter_linear;
 uniform sampler2D backTexture: source_color, filter_linear;
@@ -12,10 +13,10 @@ void vertex() {
 	// Front or back
 	useBackTexture = step(0.5, UV.x);
 	UV.x -= useBackTexture * 0.6;
-	
+
 	// Side or face
 	useSideColor = step(0.85, UV.y);
-	
+
 	UV *= vec2(2.5, 1.25);
 }
 

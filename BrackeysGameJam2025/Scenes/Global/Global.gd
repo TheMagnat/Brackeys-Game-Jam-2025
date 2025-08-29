@@ -1,6 +1,7 @@
 extends Node
 
 
+var cardManager: CardManager
 
 var isHandActive: bool = true
 var isTryingToHoldCard: bool = true
@@ -19,3 +20,21 @@ const MAX_CARDS_IN_HAND: int = 4
 
 ## Pirate settings
 const ANGRY_DURATION: float = 2.0
+
+var goodEnding: bool = false
+var shouldSkipFirstIntro: bool = false
+
+func _ready() -> void:
+	get_tree().scene_changed.connect(reset)
+
+func reset() -> void:
+	isHandActive = true
+	isTryingToHoldCard = true
+	mouseRelativeXPos = 0.0
+	
+	canInteract = false
+	gameFinished = false
+	gameTrulyFinished = false
+	drawPhase = true
+	
+	CardModel.playerCardTracker.clear()

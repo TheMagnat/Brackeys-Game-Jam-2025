@@ -6,6 +6,8 @@ func update_viewport():
 	$CanvasLayer/SubViewport.size = get_window().size
 
 func _ready() -> void:
+	Global.shouldSkipFirstIntro = false
+	
 	get_window().size_changed.connect(update_viewport)
 	update_viewport()
 	

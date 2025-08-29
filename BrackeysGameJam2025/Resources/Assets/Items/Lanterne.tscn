@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://g33bsuh0yrn5"]
+
+[ext_resource type="ArrayMesh" uid="uid://ccpbyhusmqg7c" path="res://Resources/Meshes/FromRIB/Forest/lanterne.res" id="1_g4yid"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4yid"]
+size = Vector3(14.655, 24.346285, 15.9)
+
+[node name="Lanterne" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 8.690608, -7.4488)
+mesh = ExtResource("1_g4yid")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.223338, 0)
+shape = SubResource("BoxShape3D_g4yid")

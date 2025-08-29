@@ -33,11 +33,15 @@ func _ready() -> void:
 func onResetCurrentGame() -> void:
 	playerTurn = true
 	turnState = 0
+	sleepTime = 0.0
+	sleepCount = 0
 	getNewThinkingTime(2.0)
 
 func moveToPirateTurn() -> void:
 	playerTurn = false
 	turnState = 0
+	sleepTime = 0.0
+	sleepCount = 0
 	cardPlayed = false
 	eyeDown = false
 	eyeUp = false
@@ -122,6 +126,9 @@ func onCardAddedInPlayArea(card: CardInteractable) -> void:
 	if Global.gameFinished: return
 	
 	if playerTurn:
+		sleepTime = 0.0
+		sleepCount = 0
+		
 		if card.model.cardOwner != 0:
 			print("CHELOU ???")
 			printerr("Player turn but nor player card ?")
@@ -328,7 +335,7 @@ func cheatResolver(cheatType: CHEAT_TYPE, cardModel: CardModel) -> void:
 	
 	EventBus.startSimpleDialog.emit("Tu triche enculé. Tu peux modifier la phrase ici en fonction du type de triche.", true)
 	
-	var cardInteractable: CardInteractable = GlobalCardManager.getCardInteractableFromModel(cardModel)
+	var cardInteractable: CardInteractable = Global.cardManager.getCardInteractableFromModel(cardModel)
 	
 	# Player
 	if cardModel.cardOwner == 0:
@@ -357,7 +364,7 @@ func tooMuchCardsCheatResolver(visibleCards: Array[CardModel], nbCardsToRemove: 
 		var cardIndex: int = randi_range(0, visibleCards.size() - 1)
 		var cardModelToSteal: CardModel = visibleCards.pop_at(cardIndex)
 		
-		var card: CardInteractable = GlobalCardManager.getCardInteractableFromModel(cardModelToSteal)
+		var card: CardInteractable = Global.cardManager.getCardInteractableFromModel(cardModelToSteal)
 		card.model.cardOwner = 1 
 		pirateCardHand.onForceStoreCard(card)
 		
@@ -374,8 +381,13 @@ var eyeDown: bool = false
 var eyeUp: bool = false
 
 var wasDistracted: bool = false
+
+const TIME_BEFORE_REACT: float = 10.0
+var sleepCount: int = 0
+var sleepTime: float = 0.0
+
 func _physics_process(delta: float) -> void:
-	if Global.gameFinished: return
+	if Global.gameFinished or Global.drawPhase: return
 	
 	if distractionManager.isDistracted:
 		wasDistracted = true
@@ -421,6 +433,17 @@ func _physics_process(delta: float) -> void:
 				
 				playerTurn = true
 				turnState = 0
+	else:
+		sleepTime += delta
+		if sleepTime >= TIME_BEFORE_REACT:
+			if turnState == 0:
+				EventBus.startRemnantDialog.emit("I know I'm intimidating but ya have to play a card", false)
+			
+			else:
+				EventBus.startRemnantDialog.emit("ZZzzzz... Ya supposed to pick a card now...", false)
+			
+			sleepTime = 0.0
+			sleepCount += 1
 
 func selectCard() -> int:
 	var currentTotal: int = gameManager.currentGameTotalScore
