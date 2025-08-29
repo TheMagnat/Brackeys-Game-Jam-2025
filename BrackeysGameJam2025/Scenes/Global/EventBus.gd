@@ -21,6 +21,8 @@ signal cheatFinish
 signal resetCurrentGame
 
 ## Text
+signal startTalkAnimation(duration: float)
+
 signal clearDialog
 signal pirateTalk(text: String, angry: bool)
 signal pirateAsk(choices: Array[String])

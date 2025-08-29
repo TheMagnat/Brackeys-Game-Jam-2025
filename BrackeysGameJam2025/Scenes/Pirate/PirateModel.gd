@@ -1,6 +1,9 @@
 @tool
 class_name PirateModel extends Node3D
 
+@onready var moustacheGaucheHolder: Node3D = %MoustacheGaucheHolder
+@onready var moustacheDroiteHolder: Node3D = %MoustacheDroiteHolder
+
 @onready var moustacheGauche: Sprite3D = %MoustacheGauche
 @onready var moustacheDroite: Sprite3D = %MoustacheDroite
 
@@ -23,6 +26,8 @@ var headTween: Tween
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	EventBus.startTalkAnimation.connect(talk)
+	
 	## Moustaches ##
 	moustacheGauche.rotation.z = 0.0
 	moustacheDroite.rotation.z = 0.0
@@ -80,6 +85,31 @@ func sadLook() -> void:
 func normalLook() -> void:
 	expressionTriste.hide()
 	expressionColere.show()
+
+var talkRotation: float = 0.18
+
+var talkOriginalPosition := Vector2(-0.311, -0.318)
+var talkAfterPosition := Vector2(-0.075, -0.118)
+
+var talkTween: Tween
+func talk(duration: float) -> void:
+	if talkTween: talkTween.kill()
+	talkTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	
+	var factor: float = duration / 0.25
+	
+	var inDuration: float = duration * (1.0 / 3.0)
+	var outDuration: float = duration * (2.0 / 3.0)
+	
+	talkTween.tween_property(moustacheGaucheHolder, "position:y", talkAfterPosition.x * factor, inDuration)
+	talkTween.parallel().tween_property(moustacheDroiteHolder, "position:y", talkAfterPosition.y * factor, inDuration)
+	talkTween.parallel().tween_property(moustacheGaucheHolder, "rotation:z", -talkRotation * factor, inDuration)
+	talkTween.parallel().tween_property(moustacheDroiteHolder, "rotation:z", talkRotation * factor, inDuration)
+
+	talkTween.tween_property(moustacheGaucheHolder, "position:y", talkOriginalPosition.x, outDuration)
+	talkTween.parallel().tween_property(moustacheDroiteHolder, "position:y", talkOriginalPosition.y, outDuration)
+	talkTween.parallel().tween_property(moustacheGaucheHolder, "rotation:z", 0.0, outDuration)
+	talkTween.parallel().tween_property(moustacheDroiteHolder, "rotation:z", 0.0, outDuration)
 
 var explodeTween: Tween
 func explode() -> void:

@@ -26,7 +26,7 @@ func _ready() -> void:
 		
 		card.collision_layer = 0
 		card.collision_mask = 0
-		card.gravity_scale = 0.2
+		card.gravity_scale = 0.05
 		card.linear_damp = 0.0
 		card.angular_damp = 0.0
 		
@@ -47,7 +47,7 @@ func reset() -> void:
 	cardExplodeDelay = INITIAL_EXPLODE_DELAY
 	resetDelay = INITIAL_RESET_DELAY
 
-const INITIAL_CARD_DROP_DELAY: float = 0.05
+const INITIAL_CARD_DROP_DELAY: float = 1.0
 var cardDropDelay: float = 0.0
 var currentIndex: int = count - 1
 
@@ -80,17 +80,17 @@ func explode() -> void:
 func _process(delta: float) -> void:
 	if currentIndex < 0:
 		
-		if didExplode:
-			resetDelay -= delta
-			if resetDelay <= 0.0:
-				reset()
-			
-			return
-		
-		cardExplodeDelay -= delta
-		
-		if cardExplodeDelay <= 0.0:
-			explode()
+		#if didExplode:
+			#resetDelay -= delta
+			#if resetDelay <= 0.0:
+				#reset()
+			#
+			#return
+		#
+		#cardExplodeDelay -= delta
+		#
+		#if cardExplodeDelay <= 0.0:
+			#explode()
 		
 		return
 	
@@ -112,7 +112,7 @@ func _process(delta: float) -> void:
 		card.sleeping = false
 		
 		var randDirection := Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
-		var randTorque := Vector3(randf_range(-100, 100), randf_range(-100, 100), randf_range(-100, 100))
+		var randTorque := Vector3(randf_range(-30, 30), randf_range(-30, 30), randf_range(-30, 30))
 		card.apply_impulse(randDirection * 10.0)
 		card.apply_torque_impulse(randTorque)
 		

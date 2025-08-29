@@ -183,22 +183,13 @@ void sky() {
 
 	// Sky color
 
-	vec3 sky_gradient = mix(bottom_color.rgb, top_color.rgb, clamp(EYEDIR.y, 0.0, 1.0));
+	vec3 sky_gradient = mix(bottom_color.rgb, top_color.rgb, pow(clamp(EYEDIR.y + 0.1, -0.0, 1.0), 0.3245));
 	vec3 sunset_color = sun_scatter * (1.0 - horizon_mask);
 	vec3 sky_color = clamp(sky_gradient + sunset_color, 0.0, 1.0);
 
 	// Stars
 
-	if(stars_intensity > 0.0){
-		vec2 stars = voronoi(EYEDIR * 25.0).xz;
-		sky_color += smoothstep(0.025 + ((1.0 + sin(TIME + stars.y)) / 2.0) * 0.05, 0.0, stars.x) * stars_intensity;
-	}
-
 	// Add shooting stars
-
-	if(shooting_stars_intensity > 0.0){
-		sky_color += get_shooting_star(EYEDIR) * shooting_stars_intensity * shooting_star_tint;
-	}
 
 	// Add astro
 
@@ -206,21 +197,23 @@ void sky() {
 
 	// Add high clouds
 
-	if(high_clouds_density > 0.0){
-		vec2 high_clouds_uv = (EYEDIR.xz / clamp(EYEDIR.y, 0.0, 1.0)) * 0.25 + TIME * 0.001;
-		float high_clouds_mask = texture(high_clouds_sampler, high_clouds_uv).x;
-		sky_color = mix(sky_color, clouds_light_color, smoothstep(0.0, 1.0, high_clouds_mask) * horizon_mask * bottom_mask * high_clouds_density);
-	}
+	//if(high_clouds_density > 0.0){
+		//vec2 high_clouds_uv = (EYEDIR.xz / clamp(EYEDIR.y, 0.0, 1.0)) * 0.25 + TIME * 0.001;
+		//float high_clouds_mask = texture(high_clouds_sampler, high_clouds_uv).x;
+		//sky_color = mix(sky_color, clouds_light_color, smoothstep(0.0, 1.0, high_clouds_mask) * horizon_mask * bottom_mask * high_clouds_density);
+	//}
 
 	// clouds
 	if (AT_HALF_RES_PASS) {
+		
 		vec3 clouds_direction = vec3(EYEDIR.xz / clamp(EYEDIR.y, 0.0, 1.0), 1.0);
-		vec2 clouds = EYEDIR.y > 0.0 ? cloud_ray_march(clouds_direction, LIGHT0_DIRECTION) : vec2(0.0);
+		//vec2 clouds = EYEDIR.y > 0.0 ? cloud_ray_march(clouds_direction, LIGHT0_DIRECTION) : vec2(0.0);
+		vec2 clouds = vec2(0.0);
 
-		COLOR = mix(bottom_color, clouds_light_color, exp(-clouds.y * clouds_shadow_intensity));
-		ALPHA = (1.0 - exp(-clouds.x * horizon_mask * bottom_mask * 10.0));
+		//COLOR = vec3(1.0, 0.0, 0.0);
+		ALPHA = 0.0;
 
 	}else{
-		COLOR.rgb = mix(sky_color, HALF_RES_COLOR.rgb, HALF_RES_COLOR.a);
+		COLOR.rgb = sky_color;
 	}
 }

@@ -1,8 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://p2ou23fcr2l3"]
+[gd_scene load_steps=21 format=3 uid="uid://p2ou23fcr2l3"]
 
 [ext_resource type="Script" uid="uid://vcb5w4xgwa2m" path="res://Scenes/Cinematic/MenuEnvironmentScene.gd" id="1_6v8yu"]
 [ext_resource type="Script" uid="uid://bo4ckwp0ms5d3" path="res://Scenes/Cinematic/MenuCardSpawner.gd" id="1_oivvv"]
 [ext_resource type="PackedScene" uid="uid://dnqbvrx07oldi" path="res://Resources/Assets/Cards/CardModel.tscn" id="2_1gxdp"]
+[ext_resource type="Script" uid="uid://dme7n7ov1ou1l" path="res://addons/shaker/src/Vector3/shaker_component3D.gd" id="4_ihc2o"]
+[ext_resource type="Texture2D" uid="uid://bqx5ib54m1yek" path="res://Resources/Assets/Ground/iu2.png" id="5_ihc2o"]
+[ext_resource type="Script" uid="uid://bab5y7yuyg22q" path="res://addons/shaker/data/Vector3/BaseShakerType3D.gd" id="5_is6a3"]
+[ext_resource type="Script" uid="uid://cqun2xsfmafoe" path="res://addons/shaker/data/Vector3/ShakerTypeSineWave3D.gd" id="6_e47s4"]
+[ext_resource type="Script" uid="uid://brw14p6k8jsht" path="res://addons/shaker/data/Vector3/ShakerPreset3D.gd" id="7_2q5hc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ap1n2"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -15,7 +20,6 @@ sky_material = SubResource("ProceduralSkyMaterial_ap1n2")
 background_mode = 1
 sky = SubResource("Sky_oivvv")
 ambient_light_source = 2
-ambient_light_color = Color(0.40069774, 0.40069774, 0.40069768, 1)
 tonemap_mode = 2
 glow_enabled = true
 fog_enabled = true
@@ -27,12 +31,39 @@ fog_depth_begin = 30.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1gxdp"]
 height = 10.0
-radius = 30.0
+radius = 100.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_1gxdp"]
-top_radius = 30.0
-bottom_radius = 30.0
-height = 10.0
+[sub_resource type="Resource" id="Resource_unu5t"]
+script = ExtResource("6_e47s4")
+frequency = Vector3(0.2, 0.25, 0.5)
+amplitude = Vector3(0.005, 0.005, 0.02)
+metadata/_custom_type_script = "uid://cqun2xsfmafoe"
+
+[sub_resource type="Resource" id="Resource_lmlwg"]
+script = ExtResource("6_e47s4")
+frequency = Vector3(0.5, 0.5, 0.5)
+amplitude = Vector3(0.001, 0.002, 0.001)
+metadata/_custom_type_script = "uid://cqun2xsfmafoe"
+
+[sub_resource type="Resource" id="Resource_w2k0h"]
+script = ExtResource("7_2q5hc")
+RotationShake = Array[ExtResource("5_is6a3")]([SubResource("Resource_unu5t"), SubResource("Resource_lmlwg")])
+metadata/_custom_type_script = "uid://brw14p6k8jsht"
+
+[sub_resource type="Animation" id="Animation_ihc2o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraHolder:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_r2yda"]
 resource_name = "rotateAround"
@@ -52,26 +83,21 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 6.2831855, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_ihc2o"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraHolder:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ie1ff"]
 _data = {
 &"RESET": SubResource("Animation_ihc2o"),
 &"rotateAround": SubResource("Animation_r2yda")
 }
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihc2o"]
+albedo_texture = ExtResource("5_ihc2o")
+normal_enabled = true
+normal_scale = 1.56
+normal_texture = ExtResource("5_ihc2o")
+uv1_scale = Vector3(15, 15, 15)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6v8yu"]
+size = Vector2(500, 500)
 
 [node name="MenuEnvironmentScene" type="Node3D"]
 script = ExtResource("1_6v8yu")
@@ -81,7 +107,10 @@ environment = SubResource("Environment_1gxdp")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
+light_color = Color(0.3397, 0.512315, 0.79, 1)
+light_cull_mask = 4294967293
+shadow_normal_bias = 3.0
+directional_shadow_fade_start = 0.0
 directional_shadow_max_distance = 150.0
 
 [node name="CardSpawner" type="Node3D" parent="."]
@@ -99,18 +128,27 @@ collision_mask = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 shape = SubResource("CylinderShape3D_1gxdp")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Socle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
-visible = false
-mesh = SubResource("CylinderMesh_1gxdp")
-
 [node name="CameraHolder" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]
 transform = Transform3D(1, 0, 0, 0, 0.8474093, 0.5309402, 0, -0.5309402, 0.8474093, 0, 38.757816, 67.10549)
 size = 100.935
 
+[node name="ShakerComponent3D" type="Node3D" parent="CameraHolder/Camera3D"]
+script = ExtResource("4_ihc2o")
+AutoPlay = true
+intensity = 3.0
+shake_speed = 0.2
+shakerPreset = SubResource("Resource_w2k0h")
+metadata/_custom_type_script = "uid://dme7n7ov1ou1l"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_ie1ff")
 }
+speed_scale = 0.05
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ihc2o")
+mesh = SubResource("PlaneMesh_6v8yu")
+skeleton = NodePath("../Socle")

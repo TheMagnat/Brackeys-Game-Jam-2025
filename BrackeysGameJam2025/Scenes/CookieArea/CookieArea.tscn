@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://bl4c1a1vauw8u"]
+
+[ext_resource type="ArrayMesh" uid="uid://cjsqfv7dec4nb" path="res://Resources/Meshes/cloche.res" id="1_f5rhk"]
+[ext_resource type="Script" uid="uid://thqoinrcke5u" path="res://Scenes/CookieArea/CookieArea.gd" id="1_hkaox"]
+[ext_resource type="Texture2D" uid="uid://bonl8tevw4d2k" path="res://Resources/Assets/cookiePasFou.png" id="2_hkaox"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vphqs"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.05
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dfrfg"]
+next_pass = SubResource("StandardMaterial3D_vphqs")
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.83, 0.9433333, 1, 0.38039216)
+metallic = 0.75
+metallic_specular = 1.0
+roughness = 0.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.05
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dt4nd"]
+top_radius = 20.0
+bottom_radius = 20.0
+height = 40.0
+
+[node name="CookieArea" type="Node3D"]
+script = ExtResource("1_hkaox")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(14.745, 0, 0, 0, 14.745, 0, 0, 0, 14.745, 0, 38.567, 0)
+material_override = SubResource("StandardMaterial3D_dfrfg")
+cast_shadow = 0
+mesh = ExtResource("1_f5rhk")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.231, 0)
+mesh = SubResource("CylinderMesh_dt4nd")
+skeleton = NodePath("")
+
+[node name="CookieSprite" type="Sprite3D" parent="."]
+transform = Transform3D(0.7656741, 0, 0.6432287, 0, 1, 0, -0.6432287, 0, 0.7656741, 0, 46.372, 0)
+pixel_size = 0.018
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_hkaox")

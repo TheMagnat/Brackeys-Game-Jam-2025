@@ -2,8 +2,8 @@ extends Node3D
 
 
 const ANIM_SPEED := 0.25
-const SOUND_SPEED_MIN := 0.125
-const SOUND_SPEED_MAX := 0.25
+const SOUND_SPEED_MIN := 0.1
+const SOUND_SPEED_MAX := 0.4
 
 @onready var label: Label3D = $Text
 
@@ -26,17 +26,21 @@ func _talk_voice() -> void:
 	if !talking:
 		return
 	
+	var duration: float = randf_range(SOUND_SPEED_MIN, SOUND_SPEED_MAX) * (0.75 if angry else 1.0)
+	EventBus.startTalkAnimation.emit(duration)
+	
 	$AudioStreamPlayer3D.play()
+	
 	var sceneTree: SceneTree = get_tree()
 	if sceneTree:
-		sceneTree.create_timer(randf_range(SOUND_SPEED_MIN, SOUND_SPEED_MAX) * (0.75 if angry else 1.0)).timeout.connect(_talk_voice)
+		sceneTree.create_timer(duration).timeout.connect(_talk_voice)
+
+
 
 # nothing
 func _talk_visuals() -> void:
-	return
-	get_tree().create_timer(ANIM_SPEED).timeout.connect(_talk_visuals)
-
-
+	pass
+	#get_tree().create_timer(ANIM_SPEED).timeout.connect(_talk_visuals)
 
 static func _process_text_length(word: String) -> int:
 	var l := 0

@@ -31,6 +31,13 @@ func _ready() -> void:
 		return
 	
 	call_deferred("startIntroduction1")
+	
+@onready var cookieArea: Node3D = %CookieArea
+
+var showCookieAreaTween: Tween
+func showCookieArea() -> void:
+	showCookieAreaTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	showCookieAreaTween.tween_property(cookieArea, "position:x", -70.0, 3.0)
 
 func startIntroduction1() -> void:
 	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[0], false)
@@ -60,6 +67,8 @@ func startIntroduction2() -> void:
 	await EventBus.simpleDialogFinished
 	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[2], false)
 	await EventBus.simpleDialogFinished
+	
+	showCookieArea()
 	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[3], false)
 	await EventBus.simpleDialogFinished
 	
