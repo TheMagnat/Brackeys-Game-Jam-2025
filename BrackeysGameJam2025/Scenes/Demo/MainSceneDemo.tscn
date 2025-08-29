@@ -1,5 +1,6 @@
 [gd_scene load_steps=75 format=3 uid="uid://c0nwpy0h6ssfh"]
 
+
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
 [ext_resource type="Script" uid="uid://dme7n7ov1ou1l" path="res://addons/shaker/src/Vector3/shaker_component3D.gd" id="2_r3vws"]
@@ -26,12 +27,13 @@
 [ext_resource type="PackedScene" uid="uid://dghclx6pomr1h" path="res://Scenes/Parallax/Waves/WavesParallax.tscn" id="23_f46tu"]
 [ext_resource type="Script" uid="uid://bab5y7yuyg22q" path="res://addons/shaker/data/Vector3/BaseShakerType3D.gd" id="24_3dcc7"]
 [ext_resource type="Shader" uid="uid://ke0ojpsjcaaw" path="res://Scenes/Demo/windTest.gdshader" id="24_m5r7i"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/ChoiceMenu.tscn" id="25_6e0n7"]
+[ext_resource type="PackedScene" uid="uid://147q4fwq5jsn" path="res://Scenes/UI/ChoiceMenu.tscn" id="25_6e0n7"]
 [ext_resource type="Script" uid="uid://cqun2xsfmafoe" path="res://addons/shaker/data/Vector3/ShakerTypeSineWave3D.gd" id="25_jtovl"]
 [ext_resource type="Script" uid="uid://brw14p6k8jsht" path="res://addons/shaker/data/Vector3/ShakerPreset3D.gd" id="26_r5ebq"]
 [ext_resource type="PackedScene" uid="uid://dba1mbaih7hvo" path="res://Resources/Assets/Kenny/GLB format/ship-pirate-large.glb" id="27_3dcc7"]
 [ext_resource type="PackedScene" uid="uid://de0eaa8ej7skl" path="res://Resources/Meshes/Boat/Boat.tscn" id="28_y4a6v"]
 [ext_resource type="Script" uid="uid://j5wlt146ylot" path="res://Scenes/Demo/DialogManager.gd" id="32_nmdm0"]
+
 
 [sub_resource type="Sky" id="Sky_rk0yb"]
 sky_material = ExtResource("2_y087b")
@@ -556,6 +558,7 @@ visible = false
 
 [node name="DialogManager" type="Node3D" parent="."]
 script = ExtResource("32_nmdm0")
+
 
 [connection signal="body_entered" from="OffTableDetector" to="GameManager" method="_on_off_table_detector_body_entered"]
 [connection signal="body_entered" from="OffTableDetector" to="Pirate/PirateAI" method="_on_off_table_detector_body_entered"]
