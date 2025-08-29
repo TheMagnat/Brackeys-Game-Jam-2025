@@ -39,6 +39,14 @@ func showCookieArea() -> void:
 	showCookieAreaTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 	showCookieAreaTween.tween_property(cookieArea, "position:x", -70.0, 3.0)
 
+const YES : Array[String] = [
+	"Yes", "Sure", "For sure", "Aye"
+]
+
+const NO : Array[String] = [
+	"No", "Nope", "Nae", "Certainly not"
+]
+
 func startIntroduction1() -> void:
 	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[0], false)
 	await EventBus.simpleDialogFinished
@@ -51,7 +59,7 @@ func startIntroduction1() -> void:
 	EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[4], false)
 	await EventBus.simpleDialogFinished
 	
-	EventBus.startQuestionDialog.emit(PirateDialogs.introductionText[5], false, ["Yes", "No"] as Array[String], introduction1Answer)
+	EventBus.startQuestionDialog.emit(PirateDialogs.introductionText[5], false, [YES.pick_random(), NO.pick_random()] as Array[String], introduction1Answer)
 
 func introduction1Answer(answer: int) -> void:
 	if answer == 1:
@@ -135,7 +143,7 @@ func startTutorial(angry: bool = false) -> void:
 		tutorialPart2(0)
 		return
 	
-	EventBus.startQuestionDialog.emit(PirateDialogs.tutorialText[4], angry, ["Yes", "No"] as Array[String], tutorialPart2)
+	EventBus.startQuestionDialog.emit(PirateDialogs.tutorialText[4], angry, [YES.pick_random(), NO.pick_random()] as Array[String], tutorialPart2)
 
 var repeatCount: int = 0
 func tutorialPart2(answer: int) -> void:
@@ -143,10 +151,10 @@ func tutorialPart2(answer: int) -> void:
 		var angry: bool
 		if repeatCount == 0:
 			angry = false
-			EventBus.startSimpleDialog.emit("Ok. I will repeat for ya", false)
+			EventBus.startSimpleDialog.emit(PirateDialogs.tutorialRepeat, false)
 		else:
 			angry = true
-			EventBus.startSimpleDialog.emit("ARE YA STUPID ? Ok, I will repeat one LAST time.", true)
+			EventBus.startSimpleDialog.emit(PirateDialogs.tutorialRepeatAngry, true)
 		
 		repeatCount += 1
 		await EventBus.simpleDialogFinished
@@ -158,11 +166,16 @@ func tutorialPart2(answer: int) -> void:
 func startGame() -> void:
 	call_deferred("drawCards", Global.MAX_CARDS_IN_HAND)
 
+const WINNER_PLAYER := 0
+const WINNER_PIRATE := 1
+
 func onGameFinished(whoWin: int) -> void:
 	Global.gameFinished = true
 	Global.canInteract = false
 	
-	if whoWin == 0:
+	var dialogString := ""
+	if whoWin == WINNER_PLAYER:
+		dialogString += PirateDialogs.pirateLost.pick_random()
 		pirateModel.sadLook()
 		playerScore += 1
 		if playerScore >= Global.GAME_TO_WIN_TO_FINISH:
@@ -170,6 +183,7 @@ func onGameFinished(whoWin: int) -> void:
 			return
 		
 	else:
+		dialogString += PirateDialogs.pirateWin.pick_random()
 		pirateModel.normalLook()
 		pirateScore += 1
 		if pirateScore >= Global.GAME_TO_WIN_TO_FINISH:
@@ -178,7 +192,8 @@ func onGameFinished(whoWin: int) -> void:
 	
 	EventBus.resetCurrentGame.emit()
 	
-	EventBus.startQuestionDialog.emit("La partie est terminé, %d - %d pour toi. Prêt pour continuer ?" % [playerScore, pirateScore], false, ["Oui"] as Array[String], restartGame)
+	dialogString += "\n" + PirateDialogs.points.pick_random() % [playerScore, pirateScore]
+	EventBus.startQuestionDialog.emit(dialogString, false, [YES.pick_random()] as Array[String], restartGame)
 
 func restartGame(_answer: int = 0) -> void:
 	currentGameTotalScore = 0
@@ -255,9 +270,9 @@ func onCardPlayed(card: CardInteractable, who: int) -> void:
 		return
 	
 	if who == 1:
-		EventBus.startRemnantDialog.emit("We're at %d." % currentGameTotalScore, false)
+		EventBus.startRemnantDialog.emit(PirateDialogs.count.pick_random() % currentGameTotalScore, false)
 	else:
-		EventBus.startSimpleDialog.emit("Pas mal comme choix.", false)
+		EventBus.startSimpleDialog.emit(PirateDialogs.playing.pick_random(), false)
 	
 	card.model.cardOwner = 3
 	playedCardBuffer.push_back(card.model)
@@ -270,7 +285,7 @@ func onCardPlayed(card: CardInteractable, who: int) -> void:
 				cardToExcludeFromReshuffle.push_back(playedCardBuffer[i])
 				break
 		
-		EventBus.startSimpleDialog.emit("Eh bah, on a déjà plus de cartes, je dois admetre que tu n'est pas si mauvais.", false)
+		EventBus.startSimpleDialog.emit(PirateDialogs.shuffleCards.pick_random(), false)
 		
 		deck.askShuffle(false, cardToExcludeFromReshuffle)
 

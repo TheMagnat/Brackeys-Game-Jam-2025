@@ -32,10 +32,79 @@ const introduction3Text: Array[String] = [
 	"Let's make it so the first to 3 wins gets the prize."
 ]
 
+const tutorialRepeat := "Fine, I'll repeat then"
+const tutorialRepeatAngry := "ARE YA STUPID? I'll repeat ONE LAST TIME"
+
 const tutorialText: Array[String] = [
 	"Game's simple: we take turn putting cards in the middle of the table and they all add up",
 	"If ya put 9 it adds 9, if ya put 4 it adds 4,",
-	"Ya wanna keep yer heads tho: Jacks remove 10, Kings remove 20 and Queens pass yer turn",
-	"The goal's not to reach 50 or morr'. If ya reach it, yer out",
+	"Ya wanna keep yer heads tho: Jacks remove 10 points, Kings remove 20 points and Queens pass yer turn",
+	"The goal's to never go above 50. If ya reach it, yer out",
 	"Get it?"
+]
+
+const tooManyCards: Array[String] = [
+	"Gimme that card ya crook",
+	"Think A didn't see that card?",
+	"Think A can't count above 4?"
+]
+
+const notEnoughCards: Array[String] = [
+	"Ain't ya missing a card?",
+	"Did ya forget to pick a card?"
+]
+
+const notEnoughCardsAngry: Array[String] = [
+	"Lost yer cards again? Taking me for some fool?",
+	"A' turn eyes for a second and ya lost yer cards again? Piss off!"
+]
+
+const shuffleCards: Array[String] = [
+	"Guess ya know how to hold a game",
+	"A'm happy yer not just a small pickle",
+	"'t makes me happy to have such player in front of me",
+	"At long last, finally a player that makes me shuffle that deck"
+]
+
+const count: Array[String] = [
+	"We're at %d",
+	"%d",
+	"%d, yer turn",
+	"%d for ya",
+	"%d, ya snake",
+]
+
+const playing: Array[String] = [
+	"",
+	"...",
+	"not bad...",
+	"not bad at all...",
+	"hmm, not bad",
+	"smart move",
+	"well played",
+	"...hmm...",
+	"tricky one",
+	"tricksy",
+	"ya wily old fox"
+]
+
+
+const pirateWin: Array[String] = [
+	"A win!",
+	"And the winner is... me!",
+	"Ye lost!",
+	"A win, ye lose!"
+]
+
+const pirateLost: Array[String] = [
+	"A lost...",
+	"Ya win this one",
+	"Ya won...",
+	"Nicely played, A lost"
+]
+
+const points: Array[String] = [
+	"%d for ya, %d for me. Ready for another one?",
+	"Ya got %d, me %d. Wanna play again?",
+	"%d for me, %d for ya. Again?",
 ]
