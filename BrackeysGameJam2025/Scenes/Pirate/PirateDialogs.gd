@@ -15,7 +15,7 @@ const introduction2Text: Array[String] = [
 	"'Tis so good it makes ye wanna throw up",
 	"But A' know ya scrub better than any fool",
 	"Ya wouldn't play for nothin', would ya?",
-	"So let's make a gamble. A'll bet this cookie. Let's say it symbolizes yer freedom, or future work with us?",
+	"So let's make a gamble. A'll bet this cookie\nLet's say it symbolizes yer freedom, or future work with us?",
 ]
 
 const introduction2Question := "But ya gotta bet something that matches the value of this perfect biscuit, right?"
