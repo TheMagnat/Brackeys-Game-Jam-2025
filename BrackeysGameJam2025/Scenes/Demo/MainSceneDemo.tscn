@@ -326,6 +326,7 @@ transform = Transform3D(1, 0, 0, 0, 0.9063078, 0.4226183, 0, -0.4226183, 0.90630
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+far = 80000.0
 script = ExtResource("3_jtovl")
 maxRotationOffset = Vector2(0.4, 0.25)
 
@@ -580,7 +581,7 @@ mesh = SubResource("QuadMesh_m5r7i")
 skeleton = NodePath("../..")
 
 [node name="WavesParallax" parent="Environment" instance=ExtResource("23_f46tu")]
-transform = Transform3D(-2.2642499e-07, 0, -3.995, 0, 5.075, 0, 5.18, 0, -1.7462699e-07, 0, -57.766613, 5.755)
+transform = Transform3D(9.4850744e-05, -0.00056233053, -3.995, 0.00016661183, 5.075, -0.00044265983, 5.18, -0.00016322426, 7.31665e-05, 0, -57.74391, 5.755)
 
 [node name="ShakerComponent3D" type="Node3D" parent="Environment/WavesParallax"]
 script = ExtResource("2_r3vws")

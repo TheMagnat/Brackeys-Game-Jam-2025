@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c67h8ohtenyga"]
+
+[ext_resource type="Script" uid="uid://cq6ugopiclih" path="res://Scenes/CreateTextureArray.gd" id="1_8kexd"]
+
+[node name="GenerateTextureArray" type="Node"]
+script = ExtResource("1_8kexd")

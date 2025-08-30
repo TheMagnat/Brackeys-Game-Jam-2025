@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://beyd62rikorgp"
-path="res://.godot/imported/cloud7.png-1fbd509665d6342488a9f8c4276691ee.ctex"
+path.s3tc="res://.godot/imported/cloud7.png-1fbd509665d6342488a9f8c4276691ee.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Resources/Assets/Clouds/cloud7.png"
-dest_files=["res://.godot/imported/cloud7.png-1fbd509665d6342488a9f8c4276691ee.ctex"]
+dest_files=["res://.godot/imported/cloud7.png-1fbd509665d6342488a9f8c4276691ee.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -37,4 +38,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

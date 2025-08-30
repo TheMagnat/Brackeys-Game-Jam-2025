@@ -1,10 +1,12 @@
-[gd_scene load_steps=28 format=3 uid="uid://dghclx6pomr1h"]
+[gd_scene load_steps=38 format=3 uid="uid://dghclx6pomr1h"]
 
 [ext_resource type="Shader" uid="uid://dw43w80f7di26" path="res://Scenes/Parallax/Waves/parallaxShader.gdshader" id="1_snbp6"]
 [ext_resource type="Texture2D" uid="uid://dqmvn3x2yy41c" path="res://Resources/Assets/WavesParallax/parallax01.png" id="2_rawcd"]
 [ext_resource type="Texture2D" uid="uid://dgsyrx724v6im" path="res://Resources/Assets/WavesParallax/parallax02.png" id="3_dvl10"]
 [ext_resource type="Texture2D" uid="uid://54apc8h8llcv" path="res://Resources/Assets/WavesParallax/parallax03.png" id="4_lcjsi"]
 [ext_resource type="Texture2D" uid="uid://cboyedxk78h1v" path="res://Resources/Assets/WavesParallax/parallax04.png" id="5_ww4fw"]
+[ext_resource type="Shader" uid="uid://c3ktyydh6ionl" path="res://Scenes/Parallax/Waves/CloudShader.gdshader" id="12_cyoyg"]
+[ext_resource type="Texture2DArray" uid="uid://pspyu7trwa5m" path="res://Resources/Assets/Clouds/clouds_2d_array.res" id="12_fgcjk"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ex0ul"]
 fractal_octaves = 1
@@ -74,7 +76,7 @@ render_priority = 0
 shader = ExtResource("1_snbp6")
 shader_parameter/parallaxTexture = ExtResource("2_rawcd")
 shader_parameter/repeatScale = -8.0
-shader_parameter/timeScale = 0.11999999999534339
+shader_parameter/timeScale = 0.1199999999953434
 shader_parameter/offset = 0.0
 shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
 
@@ -83,7 +85,7 @@ render_priority = 0
 shader = ExtResource("1_snbp6")
 shader_parameter/parallaxTexture = ExtResource("3_dvl10")
 shader_parameter/repeatScale = -8.0
-shader_parameter/timeScale = 0.09999999999126885
+shader_parameter/timeScale = 0.09999999999126884
 shader_parameter/offset = 0.0
 shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
 
@@ -101,7 +103,7 @@ render_priority = 0
 shader = ExtResource("1_snbp6")
 shader_parameter/parallaxTexture = ExtResource("5_ww4fw")
 shader_parameter/repeatScale = -8.0
-shader_parameter/timeScale = 0.059999999997671694
+shader_parameter/timeScale = 0.05999999999767169
 shader_parameter/offset = 0.0
 shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
 
@@ -146,7 +148,7 @@ render_priority = 0
 shader = ExtResource("1_snbp6")
 shader_parameter/parallaxTexture = ExtResource("2_rawcd")
 shader_parameter/repeatScale = 8.0
-shader_parameter/timeScale = 0.11999999999534339
+shader_parameter/timeScale = 0.1199999999953434
 shader_parameter/offset = 0.3000000000029104
 shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
 
@@ -155,7 +157,7 @@ render_priority = 0
 shader = ExtResource("1_snbp6")
 shader_parameter/parallaxTexture = ExtResource("3_dvl10")
 shader_parameter/repeatScale = 8.0
-shader_parameter/timeScale = 0.09999999999126885
+shader_parameter/timeScale = 0.09999999999126884
 shader_parameter/offset = 0.3000000000029104
 shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
 
@@ -173,116 +175,210 @@ render_priority = 0
 shader = ExtResource("1_snbp6")
 shader_parameter/parallaxTexture = ExtResource("5_ww4fw")
 shader_parameter/repeatScale = 8.0
-shader_parameter/timeScale = 0.059999999997671694
+shader_parameter/timeScale = 0.05999999999767169
 shader_parameter/offset = 0.3000000000029104
 shader_parameter/noiseTexture = SubResource("NoiseTexture2D_856vq")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g667v"]
+render_priority = 0
+shader = ExtResource("12_cyoyg")
+shader_parameter/textures = ExtResource("12_fgcjk")
+
+[sub_resource type="Curve" id="Curve_cyoyg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fgcjk"]
+curve = SubResource("Curve_cyoyg")
+
+[sub_resource type="Curve" id="Curve_fgcjk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.92528725, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.15850176, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_h583c"]
+curve = SubResource("Curve_fgcjk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1cbur"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 3500.0
+emission_ring_inner_radius = 1000.0
+emission_ring_cone_angle = 90.0
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, -1)
+spread = 10.0
+gravity = Vector3(0, 0, -1)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_h583c")
+alpha_curve = SubResource("CurveTexture_fgcjk")
+hue_variation_min = -1.0
+hue_variation_max = 0.99999994
+turbulence_noise_speed = Vector3(1, 1, 0)
+turbulence_influence_min = 0.27600002
+turbulence_influence_max = 0.27600002
+
+[sub_resource type="QuadMesh" id="QuadMesh_cyoyg"]
+size = Vector2(100, 100)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dvl10"]
+emission_shape = 3
+emission_box_extents = Vector3(8000, 400, 1)
+angle_min = -44.99999
+angle_max = 45.00001
+spread = 5.0
+flatness = 1.0
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, -1)
+scale_min = 8.0
+scale_max = 12.0
+scale_curve = SubResource("CurveTexture_h583c")
+alpha_curve = SubResource("CurveTexture_fgcjk")
+hue_variation_min = -1.0
+hue_variation_max = 0.99999994
+turbulence_noise_speed = Vector3(1, 1, 0)
+turbulence_influence_min = 0.27600002
+turbulence_influence_max = 0.27600002
+
 [node name="WavesParallax" type="Node3D"]
 
-[node name="Left" type="Node3D" parent="."]
+[node name="Waves" type="Node3D" parent="."]
+
+[node name="Left" type="Node3D" parent="Waves"]
 transform = Transform3D(-0.9961947, 0, 1.7431128, 0, 1, 0, -0.08715564, 0, -19.923895, -135, -11.118, 80)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Left"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Waves/Left"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6, 0)
 material_override = SubResource("ShaderMaterial_snbp6")
 mesh = SubResource("QuadMesh_rawcd")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Left"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Waves/Left"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6.964, -1)
 material_override = SubResource("ShaderMaterial_rawcd")
 mesh = SubResource("QuadMesh_g667v")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Left"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Waves/Left"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 8.72, -2)
 material_override = SubResource("ShaderMaterial_dvl10")
 mesh = SubResource("QuadMesh_nikrg")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Left"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Waves/Left"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 9.241, -3)
 material_override = SubResource("ShaderMaterial_lcjsi")
 mesh = SubResource("QuadMesh_xmusv")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Left2" type="Node3D" parent="."]
-transform = Transform3D(-0.9961947, 0, 1.7431128, 0, 1, 0, -0.08715564, 0, -19.923895, -135, 0.423, 163.542)
+[node name="Left2" type="Node3D" parent="Waves"]
+transform = Transform3D(-0.9961947, 0, 1.7431128, 0, 1, 0, -0.08715564, 0, -19.923895, -135, -1.2778877, 163.542)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Left2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Waves/Left2"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6, 0)
 material_override = SubResource("ShaderMaterial_fgcjk")
 mesh = SubResource("QuadMesh_rawcd")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Left2"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Waves/Left2"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6.964, -1)
 material_override = SubResource("ShaderMaterial_h583c")
 mesh = SubResource("QuadMesh_g667v")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Left2"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Waves/Left2"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 8.72, -2)
 material_override = SubResource("ShaderMaterial_ymihp")
 mesh = SubResource("QuadMesh_nikrg")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Left2"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Waves/Left2"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 9.241, -3)
 material_override = SubResource("ShaderMaterial_2nlky")
 mesh = SubResource("QuadMesh_xmusv")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Right" type="Node3D" parent="."]
+[node name="Right" type="Node3D" parent="Waves"]
 transform = Transform3D(0.9961947, 0, 1.7431145, 0, 1, 0, -0.08715572, 0, 19.923895, -135, -11.118, -80)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Right"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Waves/Right"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6, 0)
 material_override = SubResource("ShaderMaterial_ii2se")
 mesh = SubResource("QuadMesh_rawcd")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Right"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Waves/Right"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6.964, -1)
 material_override = SubResource("ShaderMaterial_cu6qg")
 mesh = SubResource("QuadMesh_g667v")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Right"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Waves/Right"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 8.72, -2)
 material_override = SubResource("ShaderMaterial_ex0ul")
 mesh = SubResource("QuadMesh_nikrg")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Right"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Waves/Right"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 9.241, -3)
 material_override = SubResource("ShaderMaterial_856vq")
 mesh = SubResource("QuadMesh_xmusv")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Right2" type="Node3D" parent="."]
-transform = Transform3D(0.9961947, 0, 3.398637, 0, 1, 0, -0.087155715, 0, 38.84661, -135, 0.42308426, -163.54195)
+[node name="Right2" type="Node3D" parent="Waves"]
+transform = Transform3D(0.9961947, 0, 3.398637, 0, 1, 0, -0.087155715, 0, 38.84661, -135, -1.2778034, -163.54195)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Right2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Waves/Right2"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6, 0)
 material_override = SubResource("ShaderMaterial_ww4fw")
 mesh = SubResource("QuadMesh_rawcd")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Right2"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Waves/Right2"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 6.964, -1)
 material_override = SubResource("ShaderMaterial_w1emh")
 mesh = SubResource("QuadMesh_g667v")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Right2"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Waves/Right2"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 8.72, -2)
 material_override = SubResource("ShaderMaterial_1cbur")
 mesh = SubResource("QuadMesh_nikrg")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Right2"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Waves/Right2"]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 9.241, -3)
 material_override = SubResource("ShaderMaterial_cyoyg")
 mesh = SubResource("QuadMesh_xmusv")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
+
+[node name="Clouds" type="Node3D" parent="."]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Clouds"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 116.87218, -620.91986, 0)
+visible = false
+material_override = SubResource("ShaderMaterial_g667v")
+amount = 204
+lifetime = 100.0
+preprocess = 100.0
+randomness = 1.0
+fixed_fps = 60
+visibility_aabb = AABB(-988.28107, -398.10178, -5299.239, 1985.2048, 795.8129, 5593.734)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_1cbur")
+draw_pass_1 = SubResource("QuadMesh_cyoyg")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="Clouds"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 116.872, 900.4849, 3209.0461)
+material_override = SubResource("ShaderMaterial_g667v")
+amount = 60
+lifetime = 300.0
+preprocess = 300.0
+randomness = 1.0
+fixed_fps = 60
+visibility_aabb = AABB(-5078.993, -499.96338, -5410.2134, 13808.897, 999.71924, 5515.9604)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_dvl10")
+draw_pass_1 = SubResource("QuadMesh_cyoyg")
