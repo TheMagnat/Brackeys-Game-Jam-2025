@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://de0eaa8ej7skl"]
+[gd_scene load_steps=29 format=3 uid="uid://de0eaa8ej7skl"]
 
 [ext_resource type="ArrayMesh" uid="uid://kn3arhgkljf3" path="res://Resources/Meshes/Boat/mainBoat.res" id="1_e51uh"]
 [ext_resource type="Shader" uid="uid://dwq5gktwpm308" path="res://Resources/Shaders/CeilShading/ceil_shader.gdshader" id="1_qqdde"]
@@ -7,6 +7,12 @@
 [ext_resource type="ArrayMesh" uid="uid://bgvj21s3uuqys" path="res://Resources/Meshes/Boat/cylinder.res" id="4_6yqv0"]
 [ext_resource type="Shader" uid="uid://qaytmjyuum1j" path="res://Resources/Meshes/Boat/WindVoile.gdshader" id="5_6aqwr"]
 [ext_resource type="ArrayMesh" uid="uid://xnj0io3l4ark" path="res://Resources/Meshes/Boat/voile.res" id="5_dhbx5"]
+[ext_resource type="Shader" uid="uid://b1nsuhiqtvfxl" path="res://Resources/Meshes/Boat/SingleRopWind.gdshader" id="8_6rt70"]
+[ext_resource type="ArrayMesh" uid="uid://casnhi8cblkb2" path="res://Resources/Meshes/Boat/rope1.res" id="8_d48g8"]
+[ext_resource type="ArrayMesh" uid="uid://bpvkn7stasarg" path="res://Resources/Meshes/Boat/rope2.res" id="9_7ganq"]
+[ext_resource type="ArrayMesh" uid="uid://k3sdq6cyqvpl" path="res://Resources/Meshes/Boat/Net.res" id="9_0475y"]
+[ext_resource type="ArrayMesh" uid="uid://bnhujyn44634f" path="res://Resources/Meshes/Boat/NetFront.res" id="10_87dtr"]
+[ext_resource type="Shader" uid="uid://cceuwpwdm378t" path="res://Resources/Meshes/Boat/ropeWind.gdshader" id="10_xua6o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d48g8"]
 render_priority = 0
@@ -30,6 +36,45 @@ seamless = true
 render_priority = 0
 shader = ExtResource("5_6aqwr")
 shader_parameter/noiseTexture = SubResource("NoiseTexture2D_d48g8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_irkxv"]
+render_priority = 0
+shader = ExtResource("8_6rt70")
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_d48g8")
+shader_parameter/ropColor = Color(0.7490196, 0.654902, 0.50980395, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6rt70"]
+render_priority = 0
+shader = ExtResource("10_xua6o")
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_d48g8")
+shader_parameter/ropColor = Color(0.75, 0.654, 0.51, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6rt70"]
+size = Vector3(290, 20, 696.5951)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5a1vw"]
+size = Vector3(18.901, 25.515, 693.226)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tepvy"]
+size = Vector3(18.901, 25.515, 693.226)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_irkxv"]
+size = Vector3(18.901245, 25.515, 236.5297)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wqcgs"]
+size = Vector3(277.27603, 10, 300.03943)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r45bb"]
+size = Vector3(131.75255, 159.9986, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w3oyw"]
+size = Vector3(6.2734375, 7.118473, 298.53745)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jju6d"]
+size = Vector3(7.930664, 7.8194904, 212.71878)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yja7e"]
+size = Vector3(9.527363, 21.484589, 10.429439)
 
 [node name="Boat" type="Node3D"]
 
@@ -60,3 +105,165 @@ mesh = ExtResource("4_6yqv0")
 transform = Transform3D(1, 0, 0, 0, 0.21245056, -0.9771718, 0, 0.9771718, 0.21245056, 0, 124.336395, -28.41034)
 material_override = SubResource("ShaderMaterial_0475y")
 mesh = ExtResource("5_dhbx5")
+
+[node name="Ropes" type="Node3D" parent="MeshHolder"]
+
+[node name="front" type="MeshInstance3D" parent="MeshHolder/Ropes"]
+transform = Transform3D(1, 0, 0, 0, 1.38, 0, 0, 0, 1.26, 0, -38.87, 105.01)
+material_override = SubResource("ShaderMaterial_irkxv")
+mesh = ExtResource("8_d48g8")
+
+[node name="back" type="MeshInstance3D" parent="MeshHolder/Ropes"]
+material_override = SubResource("ShaderMaterial_irkxv")
+mesh = ExtResource("9_7ganq")
+
+[node name="Net" type="Node3D" parent="MeshHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0991659, 0)
+
+[node name="back" type="MeshInstance3D" parent="MeshHolder/Net"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 152.08308, 99.756645, -237.02443)
+material_override = SubResource("ShaderMaterial_6rt70")
+mesh = ExtResource("9_0475y")
+
+[node name="front" type="MeshInstance3D" parent="MeshHolder/Net"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.69, 58.37, 33.2)
+material_override = SubResource("ShaderMaterial_6rt70")
+mesh = ExtResource("10_87dtr")
+
+[node name="BoatCollisions" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+
+[node name="Ground" type="CollisionShape3D" parent="BoatCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 143.50006)
+shape = SubResource("BoxShape3D_6rt70")
+
+[node name="SideR" type="CollisionShape3D" parent="BoatCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.6852, 21.008057, 143.95654)
+shape = SubResource("BoxShape3D_5a1vw")
+
+[node name="SideL" type="CollisionShape3D" parent="BoatCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.685, 21.008, 143.957)
+shape = SubResource("BoxShape3D_tepvy")
+
+[node name="SideL2" type="CollisionShape3D" parent="BoatCollisions"]
+transform = Transform3D(0.98412454, -0.054098427, -0.16903387, 0.003174873, 0.95762557, -0.28799877, 0.17745146, 0.28288996, 0.9425946, -125.89439, 54.50019, -314.81027)
+shape = SubResource("BoxShape3D_irkxv")
+
+[node name="SideR2" type="CollisionShape3D" parent="BoatCollisions"]
+transform = Transform3D(0.9843674, 0.047451366, 0.16961576, 0.003343425, 0.95781666, -0.28736055, -0.17609645, 0.28343534, 0.9426848, 127.14534, 53.057793, -309.90726)
+shape = SubResource("BoxShape3D_irkxv")
+
+[node name="GroundUp" type="CollisionShape3D" parent="BoatCollisions"]
+transform = Transform3D(1, 0, 0, 0, 0.9574153, -0.28871432, 0, 0.28871432, 0.9574153, 1.2596893, 47.57498, -344.73074)
+shape = SubResource("BoxShape3D_wqcgs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoatCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.585747, 29.999298, -250.66385)
+shape = SubResource("BoxShape3D_r45bb")
+
+[node name="FenceCollisions" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+
+[node name="FencesTopR" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.40218, 58.4871, -54.612213)
+shape = SubResource("BoxShape3D_w3oyw")
+
+[node name="FencesTopL" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -145.402, 58.487, -54.612)
+shape = SubResource("BoxShape3D_w3oyw")
+
+[node name="FencesTopL2" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(0.98403007, -0.036680214, -0.17418224, -0.0097460365, 0.965968, -0.25847813, 0.17773554, 0.25604787, 0.9501838, -127.91829, 85.85865, -296.49066)
+shape = SubResource("BoxShape3D_jju6d")
+
+[node name="FencesTopR2" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(0.9820556, 0.05834113, 0.17934017, -0.010114965, 0.9658728, -0.258819, -0.18831958, 0.25236067, 0.949131, 128.43909, 85.867, -296.638)
+shape = SubResource("BoxShape3D_jju6d")
+
+[node name="FenceBox" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.97296, 44.20724, -5.747205)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox2" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.97296, 44.20724, 31.864147)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox3" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.97296, 44.20724, 69.162964)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox4" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.97296, 44.20724, -43.457336)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox5" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.97296, 44.20724, -80.85277)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox6" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.97296, 44.20724, -119.01323)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox7" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.97296, 44.20724, -160.5101)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox8" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 0.968964, -0.24720195, 0, 0.24720195, 0.968964, 145.65733, 45.15046, -205.16147)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox9" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(0.9945783, 0.02570662, 0.10076291, 0.004719129, 0.9568084, -0.29068086, -0.10388322, 0.28958037, 0.9514995, 139.72295, 57.298363, -243.81627)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox10" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(0.9705382, 0.06564456, 0.23183282, 0.0047191293, 0.9568084, -0.29068086, -0.24090122, 0.28321084, 0.9283093, 132.93599, 68.91702, -282.50497)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox11" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(0.98869604, 0.039097983, 0.14474654, 0.004719129, 0.9568084, -0.2906809, -0.14985973, 0.28807798, 0.9458082, 124.841644, 80.06806, -320.08258)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox12" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.973, 44.20724, -5.747205)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox13" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.973, 44.20724, 31.864147)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox14" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.973, 44.20724, 69.162964)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox15" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.973, 44.20724, -43.457336)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox16" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.973, 44.20724, -80.85277)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox17" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.973, 44.20724, -119.01323)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox18" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.973, 44.20724, -160.5101)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox19" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(0.9928472, -0.02951387, -0.11568633, 3.6847834e-09, 0.968964, -0.24720195, 0.119391754, 0.24543378, 0.9620332, -145.39345, 45.15046, -205.16147)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox20" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(0.9840014, -0.056213975, -0.16905954, 0.004719129, 0.9568084, -0.29068086, 0.17809793, 0.28523257, 0.9417661, -139.03204, 57.298363, -243.81627)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox21" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(0.9999877, -0.004069403, 0.0028395802, 0.004719129, 0.9568084, -0.2906809, -0.0015340298, 0.29069063, 0.9568159, -133.01715, 68.91702, -282.50497)
+shape = SubResource("BoxShape3D_yja7e")
+
+[node name="FenceBox22" type="CollisionShape3D" parent="FenceCollisions"]
+transform = Transform3D(0.999241, -0.015752323, -0.035628185, 0.004719129, 0.9568084, -0.2906809, 0.038668275, 0.29029197, 0.9561565, -125.65408, 80.06806, -320.08258)
+shape = SubResource("BoxShape3D_yja7e")

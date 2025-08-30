@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BrackeysGameJam2025"
-run/main_scene="uid://comtniuw3st42"
+run/main_scene="uid://c0nwpy0h6ssfh"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -113,5 +113,17 @@ outline_color={
 }
 outline_width={
 "type": "float",
-"value": 10.0
+"value": 15.0
+}
+diffuse_curve={
+"type": "sampler2D",
+"value": "res://Resources/Shaders/CeilShading/includes/diffuseCurveTexture.tres"
+}
+fresnel_smoothness={
+"type": "float",
+"value": 0.02499999999417923
+}
+specular_smoothness={
+"type": "float",
+"value": 0.05000000000291038
 }

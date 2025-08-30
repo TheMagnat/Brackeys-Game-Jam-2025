@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqiri0xdm0xcx"]
+[gd_scene load_steps=3 format=3 uid="uid://cqiri0xdm0xcx"]
 
 [ext_resource type="ArrayMesh" uid="uid://br8mvamk01ah3" path="res://Resources/Meshes/FromRIB/Chevet/chevet.res" id="1_3mm8n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3mm8n"]
+size = Vector3(19.23, 38.990425, 27.63367)
 
 [node name="Chevet" type="StaticBody3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(95, 0, 0, 0, 95, 0, 0, 0, 95, 0, 0, 0)
 mesh = ExtResource("1_3mm8n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.291606, 19.557356, -0.5093355)
+shape = SubResource("BoxShape3D_3mm8n")

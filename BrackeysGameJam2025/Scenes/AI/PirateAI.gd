@@ -14,8 +14,6 @@ var turnState: int = 0 # 0 = Play card, 1 = draw card
 
 @onready var pirateModel: PirateModel = %PirateModel
 
-##DEBUG
-@onready var debugui: DebugUI = $"../../DEBUGUI"
 
 func _ready() -> void:
 	EventBus.cardAddedInPlayArea.connect(onCardAddedInPlayArea)
@@ -303,8 +301,6 @@ func onCheatDetected() -> bool:
 	else:
 		pirateModel.onCheatDetected()
 	
-	#TODO: Remove
-	debugui.cheating()
 	return true
 
 func onCheatFinishGame() -> void:

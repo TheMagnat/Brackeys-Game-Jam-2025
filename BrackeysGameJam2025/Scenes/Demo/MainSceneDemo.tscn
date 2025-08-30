@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=73 format=3 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
@@ -10,9 +10,7 @@
 [ext_resource type="Script" uid="uid://blgox76nom2g2" path="res://addons/shaker/src/Vector3/ShakerReceiver3D.gd" id="4_giv36"]
 [ext_resource type="Script" uid="uid://dve5gom7vnevy" path="res://Scenes/Demo/PlayerHand.gd" id="6_aanud"]
 [ext_resource type="Script" uid="uid://du60je3dfraf3" path="res://Scenes/AI/PirateAI.gd" id="8_esymn"]
-[ext_resource type="Script" uid="uid://df6m7vx3elua5" path="res://Scenes/Demo/debugui.gd" id="9_aj4hj"]
 [ext_resource type="Script" uid="uid://dulk70ijjn6vw" path="res://addons/shaker/src/Vector3/ShakerEmitter3D.gd" id="9_aqsbn"]
-[ext_resource type="Shader" uid="uid://biqfsci2di0f4" path="res://Scenes/Demo/eau.gdshader" id="10_8eesi"]
 [ext_resource type="Resource" uid="uid://cvklw5ika1tao" path="res://addons/shaker/data/resources/shaker_earthquake3D.tres" id="10_giv36"]
 [ext_resource type="PackedScene" uid="uid://cgn6wlmg2y0k8" path="res://Scenes/Cards/Deck/Deck.tscn" id="11_ckiob"]
 [ext_resource type="PackedScene" uid="uid://hiengb0pep1m" path="res://Scenes/Pirate/PirateModel.tscn" id="11_lts0r"]
@@ -23,16 +21,15 @@
 [ext_resource type="PackedScene" uid="uid://dghclx6pomr1h" path="res://Scenes/Parallax/Waves/WavesParallax.tscn" id="23_f46tu"]
 [ext_resource type="Script" uid="uid://bab5y7yuyg22q" path="res://addons/shaker/data/Vector3/BaseShakerType3D.gd" id="24_3dcc7"]
 [ext_resource type="Shader" uid="uid://ke0ojpsjcaaw" path="res://Scenes/Demo/windTest.gdshader" id="24_m5r7i"]
-[ext_resource type="PackedScene" uid="uid://147q4fwq5jsn" path="res://Scenes/UI/ChoiceMenu.tscn" id="25_6e0n7"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/ChoiceMenu.tscn" id="25_6e0n7"]
 [ext_resource type="Script" uid="uid://cqun2xsfmafoe" path="res://addons/shaker/data/Vector3/ShakerTypeSineWave3D.gd" id="25_jtovl"]
 [ext_resource type="Script" uid="uid://brw14p6k8jsht" path="res://addons/shaker/data/Vector3/ShakerPreset3D.gd" id="26_r5ebq"]
-[ext_resource type="PackedScene" uid="uid://dba1mbaih7hvo" path="res://Resources/Assets/Kenny/GLB format/ship-pirate-large.glb" id="27_3dcc7"]
 [ext_resource type="PackedScene" uid="uid://de0eaa8ej7skl" path="res://Resources/Meshes/Boat/Boat.tscn" id="28_y4a6v"]
 [ext_resource type="PackedScene" uid="uid://cl1oreqg680v2" path="res://Scenes/Cinematic/Outro.tscn" id="29_b0l7b"]
 [ext_resource type="Script" uid="uid://j5wlt146ylot" path="res://Scenes/Demo/DialogManager.gd" id="32_nmdm0"]
 [ext_resource type="PackedScene" uid="uid://bl4c1a1vauw8u" path="res://Scenes/CookieArea/CookieArea.tscn" id="33_y4a6v"]
 [ext_resource type="PackedScene" uid="uid://bkt3cddomhukk" path="res://Resources/Assets/Items/Diams.tscn" id="34_vphqs"]
-[ext_resource type="Shader" path="res://Scenes/Demo/depthOutlines.gdshader" id="35_d1ngp"]
+[ext_resource type="Shader" uid="uid://bq328vjen4sbj" path="res://Scenes/Demo/depthOutlines.gdshader" id="35_d1ngp"]
 [ext_resource type="Shader" uid="uid://dicq7k08spru3" path="res://Resources/Shaders/Filters/dither.gdshader" id="36_b644d"]
 [ext_resource type="Texture2D" uid="uid://kgcqlg8dhchm" path="res://Resources/Shaders/Filters/Assets/palette_eeve.png" id="37_hoqe0"]
 [ext_resource type="PackedScene" uid="uid://b1n5mlm7dlqxq" path="res://Resources/Assets/Items/Rubis.tscn" id="38_b644d"]
@@ -42,7 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://cd1q3yyvcwytt" path="res://Resources/Shaders/Filters/Assets/bayer4tile8.png" id="41_u5jl3"]
 [ext_resource type="PackedScene" uid="uid://dq7pinxus4xj8" path="res://Resources/Assets/Items/Dice.tscn" id="41_yu7dm"]
 [ext_resource type="PackedScene" uid="uid://c73rp4eckvqan" path="res://Resources/Assets/Items/DiceBlack.tscn" id="42_yu7dm"]
-[ext_resource type="PackedScene" path="res://Resources/Meshes/Bottle.tscn" id="43_b0l7b"]
+[ext_resource type="PackedScene" uid="uid://bcuptmofs0g8u" path="res://Resources/Meshes/Bottle.tscn" id="43_b0l7b"]
 [ext_resource type="Script" uid="uid://ca8ilgdhiysdk" path="res://Scenes/Global/GlobalCardManager.gd" id="43_u5jl3"]
 
 [sub_resource type="Sky" id="Sky_rk0yb"]
@@ -101,51 +98,17 @@ radius = 0.1
 [sub_resource type="SphereShape3D" id="SphereShape3D_v63yj"]
 radius = 300.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_giv36"]
-albedo_color = Color(1, 0.9881667, 0.29000002, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_giv36"]
-radius = 20.0
-height = 80.0
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_e327d"]
-size = Vector3(8, 200, 200)
+size = Vector3(8, 200, 94.35)
 
-[sub_resource type="LabelSettings" id="LabelSettings_8eesi"]
-font_size = 48
-
-[sub_resource type="LabelSettings" id="LabelSettings_aj4hj"]
-font_size = 64
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_8eesi"]
-frequency = 0.0245
-fractal_octaves = 1
-
-[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_ckiob"]
-width = 128
-height = 128
-depth = 128
-noise = SubResource("FastNoiseLite_8eesi")
-seamless = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ckiob"]
-render_priority = 0
-shader = ExtResource("10_8eesi")
-shader_parameter/noiseTexture = SubResource("NoiseTexture3D_ckiob")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_aj4hj"]
-size = Vector2(17000, 17000)
-subdivide_width = 30
-subdivide_depth = 30
+[sub_resource type="BoxShape3D" id="BoxShape3D_b0l7b"]
+size = Vector3(8, 95.155, 94.35)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ckiob"]
-size = Vector3(750, 15, 750)
+size = Vector3(290, 15, 582.95056)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v63yj"]
-size = Vector3(500, 10, 500)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_aanud"]
-size = Vector3(400, 20, 400)
+size = Vector3(290, 10, 584.21674)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_f46tu"]
 top_radius = 10.0
@@ -196,11 +159,13 @@ script = ExtResource("26_r5ebq")
 PositionShake = Array[ExtResource("24_3dcc7")]([SubResource("Resource_hui0g"), SubResource("Resource_usaqk")])
 RotationShake = Array[ExtResource("24_3dcc7")]([SubResource("Resource_ohc42"), SubResource("Resource_3dcc7")])
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_yu7dm"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7k30j"]
 render_priority = 0
 shader = ExtResource("35_d1ngp")
 shader_parameter/sensitivity = 0.50999998860048
-shader_parameter/outline_thickness = 1.999999955296
+shader_parameter/outline_thickness = 1.499999966472
 shader_parameter/step_threshold = 0.46999998949456
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 
@@ -309,18 +274,18 @@ _data = {
 [node name="MainSceneDemo" type="Node3D"]
 script = ExtResource("1_vp0ry")
 
-[node name="CardManager" type="Node3D" parent="."]
-script = ExtResource("43_u5jl3")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_6dlwc")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.92158765, 0.30435702, 0.24092135, -0.17618805, -0.8810246, 0.4390367, 0.34588158, 0.36216336, 0.8655655, 0, 65.90869, 0)
+transform = Transform3D(-0.92158765, 0.30435702, 0.24092133, -0.17618805, -0.8810247, 0.43903676, 0.34588158, 0.3621634, 0.8655655, 0, 65.90869, 0)
 shadow_enabled = true
 directional_shadow_blend_splits = true
 directional_shadow_fade_start = 1.0
 directional_shadow_max_distance = 600.0
+
+[node name="CardManager" type="Node3D" parent="."]
+script = ExtResource("43_u5jl3")
 
 [node name="CameraHolder" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9063078, 0.4226183, 0, -0.4226183, 0.9063078, 2.3791512e-05, 72.86001, 59.879124)
@@ -387,6 +352,9 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.62179023, 0.78318334, 0, -0.78318334, 0.62179023, 0, 43.42, 49.88857)
 cardRotationBasedOnDist = 0.03500000000349246
 
+[node name="DialogManager" type="Node3D" parent="."]
+script = ExtResource("32_nmdm0")
+
 [node name="Pirate" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45, -50)
 
@@ -418,12 +386,6 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pirate/ShakerEmitter3D/Area3D"]
 shape = SubResource("SphereShape3D_v63yj")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pirate"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26.088585)
-visible = false
-material_override = SubResource("StandardMaterial3D_giv36")
-mesh = SubResource("CapsuleMesh_giv36")
-
 [node name="DistractionManager" type="Node3D" parent="Pirate"]
 script = ExtResource("12_v63yj")
 
@@ -445,93 +407,41 @@ transform = Transform3D(0.29630557, -0.75681263, -0.582613, 0.3430795, 0.653632,
 [node name="Cut" parent="Entities" instance=ExtResource("39_hoqe0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.001146, 42, 1.8954048)
 
-[node name="Cage" type="Node3D" parent="."]
+[node name="Dice" parent="Entities" instance=ExtResource("41_yu7dm")]
+transform = Transform3D(0.8495982, 0, 0.5274304, 0, 1, 0, -0.5274304, 0, 0.8495982, -25.388706, 45, -13.406675)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Cage"]
+[node name="Dice2" parent="Entities" instance=ExtResource("42_yu7dm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.25077, 42, -3.8029518)
+
+[node name="Bottle" parent="Entities" instance=ExtResource("43_b0l7b")]
+transform = Transform3D(-0.75944173, 0, -0.65057534, 0, 1, 0, 0.65057534, 0, -0.75944173, 26.432266, 42, 20.296478)
+
+[node name="DiceCage" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DiceCage"]
 collision_layer = 2048
 collision_mask = 0
 input_ray_pickable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cage/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DiceCage/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0, 0)
 shape = SubResource("BoxShape3D_e327d")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Cage/StaticBody3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="DiceCage/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, 0)
 shape = SubResource("BoxShape3D_e327d")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Cage/StaticBody3D"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="DiceCage/StaticBody3D"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -44)
 shape = SubResource("BoxShape3D_e327d")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="Cage/StaticBody3D"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="DiceCage/StaticBody3D"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 44)
 shape = SubResource("BoxShape3D_e327d")
 
-[node name="DEBUGUI" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("9_aj4hj")
-
-[node name="FlowContainer" type="FlowContainer" parent="DEBUGUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-vertical = true
-reverse_fill = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="DEBUGUI/FlowContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="DEBUGUI/FlowContainer/HBoxContainer"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 2
-text = "LAST PLAYED : "
-label_settings = SubResource("LabelSettings_8eesi")
-
-[node name="cardName" type="Label" parent="DEBUGUI/FlowContainer/HBoxContainer"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 2
-label_settings = SubResource("LabelSettings_aj4hj")
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="DEBUGUI/FlowContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="DEBUGUI/FlowContainer/HBoxContainer2"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 2
-text = "ACC ACTUEL : "
-label_settings = SubResource("LabelSettings_8eesi")
-
-[node name="acc" type="Label" parent="DEBUGUI/FlowContainer/HBoxContainer2"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 2
-text = "0"
-label_settings = SubResource("LabelSettings_8eesi")
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="DEBUGUI/FlowContainer"]
-layout_mode = 2
-
-[node name="cheatLabel" type="Label" parent="DEBUGUI/FlowContainer/HBoxContainer3"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 2
-label_settings = SubResource("LabelSettings_8eesi")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -459.05734, 0)
-visible = false
-material_override = SubResource("ShaderMaterial_ckiob")
-mesh = SubResource("PlaneMesh_aj4hj")
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="DiceCage/StaticBody3D"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 96.38327, 0)
+shape = SubResource("BoxShape3D_b0l7b")
 
 [node name="OffTableDetector" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
@@ -540,6 +450,7 @@ collision_mask = 128
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OffTableDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26.348675)
 shape = SubResource("BoxShape3D_ckiob")
 debug_color = Color(0.89, 0, 0.78616655, 1)
 
@@ -549,36 +460,24 @@ collision_mask = 64
 monitorable = false
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="GroundDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 27.118927)
 shape = SubResource("BoxShape3D_v63yj")
 debug_color = Color(0.89869046, 0.00018097162, 0.7697709, 0.41960785)
 
-[node name="ChoiceMenu" parent="." instance=ExtResource("25_6e0n7")]
-
-[node name="GameMenu" parent="." instance=ExtResource("19_mggys")]
-visible = false
-
-[node name="intro" parent="." instance=ExtResource("19_4173f")]
-visible = false
-
-[node name="Outro" parent="." instance=ExtResource("29_b0l7b")]
-visible = false
+[node name="CookieArea" parent="." instance=ExtResource("33_y4a6v")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -70)
 
 [node name="Environment" type="Node3D" parent="."]
 
-[node name="Ground" type="StaticBody3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+[node name="Boat" parent="Environment" instance=ExtResource("28_y4a6v")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ground"]
-shape = SubResource("BoxShape3D_aanud")
-
-[node name="Boat2" parent="Environment" instance=ExtResource("28_y4a6v")]
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="Environment/Boat2"]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Environment/Boat"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.506773, 54.744904, 153.50757)
 mesh = SubResource("CylinderMesh_f46tu")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="Environment/Boat2"]
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Environment/Boat"]
 transform = Transform3D(0.92520964, -0.3794561, 0, 0.3518256, 0.8578394, 0.37460652, -0.14214677, -0.34658962, 0.9271837, -31.837, 305.561, 187.797)
 material_override = SubResource("ShaderMaterial_rxjow")
 mesh = SubResource("QuadMesh_m5r7i")
@@ -594,16 +493,28 @@ intensity = 5.0
 shakerPreset = SubResource("Resource_6e0n7")
 metadata/_custom_type_script = "uid://dme7n7ov1ou1l"
 
-[node name="ship-pirate-large2" parent="." instance=ExtResource("27_3dcc7")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -2.6868896, -280.51404, -272.82632)
+[node name="Lanterne" parent="Environment" instance=ExtResource("40_jgvkr")]
+transform = Transform3D(0.82883257, 0, 0.55949676, 0, 1, 0, -0.55949676, 0, 0.82883257, -124.12194, -0.05019498, -122.80108)
+
+[node name="Chevet" parent="Environment" instance=ExtResource("41_bffry")]
+transform = Transform3D(0.00024445454, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, 0.00024445454, -58.56983, 0.008306503, -191.48743)
+
+[node name="SafeGround" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -123.36064, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SafeGround"]
+shape = SubResource("WorldBoundaryShape3D_yu7dm")
+
+[node name="ChoiceMenu" parent="." instance=ExtResource("25_6e0n7")]
+
+[node name="GameMenu" parent="." instance=ExtResource("19_mggys")]
 visible = false
 
-[node name="DialogManager" type="Node3D" parent="."]
-script = ExtResource("32_nmdm0")
+[node name="intro" parent="." instance=ExtResource("19_4173f")]
+visible = false
 
-[node name="CookieArea" parent="." instance=ExtResource("33_y4a6v")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -70)
+[node name="Outro" parent="." instance=ExtResource("29_b0l7b")]
+visible = false
 
 [node name="PostProcessOutlines" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.188477, 0)
@@ -630,26 +541,11 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Lanterne" parent="." instance=ExtResource("40_jgvkr")]
-transform = Transform3D(0.82883257, 0, 0.55949676, 0, 1, 0, -0.55949676, 0, 0.82883257, -124.12194, -0.05019498, -122.80108)
-
-[node name="Chevet" parent="." instance=ExtResource("41_bffry")]
-transform = Transform3D(0.00024445454, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, 0.00024445454, -58.56983, 0.008306503, -191.48743)
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_ngihd")
 }
-
-[node name="Dice" parent="." instance=ExtResource("41_yu7dm")]
-transform = Transform3D(0.8495982, 0, 0.5274304, 0, 1, 0, -0.5274304, 0, 0.8495982, -25.388706, 45, -13.406675)
-
-[node name="Dice2" parent="." instance=ExtResource("42_yu7dm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.25077, 42, -3.8029518)
-
-[node name="Bottle" parent="." instance=ExtResource("43_b0l7b")]
-transform = Transform3D(-3.037767, 0, -2.6023011, 0, 4, 0, 2.6023011, 0, -3.037767, 26.432266, 42, 20.296478)
 
 [connection signal="body_entered" from="OffTableDetector" to="GameManager" method="_on_off_table_detector_body_entered"]
 [connection signal="body_entered" from="OffTableDetector" to="Pirate/PirateAI" method="_on_off_table_detector_body_entered"]

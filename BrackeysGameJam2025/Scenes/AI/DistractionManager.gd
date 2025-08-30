@@ -1,9 +1,5 @@
 class_name DistractionManager extends Node3D
 
-
-@onready var mesh_instance_3d: MeshInstance3D = $"../MeshInstance3D"
-@onready var material: StandardMaterial3D = mesh_instance_3d.material_override
-
 @onready var pirateModel: PirateModel = %PirateModel
 
 var isDistracted: bool = false
