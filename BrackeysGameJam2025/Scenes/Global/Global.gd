@@ -15,7 +15,7 @@ var drawPhase: bool = true
 
 ## Game Rules
 const GAME_TO_WIN_TO_FINISH: int = 3
-const TOTAL_TO_NOT_REACH: int = 10
+const TOTAL_TO_NOT_REACH: int = 30
 const MAX_CARDS_IN_HAND: int = 4
 
 ## Pirate settings

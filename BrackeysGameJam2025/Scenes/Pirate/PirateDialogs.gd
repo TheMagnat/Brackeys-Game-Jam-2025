@@ -42,7 +42,7 @@ const tutorialText: Array[String] = [
 	"If ya put 9 it adds 9, if ya put 4 it adds 4",
 	"Ya wanna keep yer heads tho: Jacks remove 10 points, Kings remove 20 points and Queens pass yer turn",
 	"Each time ya put a card, ya pick one from the stack",
-	"The goal's to never go above 50\nIf ya reach it, yer out",
+	"The goal's to never go above 30\nIf ya reach it, yer out",
 ]
 
 const pirateWaitingPlay: Array[String] = [

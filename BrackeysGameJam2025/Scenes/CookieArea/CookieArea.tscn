@@ -3,8 +3,8 @@
 [ext_resource type="ArrayMesh" uid="uid://c2ktkb4c6oqpr" path="res://Resources/Meshes/cloche.res" id="1_f5rhk"]
 [ext_resource type="Script" uid="uid://thqoinrcke5u" path="res://Scenes/CookieArea/CookieArea.gd" id="1_hkaox"]
 [ext_resource type="Texture2D" uid="uid://bonl8tevw4d2k" path="res://Resources/Assets/cookiePasFou.png" id="2_hkaox"]
-[ext_resource type="ArrayMesh" uid="uid://vffytv8g1pi0" path="res://Resources/Meshes/smallTableTop.res" id="3_dfrfg"]
-[ext_resource type="ArrayMesh" uid="uid://b15bab3imn43t" path="res://Resources/Meshes/smallTableBot.res" id="5_dt4nd"]
+[ext_resource type="ArrayMesh" uid="uid://dxs2f65mgl6yj" path="res://Resources/Meshes/smallTableTop.res" id="3_dfrfg"]
+[ext_resource type="ArrayMesh" uid="uid://c6ul65bqp5htj" path="res://Resources/Meshes/smallTableBot.res" id="5_dt4nd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vphqs"]
 render_priority = 1

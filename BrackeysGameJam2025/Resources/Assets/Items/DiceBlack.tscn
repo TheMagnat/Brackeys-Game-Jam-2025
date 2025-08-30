@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dlsurt871l1yt" path="res://Scenes/Interactable/Interactable.gd" id="1_vkv2f"]
 [ext_resource type="Texture2D" uid="uid://61uffruxykbn" path="res://Resources/dice.png" id="2_k8cj2"]
 [ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/hover.gdshader" id="2_nk4hx"]
-[ext_resource type="ArrayMesh" uid="uid://b7wcp7qq51pkp" path="res://Resources/Meshes/SimpleCube.res" id="3_41gk0"]
+[ext_resource type="ArrayMesh" uid="uid://cfftx15d3l0is" path="res://Resources/Meshes/SimpleCube.res" id="3_41gk0"]
 [ext_resource type="AudioStream" uid="uid://dmssixc25iw2e" path="res://Resources/SFX/material/card_down1.ogg" id="4_v43ry"]
 [ext_resource type="AudioStream" uid="uid://utlf8eas1pr7" path="res://Resources/SFX/material/card_down2.ogg" id="5_nk4hx"]
 [ext_resource type="AudioStream" uid="uid://c4s5il1qku6uu" path="res://Resources/SFX/material/card_down3.ogg" id="6_bgygd"]

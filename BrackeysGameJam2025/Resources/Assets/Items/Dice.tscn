@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dlsurt871l1yt" path="res://Scenes/Interactable/Interactable.gd" id="1_ulxr5"]
 [ext_resource type="Texture2D" uid="uid://61uffruxykbn" path="res://Resources/dice.png" id="2_3denp"]
-[ext_resource type="ArrayMesh" uid="uid://b7wcp7qq51pkp" path="res://Resources/Meshes/SimpleCube.res" id="2_mdjrd"]
+[ext_resource type="ArrayMesh" uid="uid://cfftx15d3l0is" path="res://Resources/Meshes/SimpleCube.res" id="2_mdjrd"]
 [ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/hover.gdshader" id="3_0lubc"]
 [ext_resource type="AudioStream" uid="uid://dmssixc25iw2e" path="res://Resources/SFX/material/card_down1.ogg" id="4_2x1f0"]
 [ext_resource type="AudioStream" uid="uid://utlf8eas1pr7" path="res://Resources/SFX/material/card_down2.ogg" id="5_0lubc"]

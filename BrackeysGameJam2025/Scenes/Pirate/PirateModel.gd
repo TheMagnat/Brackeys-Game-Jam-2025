@@ -1,4 +1,3 @@
-@tool
 class_name PirateModel extends Node3D
 
 @onready var moustacheGaucheHolder: Node3D = %MoustacheGaucheHolder
