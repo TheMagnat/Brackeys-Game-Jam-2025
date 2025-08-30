@@ -15,7 +15,7 @@ const introduction2Text: Array[String] = [
 	"'Tis so good it makes ye wanna throw up",
 	"But A' know ya scrub better than any fool",
 	"Ya wouldn't play for nothin', would ya?",
-	"So let's make a gamble. A'll bet this cookie. Let's say it symbolizes yer freedom, or future work with us?",
+	"So let's make a gamble. A'll bet this cookie\nLet's say it symbolizes yer freedom, or future work with us?",
 ]
 
 const introduction2Question := "But ya gotta bet something that matches the value of this perfect biscuit, right?"
@@ -76,18 +76,19 @@ const cheatSteal: Array[String] = [
 ]
 
 const cheatHide: Array[String] = [
-	"Watcha tryina hide here?\nGimme that!",
-	"Tryina hide somethin' from me?\nHow cute!",
-	"You dropped a card A think, let me gather it up",
-	"Tryina keep lil' secrets from me?"
+	"Yer cheat bein' so obvious makes it even more irritating",
+	"Don't play dumb, A saw ya cheatin' there",
+	"Tryina hide somethin' from me?\nHow cute!"
 ]
 
 const cheatHideInDeck: Array[String] = [
+	"Keep yer hands on yer hand",
 	"Tryina setup somethina see?",
 	"Ya tricky bastard tryina setup some cards here?",
 	"That deck is for pickin' cards, not puttin' any, ya scum!",
 	"Plan with yer hand, not with that damn deck!"
 ]
+
 
 const cheatWrongTurn: Array[String] = [
 	"'Tis my turn, watcha think yer doin'?",
@@ -96,10 +97,10 @@ const cheatWrongTurn: Array[String] = [
 ]
 
 const cheatPickGroundCard: Array[String] = [
-	"Keep yer hands on yer hand",
 	"Think ya can pick this card like it's an apple?",
-	"Don't play dumb, A saw ya cheatin' there",
-	"Yer cheat bein' so obvious makes it even more irritating"
+	"Watcha tryina pick here?\nGimme that!",
+	"You dropped a card A think, let me gather it up",
+	"Tryina keep lil' secrets from me?"
 ]
 
 const notEnoughCards: Array[String] = [

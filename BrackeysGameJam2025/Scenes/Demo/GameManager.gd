@@ -119,7 +119,7 @@ func introduction2Answer(answer: int) -> void:
 			startIntroduction3()
 			return
 		
-		var answers: Array[String] = [PirateDialogs.introduction2Answers[2]]
+		var answers: Array[String] = [PirateDialogs.introduction2Offers[2]]
 		var subIndex: int
 		var angry: bool = false
 		if intro2State == 0:
