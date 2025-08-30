@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://dy0hq0brayjv5"]
 
-[ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/outlines.gdshader" id="1_0cxbu"]
+[ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/hover.gdshader" id="1_0cxbu"]
 [ext_resource type="Shader" uid="uid://bu6po0ymbted5" path="res://Resources/Assets/Cards/AlphaCard.gdshader" id="2_0cxbu"]
 [ext_resource type="Texture2D" uid="uid://boeej6obceyof" path="res://Resources/Assets/Cards/Textures/Other/dos_carte.png" id="3_mdfqj"]
 [ext_resource type="Texture2D" uid="uid://uq3ap80cs8lb" path="res://Resources/Assets/Cards/Textures/3_coeur.png" id="4_7hiqe"]

@@ -1,20 +1,71 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkt3cddomhukk"]
+[gd_scene load_steps=17 format=3 uid="uid://bkt3cddomhukk"]
 
 [ext_resource type="Script" uid="uid://dlsurt871l1yt" path="res://Scenes/Interactable/Interactable.gd" id="1_hv8cm"]
+[ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/hover.gdshader" id="2_dqfiy"]
 [ext_resource type="ArrayMesh" uid="uid://by5mx2k30wobw" path="res://Resources/Meshes/FromRIB/diams.res" id="2_mc4gk"]
+[ext_resource type="AudioStream" uid="uid://ccesfxttojr8e" path="res://Resources/SFX/material/glass_hit1.ogg" id="3_8hlt5"]
+[ext_resource type="AudioStream" uid="uid://26ar0hkl6yv0" path="res://Resources/SFX/material/glass_hit2.ogg" id="4_dqfiy"]
+[ext_resource type="AudioStream" uid="uid://dqggwenj6fb5l" path="res://Resources/SFX/material/glass_hit3.ogg" id="5_tny5w"]
+[ext_resource type="AudioStream" uid="uid://blqdlu6howgb" path="res://Resources/SFX/material/glass_hit4.ogg" id="6_ob25f"]
+[ext_resource type="AudioStream" uid="uid://bn18feqgh1hs4" path="res://Resources/SFX/material/glass_break1.ogg" id="7_a4fxu"]
+[ext_resource type="AudioStream" uid="uid://brrnd53ikcvr7" path="res://Resources/SFX/material/glass_break2.ogg" id="8_hxucr"]
+[ext_resource type="AudioStream" uid="uid://d3v7u7v0of4ha" path="res://Resources/SFX/material/glass_break3.ogg" id="9_7e5j3"]
+[ext_resource type="AudioStream" uid="uid://cnecccdb1sd18" path="res://Resources/SFX/material/glass_break4.ogg" id="10_r8wn8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tny5w"]
+render_priority = 0
+shader = ExtResource("2_dqfiy")
+shader_parameter/activated = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ob25f"]
+next_pass = SubResource("ShaderMaterial_tny5w")
+albedo_color = Color(0.120000005, 1, 0.85333323, 0.8862745)
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.32
+anisotropy_enabled = true
+anisotropy = 1.0
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hv8cm"]
 points = PackedVector3Array(0, 1.3207283, 0.99999994, -0.58780146, 1.3207283, 0.8089271, 0, 0.0049301386, 0, 0.5876152, 1.3207283, 0.8089271, 0.27630574, 1.7680181, 0.8506264, -0.2629001, 1.8466848, 0.8089271, -0.95105785, 1.3207283, 0.30892712, -0.72372, 1.7680181, 0.52564603, 0, 1.3207283, -0.99999994, 0.5876152, 1.3207283, -0.8091229, 0.95105785, 1.3207283, -0.30912292, 0.95105785, 1.3207283, 0.30892712, -0.95105785, 1.3207283, -0.30912292, -0.58780146, 1.3207283, -0.8091229, 0.68815774, 1.8466848, 0.4998042, 0.16235751, 2.1715536, 0.4998042, -0.4254439, 2.1715536, 0.30892712, -0.8507015, 1.8466848, 0, -0.2629001, 1.8466848, -0.8091229, 0.27630574, 1.7680181, -0.8508222, 0.68815774, 1.8466848, -0.49999997, 0.8942699, 1.7680181, 0, -0.72372, 1.7680181, -0.52584183, 0.52561396, 2.1715536, 0, 0, 2.3209524, 0, -0.4254439, 2.1715536, -0.30912292, 0.16235751, 2.1715536, -0.49999997)
 
-[node name="Diams" type="RigidBody3D"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3otyl"]
+streams_count = 4
+stream_0/stream = ExtResource("3_8hlt5")
+stream_1/stream = ExtResource("4_dqfiy")
+stream_2/stream = ExtResource("5_tny5w")
+stream_3/stream = ExtResource("6_ob25f")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_e54d1"]
+streams_count = 4
+stream_0/stream = ExtResource("7_a4fxu")
+stream_1/stream = ExtResource("8_hxucr")
+stream_2/stream = ExtResource("9_7e5j3")
+stream_3/stream = ExtResource("10_r8wn8")
+
+[node name="Diams" type="RigidBody3D" node_paths=PackedStringArray("meshInstance", "hitPlayer", "breakPlayer")]
 mass = 30.0
 script = ExtResource("1_hv8cm")
+meshInstance = NodePath("MeshInstance3D")
+hitPlayer = NodePath("Hit")
+breakPlayer = NodePath("Break")
 metadata/_custom_type_script = "uid://dlsurt871l1yt"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_ob25f")
 mesh = ExtResource("2_mc4gk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_hv8cm")
+
+[node name="Hit" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_3otyl")
+unit_size = 50.0
+pitch_scale = 2.5
+
+[node name="Break" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_e54d1")
+unit_size = 60.0
+pitch_scale = 2.0

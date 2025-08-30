@@ -76,8 +76,6 @@ func _ready() -> void:
 	angular_damp = 1.0
 	continuous_cd = true
 
-var lastPosition: Vector3
-var lastVelocity: Vector3
 func _physics_process(_delta: float) -> void:
 	if activated:
 		lastVelocity = global_position - lastPosition

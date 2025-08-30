@@ -1,15 +1,33 @@
-[gd_scene load_steps=8 format=4 uid="uid://bcuptmofs0g8u"]
+[gd_scene load_steps=23 format=4 uid="uid://bcuptmofs0g8u"]
 
 [ext_resource type="Script" uid="uid://dlsurt871l1yt" path="res://Scenes/Interactable/Interactable.gd" id="1_qwik3"]
+[ext_resource type="Texture2D" uid="uid://3ukpp2y5vevj" path="res://Resources/Images/undead_survivor.png" id="2_6ty8n"]
+[ext_resource type="AudioStream" uid="uid://ccesfxttojr8e" path="res://Resources/SFX/material/glass_hit1.ogg" id="3_4bklg"]
+[ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/hover.gdshader" id="3_6t8gt"]
+[ext_resource type="AudioStream" uid="uid://26ar0hkl6yv0" path="res://Resources/SFX/material/glass_hit2.ogg" id="4_6t8gt"]
+[ext_resource type="AudioStream" uid="uid://dqggwenj6fb5l" path="res://Resources/SFX/material/glass_hit3.ogg" id="5_t4yx1"]
+[ext_resource type="AudioStream" uid="uid://blqdlu6howgb" path="res://Resources/SFX/material/glass_hit4.ogg" id="6_mie6q"]
+[ext_resource type="AudioStream" uid="uid://bn18feqgh1hs4" path="res://Resources/SFX/material/glass_break1.ogg" id="7_444mv"]
+[ext_resource type="AudioStream" uid="uid://brrnd53ikcvr7" path="res://Resources/SFX/material/glass_break2.ogg" id="8_ewxrh"]
+[ext_resource type="AudioStream" uid="uid://d3v7u7v0of4ha" path="res://Resources/SFX/material/glass_break3.ogg" id="9_phr5m"]
+[ext_resource type="AudioStream" uid="uid://cnecccdb1sd18" path="res://Resources/SFX/material/glass_break4.ogg" id="10_8ft4s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t4yx1"]
+render_priority = 0
+shader = ExtResource("3_6t8gt")
+shader_parameter/activated = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwik3"]
-transparency = 4
+next_pass = SubResource("ShaderMaterial_t4yx1")
 cull_mode = 2
 depth_draw_mode = 1
-albedo_color = Color(1, 1, 1, 0.4745098)
+albedo_color = Color(0, 0, 0, 1)
+albedo_texture = ExtResource("2_6ty8n")
 metallic = 1.0
 metallic_specular = 1.0
-roughness = 0.58
+roughness = 0.33
+anisotropy_enabled = true
+anisotropy = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wl33m"]
 resource_name = "Material"
@@ -57,10 +75,33 @@ size = Vector3(1, 2.2817383, 2.0011597)
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ty8n"]
 size = Vector3(0.46362305, 0.80493164, 0.53700256)
 
-[node name="Bottle" type="RigidBody3D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ty8n"]
+next_pass = SubResource("ShaderMaterial_t4yx1")
+albedo_texture = ExtResource("2_6ty8n")
+
+[sub_resource type="QuadMesh" id="QuadMesh_qwik3"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xi7ho"]
+streams_count = 4
+stream_0/stream = ExtResource("3_4bklg")
+stream_1/stream = ExtResource("4_6t8gt")
+stream_2/stream = ExtResource("5_t4yx1")
+stream_3/stream = ExtResource("6_mie6q")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kju4j"]
+streams_count = 4
+stream_0/stream = ExtResource("7_444mv")
+stream_1/stream = ExtResource("8_ewxrh")
+stream_2/stream = ExtResource("9_phr5m")
+stream_3/stream = ExtResource("10_8ft4s")
+
+[node name="Bottle" type="RigidBody3D" node_paths=PackedStringArray("meshInstance", "hitPlayer", "breakPlayer")]
 collision_layer = 65
 mass = 50.0
 script = ExtResource("1_qwik3")
+meshInstance = NodePath("MeshInstance3D")
+hitPlayer = NodePath("Hit")
+breakPlayer = NodePath("Break")
 metadata/_custom_type_script = "uid://dlsurt871l1yt"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -75,3 +116,16 @@ shape = SubResource("BoxShape3D_qwik3")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0010986328, 2.6840544, 0.00092315674)
 shape = SubResource("BoxShape3D_6ty8n")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 0.4633143, 1.1657763, 0)
+material_override = SubResource("StandardMaterial3D_6ty8n")
+mesh = SubResource("QuadMesh_qwik3")
+
+[node name="Hit" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_xi7ho")
+unit_size = 50.0
+
+[node name="Break" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_kju4j")
+unit_size = 60.0

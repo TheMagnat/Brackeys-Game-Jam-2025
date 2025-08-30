@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=82 format=3 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
@@ -40,6 +40,8 @@
 [ext_resource type="PackedScene" uid="uid://cqiri0xdm0xcx" path="res://Resources/Assets/Items/Chevet.tscn" id="41_bffry"]
 [ext_resource type="Texture2D" uid="uid://cd1q3yyvcwytt" path="res://Resources/Shaders/Filters/Assets/bayer4tile8.png" id="41_u5jl3"]
 [ext_resource type="PackedScene" uid="uid://dq7pinxus4xj8" path="res://Resources/Assets/Items/Dice.tscn" id="41_yu7dm"]
+[ext_resource type="PackedScene" uid="uid://c73rp4eckvqan" path="res://Resources/Assets/Items/DiceBlack.tscn" id="42_yu7dm"]
+[ext_resource type="PackedScene" uid="uid://bcuptmofs0g8u" path="res://Resources/Meshes/Bottle.tscn" id="43_b0l7b"]
 [ext_resource type="Script" uid="uid://ca8ilgdhiysdk" path="res://Scenes/Global/GlobalCardManager.gd" id="43_u5jl3"]
 
 [sub_resource type="Sky" id="Sky_rk0yb"]
@@ -637,6 +639,12 @@ libraries = {
 
 [node name="Dice" parent="." instance=ExtResource("41_yu7dm")]
 transform = Transform3D(0.8495982, 0, 0.5274304, 0, 1, 0, -0.5274304, 0, 0.8495982, -25.388706, 45, -13.406675)
+
+[node name="Dice2" parent="." instance=ExtResource("42_yu7dm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.25077, 42, -3.8029518)
+
+[node name="Bottle" parent="." instance=ExtResource("43_b0l7b")]
+transform = Transform3D(-3.037767, 0, -2.6023011, 0, 4, 0, 2.6023011, 0, -3.037767, 26.432266, 42, 20.296478)
 
 [connection signal="body_entered" from="OffTableDetector" to="GameManager" method="_on_off_table_detector_body_entered"]
 [connection signal="body_entered" from="OffTableDetector" to="Pirate/PirateAI" method="_on_off_table_detector_body_entered"]

@@ -1,0 +1,129 @@
+[gd_scene load_steps=15 format=3 uid="uid://c73rp4eckvqan"]
+
+[ext_resource type="Script" uid="uid://dlsurt871l1yt" path="res://Scenes/Interactable/Interactable.gd" id="1_vkv2f"]
+[ext_resource type="Texture2D" uid="uid://61uffruxykbn" path="res://Resources/dice.png" id="2_k8cj2"]
+[ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/hover.gdshader" id="2_nk4hx"]
+[ext_resource type="ArrayMesh" uid="uid://b7wcp7qq51pkp" path="res://Resources/Meshes/SimpleCube.res" id="3_41gk0"]
+[ext_resource type="AudioStream" uid="uid://dmssixc25iw2e" path="res://Resources/SFX/material/card_down1.ogg" id="4_v43ry"]
+[ext_resource type="AudioStream" uid="uid://utlf8eas1pr7" path="res://Resources/SFX/material/card_down2.ogg" id="5_nk4hx"]
+[ext_resource type="AudioStream" uid="uid://c4s5il1qku6uu" path="res://Resources/SFX/material/card_down3.ogg" id="6_bgygd"]
+[ext_resource type="AudioStream" uid="uid://doc8fquo3nxsd" path="res://Resources/SFX/material/card_down4.ogg" id="7_2qvgr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mdjrd"]
+bounce = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mdjrd"]
+size = Vector3(3, 3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bgygd"]
+render_priority = 0
+shader = ExtResource("2_nk4hx")
+shader_parameter/activated = 0.0
+
+[sub_resource type="Shader" id="Shader_vkv2f"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.5.beta6's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+uniform float normal_scale : hint_range(-16.0, 16.0);
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = 0.65 - texture(texture_albedo, base_uv);
+
+	// Albedo Texture Force sRGB: Enabled
+	albedo_tex.rgb = mix(
+			pow((albedo_tex.rgb + vec3(0.055)) * (1.0 / (1.0 + 0.055)), vec3(2.4)),
+			albedo_tex.rgb.rgb * (1.0 / 12.92),
+			lessThan(albedo_tex.rgb, vec3(0.04045)));
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+
+	// Normal Map: Enabled
+	NORMAL_MAP = texture(texture_normal, base_uv).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k8cj2"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_bgygd")
+shader = SubResource("Shader_vkv2f")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("2_k8cj2")
+shader_parameter/albedo_texture_size = Vector2i(1024, 1024)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/texture_normal = ExtResource("2_k8cj2")
+shader_parameter/normal_scale = -2.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_p2k54"]
+streams_count = 4
+stream_0/stream = ExtResource("4_v43ry")
+stream_1/stream = ExtResource("5_nk4hx")
+stream_2/stream = ExtResource("6_bgygd")
+stream_3/stream = ExtResource("7_2qvgr")
+
+[node name="Dice" type="RigidBody3D" node_paths=PackedStringArray("meshInstance", "hitPlayer", "breakPlayer")]
+collision_mask = 2049
+physics_material_override = SubResource("PhysicsMaterial_mdjrd")
+script = ExtResource("1_vkv2f")
+meshInstance = NodePath("MeshInstance3D")
+hitPlayer = NodePath("AudioStreamPlayer3D")
+breakPlayer = NodePath("AudioStreamPlayer3D")
+metadata/_custom_type_script = "uid://dlsurt871l1yt"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_mdjrd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 1.5, 0)
+material_override = SubResource("ShaderMaterial_k8cj2")
+mesh = ExtResource("3_41gk0")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_p2k54")
+volume_db = 5.0
+unit_size = 60.0
+pitch_scale = 4.0
+bus = &"DiceBus"

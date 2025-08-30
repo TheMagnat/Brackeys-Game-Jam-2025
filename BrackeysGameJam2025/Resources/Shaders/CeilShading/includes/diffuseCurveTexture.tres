@@ -1,0 +1,6 @@
+[gd_resource type="CurveTexture" load_steps=2 format=3 uid="uid://cliu4f5lq5bsd"]
+
+[ext_resource type="Curve" path="res://Resources/Shaders/CeilShading/includes/diffuseCurve.tres" id="1_n0pyu"]
+
+[resource]
+curve = ExtResource("1_n0pyu")

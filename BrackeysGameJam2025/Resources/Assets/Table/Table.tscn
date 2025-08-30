@@ -1,16 +1,28 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvhj527wv0io3"]
+[gd_scene load_steps=15 format=3 uid="uid://bvhj527wv0io3"]
 
 [ext_resource type="Script" uid="uid://cp7c7e0c7wprf" path="res://Resources/Assets/Table/Table.gd" id="1_tds7a"]
+[ext_resource type="Shader" uid="uid://dwq5gktwpm308" path="res://Resources/Shaders/CeilShading/ceil_shader.gdshader" id="2_jqfya"]
 [ext_resource type="PackedScene" uid="uid://crrxs6e4dk0jh" path="res://Resources/Assets/Kenny/GLB format/structure.glb" id="2_vjwv6"]
+[ext_resource type="ArrayMesh" uid="uid://db8k46w6xujjn" path="res://Resources/Meshes/FromRIB/TableEtTabouret/table.res" id="2_xeg4i"]
+[ext_resource type="Texture2D" uid="uid://bjanp35e1m07v" path="res://Resources/Meshes/FromRIB/TableEtTabouret/TableGBL_0.png" id="3_eikwc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sar6x"]
 size = Vector3(80, 4, 80)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eikwc"]
+render_priority = 0
+shader = ExtResource("2_jqfya")
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/base_texture = ExtResource("3_eikwc")
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.06879827, 0.06879828, 0.06879828, 0.3019608)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sar6x"]
 albedo_color = Color(0.84, 0.6097, 0.44519997, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_sar6x"]
-size = Vector3(80, 4, 80)
 
 [sub_resource type="BoxMesh" id="BoxMesh_tds7a"]
 size = Vector3(10, 40, 10)
@@ -45,10 +57,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
 shape = SubResource("BoxShape3D_sar6x")
 
 [node name="Top" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
-visible = false
-material_override = SubResource("StandardMaterial3D_sar6x")
-mesh = SubResource("BoxMesh_sar6x")
+transform = Transform3D(1.14, 0, 0, 0, 0.813, 0, 0, 0, 0.4, 0, -0.018714905, 0)
+material_override = SubResource("ShaderMaterial_eikwc")
+mesh = ExtResource("2_xeg4i")
 
 [node name="Steps" type="Node3D" parent="."]
 visible = false
@@ -103,6 +114,7 @@ shape = SubResource("CylinderShape3D_vjwv6")
 
 [node name="structure2" parent="." instance=ExtResource("2_vjwv6")]
 transform = Transform3D(32.005, 0, 0, 0, 19.11, 0, 0, 0, 32.03, 0, 0, 0)
+visible = false
 
 [connection signal="body_entered" from="StaticBody3D/PlayArea" to="." method="_on_play_area_body_entered"]
 [connection signal="body_exited" from="StaticBody3D/PlayArea" to="." method="_on_play_area_body_exited"]

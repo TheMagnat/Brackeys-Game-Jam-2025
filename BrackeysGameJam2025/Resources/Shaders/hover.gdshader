@@ -10,7 +10,7 @@ void vertex() {
 
 void fragment() {
 	ALBEDO = vec3(0.0);
-	ALPHA = activated * 0.75;
+	ALPHA = activated * 0.85;
 }
 
 //void light() {

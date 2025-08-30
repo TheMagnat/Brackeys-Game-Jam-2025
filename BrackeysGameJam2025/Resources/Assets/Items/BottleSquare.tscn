@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://dgcmwy3gjdq2t"]
+
+[ext_resource type="Script" uid="uid://dlsurt871l1yt" path="res://Scenes/Interactable/Interactable.gd" id="1_1lp2m"]
+[ext_resource type="ArrayMesh" uid="uid://bfromncrv2ah3" path="res://Resources/Meshes/bottle_square.tres" id="1_vdknv"]
+[ext_resource type="Shader" uid="uid://b3ckjv4bonj2p" path="res://Resources/Shaders/CeilShading/outline.gdshader" id="2_yqe2j"]
+[ext_resource type="ArrayMesh" uid="uid://cdho1wu3uclkf" path="res://Resources/Meshes/bottle_square_liquid.tres" id="3_v7pbe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hl7p0"]
+render_priority = 0
+shader = ExtResource("2_yqe2j")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v7pbe"]
+next_pass = SubResource("ShaderMaterial_hl7p0")
+albedo_color = Color(0.7372549, 1, 1, 0.5921569)
+
+[node name="BottleSquare" type="RigidBody3D"]
+script = ExtResource("1_1lp2m")
+metadata/_custom_type_script = "uid://dlsurt871l1yt"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_v7pbe")
+mesh = ExtResource("1_vdknv")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32759386, -0.057807073)
+mesh = ExtResource("3_v7pbe")

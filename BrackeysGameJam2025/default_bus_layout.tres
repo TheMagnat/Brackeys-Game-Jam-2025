@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://cn567vucofpse"]
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://cn567vucofpse"]
 
 [sub_resource type="AudioEffectFilter" id="AudioEffectFilter_j3pel"]
 resource_name = "Filter"
@@ -10,6 +10,10 @@ resource_name = "Reverb"
 room_size = 0.1
 damping = 0.1
 wet = 0.05
+
+[sub_resource type="AudioEffectFilter" id="AudioEffectFilter_g28q7"]
+resource_name = "Filter"
+cutoff_hz = 5000.0
 
 [resource]
 bus/1/name = &"SeaSounds"
@@ -28,3 +32,11 @@ bus/2/volume_db = 0.0
 bus/2/send = &"Master"
 bus/2/effect/0/effect = SubResource("AudioEffectReverb_j3pel")
 bus/2/effect/0/enabled = true
+bus/3/name = &"DiceBus"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"Master"
+bus/3/effect/0/effect = SubResource("AudioEffectFilter_g28q7")
+bus/3/effect/0/enabled = true

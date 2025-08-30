@@ -1,18 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://45wtknl3gtxl"]
+[gd_scene load_steps=8 format=3 uid="uid://45wtknl3gtxl"]
 
 [ext_resource type="Script" uid="uid://dlsurt871l1yt" path="res://Scenes/Interactable/Interactable.gd" id="1_jgise"]
 [ext_resource type="ArrayMesh" uid="uid://b10dfh076c2em" path="res://Resources/Meshes/FromRIB/Couteau/couteau.res" id="1_tvwmk"]
+[ext_resource type="Texture2D" uid="uid://d25rj1kt6v6b" path="res://Resources/Meshes/FromRIB/Couteau/DefaultMaterial_baseColor.png" id="2_gvl5x"]
+[ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/hover.gdshader" id="3_v4m2r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m2xo3"]
+render_priority = 0
+shader = ExtResource("3_v4m2r")
+shader_parameter/activated = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmo4f"]
+next_pass = SubResource("ShaderMaterial_m2xo3")
+albedo_texture = ExtResource("2_gvl5x")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jgise"]
 points = PackedVector3Array(0.042326182, -0.060024038, 0.034576483, -0.06959762, 0.10781785, 0.034576483, 0.028335705, 0.3246976, 0.034576483, 0.035325468, -0.09499475, 0.0066023804, -0.020614522, -0.10897426, 0.048573807, -0.027615236, 0.20576213, 0.0066023804, -0.027615236, -0.10200642, 0.0066023804, 0.02133499, 0.29669476, 0.013598987, -0.04160571, 0.20576213, 0.0415772, 0.028335705, -0.10200642, 0.048573807, -0.05560714, 0.19875047, 0.013598987, 0.014345232, 0.01692906, 0.048573807, 0.007344516, -0.12299761, 0.0066023804, 0.028335705, 0.3246976, 0.020599702, -0.05560714, 0.2127738, 0.034576483, -0.013635717, 0.28968307, 0.020599702, -0.034604996, -0.08798307, 0.0415772, 0.042326182, -0.08101523, 0.013598987, -0.006645958, 0.24073285, 0.0415772, -0.027615236, -0.05301237, 0.048573807, -0.013635717, 0.28968307, 0.034576483, 0.035325468, -0.05301237, 0.0066023804, 0.014345232, -0.115985945, 0.048573807, -0.034604996, -0.08798307, 0.013598987, -0.013635717, 0.27565974, 0.013598987, 0.028335705, -0.046044514, 0.048573807, -0.06959762, 0.14980024, 0.034576483, -0.013635717, 0.01692906, 0.048573807, -0.006645958, -0.12299761, 0.0066023804, 0.02133499, 0.03792025, 0.0066023804, -0.027615236, 0.2687357, 0.020599702, -0.027615236, -0.09499475, 0.048573807)
 
-[node name="Cut" type="RigidBody3D"]
+[node name="Cut" type="RigidBody3D" node_paths=PackedStringArray("meshInstance")]
 mass = 30.0
 script = ExtResource("1_jgise")
+meshInstance = NodePath("Couteau")
 metadata/_custom_type_script = "uid://dlsurt871l1yt"
 
 [node name="Couteau" type="MeshInstance3D" parent="."]
 transform = Transform3D(42.36, 0, 0, 0, 42.36, 0, 0, 0, 42.36, 0, 5.097, -1.16)
+material_override = SubResource("StandardMaterial3D_jmo4f")
 mesh = ExtResource("1_tvwmk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
