@@ -15,7 +15,7 @@ const introduction2Text: Array[String] = [
 	"'Tis so good it makes ye wanna throw up",
 	"But A' know ya scrub better than any fool",
 	"Ya wouldn't play for nothin', would ya?",
-	"So let us make a gamble. A'll bet this cookie\nLet us say it symbolizes yer freedom, or future work with us?",
+	"So let us make a gamble. A'll bet this cookie\nLet us say it symbolizes yer freedom",
 ]
 
 const introduction2Question := "But ya gotta bet something that matches the value of this perfect biscuit, right?"
@@ -66,9 +66,8 @@ const pirateWaitingPick: Array[String] = [
 const tutorialQuestion := "Get it?"
 
 const tooManyCards: Array[String] = [
-	"Gimme that card ya crook",
-	"Think A didn't see that card?",
-	"Think A can't count above 4?"
+	"Ya got too many cards! Gimme that!",
+	"Yer stealing cards, A'm stealing ya!",
 ]
 
 const cheatSteal: Array[String] = [
@@ -84,11 +83,11 @@ const cheatHide: Array[String] = [
 ]
 
 const cheatHideInDeck: Array[String] = [
+	"A saw ya there!",
+	"Baby boy thought A wouldn't see him?",
 	"Keep yer hands on yer hand",
-	"Tryina setup somethina see?",
-	"Ya tricky bastard tryina setup some cards here?",
-	"That deck is for pickin' cards, not puttin' any, ya scum!",
-	"Plan with yer hand, not with that damn deck!"
+	"Tryina setup somethin', A see?",
+	"Ya tricky bastard tryina setup some cards here?"
 ]
 
 
@@ -131,7 +130,6 @@ const count: Array[String] = [
 ]
 
 const playing: Array[String] = [
-	"",
 	"...",
 	"not bad...",
 	"not bad at all...",
@@ -144,8 +142,26 @@ const playing: Array[String] = [
 	"ya wily old fox"
 ]
 
+const distraction: Array[String] = [
+	"?",
+	"uh?",
+	"hm?",
+	"what's that?",
+	"rats?",
+	"wut?",
+	"what's that noise?",
+	"somethin' fell?",
+	"wazzat?"
+]
+
 const playingKing: Array[String] = [
-	"Oh, a king, ya may now draw 2 cards",
+	"Draw 2 cards",
+	"A king? Ya may draw 2 then",
+	"hmmm... ya draw 2 cards",
+	"King, uh?",
+	"Likin' the artwork?",
+	"King... ya know the rules",
+	"Hope we won't run out of cards to play",
 ]
 
 const pirateWin: Array[String] = [
