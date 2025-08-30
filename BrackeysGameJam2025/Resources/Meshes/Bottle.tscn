@@ -1,12 +1,10 @@
-[gd_scene load_steps=23 format=4 uid="uid://bcuptmofs0g8u"]
+[gd_scene load_steps=21 format=4 uid="uid://bcuptmofs0g8u"]
 
 [ext_resource type="Script" uid="uid://dlsurt871l1yt" path="res://Scenes/Interactable/Interactable.gd" id="1_qwik3"]
 [ext_resource type="Texture2D" uid="uid://3ukpp2y5vevj" path="res://Resources/Images/undead_survivor.png" id="2_6ty8n"]
-[ext_resource type="AudioStream" uid="uid://ccesfxttojr8e" path="res://Resources/SFX/material/glass_hit1.ogg" id="3_4bklg"]
-[ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/hover.gdshader" id="3_6t8gt"]
-[ext_resource type="AudioStream" uid="uid://26ar0hkl6yv0" path="res://Resources/SFX/material/glass_hit2.ogg" id="4_6t8gt"]
-[ext_resource type="AudioStream" uid="uid://dqggwenj6fb5l" path="res://Resources/SFX/material/glass_hit3.ogg" id="5_t4yx1"]
-[ext_resource type="AudioStream" uid="uid://blqdlu6howgb" path="res://Resources/SFX/material/glass_hit4.ogg" id="6_mie6q"]
+[ext_resource type="Shader" path="res://Resources/Shaders/hover.gdshader" id="3_6t8gt"]
+[ext_resource type="AudioStream" uid="uid://v3hropj2lrlk" path="res://Resources/SFX/material/glass/glass_hit1.ogg" id="4_qgvi1"]
+[ext_resource type="AudioStream" uid="uid://di4siv3t67hal" path="res://Resources/SFX/material/glass/glass_hit2.ogg" id="5_4bklg"]
 [ext_resource type="AudioStream" uid="uid://bn18feqgh1hs4" path="res://Resources/SFX/material/glass_break1.ogg" id="7_444mv"]
 [ext_resource type="AudioStream" uid="uid://brrnd53ikcvr7" path="res://Resources/SFX/material/glass_break2.ogg" id="8_ewxrh"]
 [ext_resource type="AudioStream" uid="uid://d3v7u7v0of4ha" path="res://Resources/SFX/material/glass_break3.ogg" id="9_phr5m"]
@@ -82,11 +80,10 @@ albedo_texture = ExtResource("2_6ty8n")
 [sub_resource type="QuadMesh" id="QuadMesh_qwik3"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xi7ho"]
-streams_count = 4
-stream_0/stream = ExtResource("3_4bklg")
-stream_1/stream = ExtResource("4_6t8gt")
-stream_2/stream = ExtResource("5_t4yx1")
-stream_3/stream = ExtResource("6_mie6q")
+random_pitch = 1.1
+streams_count = 2
+stream_0/stream = ExtResource("4_qgvi1")
+stream_1/stream = ExtResource("5_4bklg")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kju4j"]
 streams_count = 4
@@ -125,6 +122,7 @@ mesh = SubResource("QuadMesh_qwik3")
 [node name="Hit" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_xi7ho")
 unit_size = 50.0
+pitch_scale = 0.75
 
 [node name="Break" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_kju4j")
