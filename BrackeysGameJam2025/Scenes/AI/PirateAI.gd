@@ -183,6 +183,7 @@ func onDeckTopCardAdded(card: CardInteractable, who: int) -> void:
 		
 		# Here the cheat is not detected, so now the card belong to the deck
 		card.model.cardOwner = 2
+		card.cardIsHidden = true
 
 func onDeckTopCardPicked(card: CardInteractable, who: int) -> void:
 	if Global.gameFinished: return
@@ -289,6 +290,7 @@ func onCheatDetected() -> bool:
 	pirateModel.lookPlayer()
 	eyeDown = false
 	eyeUp = false
+	sleepTime = 0.0
 	getNewThinkingTime(1.0, 2.0)
 	
 	nbCheatDetected += 1
@@ -384,7 +386,7 @@ var eyeUp: bool = false
 
 var wasDistracted: bool = false
 
-const TIME_BEFORE_REACT: float = 10.0
+const TIME_BEFORE_REACT: float = 15.0
 var sleepCount: int = 0
 var sleepTime: float = 0.0
 
@@ -399,6 +401,7 @@ func _physics_process(delta: float) -> void:
 		wasDistracted = false
 		eyeDown = false
 		eyeUp = false
+		sleepTime = 0.0
 		nbCheatSinceDistracted = 0
 		getNewThinkingTime()
 		analyseGameState()

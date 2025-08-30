@@ -1,10 +1,12 @@
-[gd_scene load_steps=38 format=3 uid="uid://dghclx6pomr1h"]
+[gd_scene load_steps=44 format=3 uid="uid://dghclx6pomr1h"]
 
 [ext_resource type="Shader" uid="uid://dw43w80f7di26" path="res://Scenes/Parallax/Waves/parallaxShader.gdshader" id="1_snbp6"]
 [ext_resource type="Texture2D" uid="uid://dqmvn3x2yy41c" path="res://Resources/Assets/WavesParallax/parallax01.png" id="2_rawcd"]
 [ext_resource type="Texture2D" uid="uid://dgsyrx724v6im" path="res://Resources/Assets/WavesParallax/parallax02.png" id="3_dvl10"]
 [ext_resource type="Texture2D" uid="uid://54apc8h8llcv" path="res://Resources/Assets/WavesParallax/parallax03.png" id="4_lcjsi"]
 [ext_resource type="Texture2D" uid="uid://cboyedxk78h1v" path="res://Resources/Assets/WavesParallax/parallax04.png" id="5_ww4fw"]
+[ext_resource type="Shader" uid="uid://ddqqy5l6gcumf" path="res://birdParticleShader.gdshader" id="8_lcjsi"]
+[ext_resource type="Texture2DArray" path="res://Resources/Assets/Birds/bird_2d_array.res" id="9_ww4fw"]
 [ext_resource type="Shader" uid="uid://c3ktyydh6ionl" path="res://Scenes/Parallax/Waves/CloudShader.gdshader" id="12_cyoyg"]
 [ext_resource type="Texture2DArray" uid="uid://pspyu7trwa5m" path="res://Resources/Assets/Clouds/clouds_2d_array.res" id="12_fgcjk"]
 
@@ -198,30 +200,6 @@ point_count = 3
 [sub_resource type="CurveTexture" id="CurveTexture_h583c"]
 curve = SubResource("Curve_fgcjk")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1cbur"]
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 0.0
-emission_ring_radius = 3500.0
-emission_ring_inner_radius = 1000.0
-emission_ring_cone_angle = 90.0
-angle_min = -720.0
-angle_max = 720.0
-direction = Vector3(0, 0, -1)
-spread = 10.0
-gravity = Vector3(0, 0, -1)
-scale_max = 3.0
-scale_curve = SubResource("CurveTexture_h583c")
-alpha_curve = SubResource("CurveTexture_fgcjk")
-hue_variation_min = -1.0
-hue_variation_max = 0.99999994
-turbulence_noise_speed = Vector3(1, 1, 0)
-turbulence_influence_min = 0.27600002
-turbulence_influence_max = 0.27600002
-
-[sub_resource type="QuadMesh" id="QuadMesh_cyoyg"]
-size = Vector2(100, 100)
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dvl10"]
 emission_shape = 3
 emission_box_extents = Vector3(8000, 400, 1)
@@ -241,6 +219,40 @@ hue_variation_max = 0.99999994
 turbulence_noise_speed = Vector3(1, 1, 0)
 turbulence_influence_min = 0.27600002
 turbulence_influence_max = 0.27600002
+
+[sub_resource type="QuadMesh" id="QuadMesh_cyoyg"]
+size = Vector2(100, 100)
+
+[sub_resource type="Curve" id="Curve_ww4fw"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_w1emh"]
+curve = SubResource("Curve_ww4fw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lcjsi"]
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector3(-1, 0.02, 0)
+spread = 3.0
+initial_velocity_min = 19.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_w1emh")
+turbulence_noise_strength = 20.0
+turbulence_noise_scale = 9.82
+turbulence_noise_speed = Vector3(-0.1, 0, 0)
+turbulence_influence_min = 0.066
+turbulence_influence_max = 0.066
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nikrg"]
+render_priority = 0
+shader = ExtResource("8_lcjsi")
+shader_parameter/birdsFrames = ExtResource("9_ww4fw")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ww4fw"]
+material = SubResource("ShaderMaterial_nikrg")
+size = Vector2(40, 40)
 
 [node name="WavesParallax" type="Node3D"]
 
@@ -356,29 +368,96 @@ skeleton = NodePath("../../..")
 
 [node name="Clouds" type="Node3D" parent="."]
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Clouds"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 116.87218, -620.91986, 0)
-visible = false
-material_override = SubResource("ShaderMaterial_g667v")
-amount = 204
-lifetime = 100.0
-preprocess = 100.0
-randomness = 1.0
-fixed_fps = 60
-visibility_aabb = AABB(-988.28107, -398.10178, -5299.239, 1985.2048, 795.8129, 5593.734)
-local_coords = true
-process_material = SubResource("ParticleProcessMaterial_1cbur")
-draw_pass_1 = SubResource("QuadMesh_cyoyg")
-
 [node name="GPUParticles3D2" type="GPUParticles3D" parent="Clouds"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 116.872, 900.4849, 3209.0461)
 material_override = SubResource("ShaderMaterial_g667v")
+cast_shadow = 0
 amount = 60
 lifetime = 300.0
 preprocess = 300.0
 randomness = 1.0
 fixed_fps = 60
-visibility_aabb = AABB(-5078.993, -499.96338, -5410.2134, 13808.897, 999.71924, 5515.9604)
+visibility_aabb = AABB(-7089.1523, -498.63278, -45591.887, 22551.068, 984.2649, 45694.48)
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_dvl10")
 draw_pass_1 = SubResource("QuadMesh_cyoyg")
+
+[node name="BirdsSpawners" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130.74457, 64.915085, 0)
+
+[node name="GPUParticles3D4" type="GPUParticles3D" parent="BirdsSpawners"]
+transform = Transform3D(0.99171376, 0, 0.12846684, 0, 1, 0, -0.12846684, 0, 0.99171376, 348.2146, -6.456585, -143.4162)
+amount = 15
+lifetime = 60.0
+preprocess = 10.0
+explosiveness = 0.99
+randomness = 1.0
+fixed_fps = 60
+visibility_aabb = AABB(-1017.8415, -235.7634, -271.44107, 1127.2021, 472.82825, 552.6572)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_lcjsi")
+draw_pass_1 = SubResource("QuadMesh_ww4fw")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="BirdsSpawners"]
+transform = Transform3D(0.31482098, 0, 0.94915116, 0, 1, 0, -0.94915116, 0, 0.31482098, 76.43115, 11.999611, -412.59375)
+amount = 15
+lifetime = 60.0
+preprocess = 20.0
+explosiveness = 0.99
+randomness = 1.0
+fixed_fps = 60
+visibility_aabb = AABB(-1017.8415, -235.7634, -271.44107, 1127.2021, 472.82825, 552.6572)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_lcjsi")
+draw_pass_1 = SubResource("QuadMesh_ww4fw")
+
+[node name="GPUParticles3D3" type="GPUParticles3D" parent="BirdsSpawners"]
+transform = Transform3D(0.84950614, 0, 0.5275786, 0, 1, 0, -0.5275786, 0, 0.84950614, 199.28053, -6.456581, -222.0115)
+amount = 15
+lifetime = 60.0
+preprocess = 30.0
+explosiveness = 0.99
+randomness = 1.0
+fixed_fps = 60
+visibility_aabb = AABB(-1017.8415, -235.7634, -271.44107, 1127.2021, 472.82825, 552.6572)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_lcjsi")
+draw_pass_1 = SubResource("QuadMesh_ww4fw")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="BirdsSpawners"]
+transform = Transform3D(0.9588747, 0.10733999, -0.26275018, -0.10352371, 0.99422234, 0.028367499, 0.26427713, 3.2568948e-09, 0.9644469, 131.46065, 11.999611, 79.10833)
+amount = 15
+lifetime = 60.0
+preprocess = 40.0
+explosiveness = 0.99
+randomness = 1.0
+fixed_fps = 60
+visibility_aabb = AABB(-1017.8415, -235.7634, -271.44107, 1127.2021, 472.82825, 552.6572)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_lcjsi")
+draw_pass_1 = SubResource("QuadMesh_ww4fw")
+
+[node name="GPUParticles3D5" type="GPUParticles3D" parent="BirdsSpawners"]
+transform = Transform3D(0.79681474, 0, -0.6042236, 0, 1, 0, 0.6042236, 0, 0.79681474, 354.43307, -6.456585, 44.787674)
+amount = 15
+lifetime = 60.0
+preprocess = 50.0
+explosiveness = 0.99
+randomness = 1.0
+fixed_fps = 60
+visibility_aabb = AABB(-1017.8415, -235.7634, -271.44107, 1127.2021, 472.82825, 552.6572)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_lcjsi")
+draw_pass_1 = SubResource("QuadMesh_ww4fw")
+
+[node name="GPUParticles3D6" type="GPUParticles3D" parent="BirdsSpawners"]
+transform = Transform3D(0.5936154, 0, -0.80474883, 0, 1, 0, 0.80474883, 0, 0.5936154, 177.78166, 6.676384, 279.43738)
+amount = 15
+lifetime = 60.0
+explosiveness = 0.99
+randomness = 1.0
+fixed_fps = 60
+visibility_aabb = AABB(-1017.8415, -235.7634, -271.44107, 1127.2021, 472.82825, 552.6572)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_lcjsi")
+draw_pass_1 = SubResource("QuadMesh_ww4fw")

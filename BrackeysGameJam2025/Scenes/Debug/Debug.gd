@@ -1,3 +1,3 @@
 extends Node
 
-var DEBUG: bool = true
+var DEBUG: bool = false

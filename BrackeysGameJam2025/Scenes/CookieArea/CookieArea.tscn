@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bl4c1a1vauw8u"]
+[gd_scene load_steps=10 format=3 uid="uid://bl4c1a1vauw8u"]
 
-[ext_resource type="ArrayMesh" uid="uid://cjsqfv7dec4nb" path="res://Resources/Meshes/cloche.res" id="1_f5rhk"]
+[ext_resource type="ArrayMesh" uid="uid://c2ktkb4c6oqpr" path="res://Resources/Meshes/cloche.res" id="1_f5rhk"]
 [ext_resource type="Script" uid="uid://thqoinrcke5u" path="res://Scenes/CookieArea/CookieArea.gd" id="1_hkaox"]
 [ext_resource type="Texture2D" uid="uid://bonl8tevw4d2k" path="res://Resources/Assets/cookiePasFou.png" id="2_hkaox"]
+[ext_resource type="ArrayMesh" uid="uid://vffytv8g1pi0" path="res://Resources/Meshes/smallTableTop.res" id="3_dfrfg"]
+[ext_resource type="ArrayMesh" uid="uid://b15bab3imn43t" path="res://Resources/Meshes/smallTableBot.res" id="5_dt4nd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vphqs"]
 render_priority = 1
@@ -21,7 +23,7 @@ next_pass = SubResource("StandardMaterial3D_vphqs")
 transparency = 4
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(0.83, 0.9433333, 1, 0.38039216)
+albedo_color = Color(0.83137256, 0.94509804, 1, 0.0627451)
 metallic = 0.75
 metallic_specular = 1.0
 roughness = 0.0
@@ -29,30 +31,48 @@ stencil_mode = 1
 stencil_flags = 2
 stencil_outline_thickness = 0.05
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_dt4nd"]
-top_radius = 20.0
-bottom_radius = 20.0
-height = 40.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dt4nd"]
+albedo_color = Color(0.35, 0.217, 0.24581666, 1)
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.0
+anisotropy_enabled = true
+anisotropy = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_scgj7"]
+albedo_color = Color(0.34901962, 0.21568628, 0.24705882, 1)
+metallic = 1.0
+roughness = 0.0
+anisotropy_enabled = true
+anisotropy = 1.0
 
 [node name="CookieArea" type="Node3D"]
 script = ExtResource("1_hkaox")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(14.745, 0, 0, 0, 14.745, 0, 0, 0, 14.745, 0, 38.567, 0)
+transform = Transform3D(14.745, 0, 0, 0, 14.745, 0, 0, 0, 14.745, 0, 35.453808, 0)
 material_override = SubResource("StandardMaterial3D_dfrfg")
 cast_shadow = 0
 mesh = ExtResource("1_f5rhk")
 skeleton = NodePath("")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.231, 0)
-mesh = SubResource("CylinderMesh_dt4nd")
-skeleton = NodePath("")
-
 [node name="CookieSprite" type="Sprite3D" parent="."]
-transform = Transform3D(0.7656741, 0, 0.6432287, 0, 1, 0, -0.6432287, 0, 0.7656741, 0, 46.372, 0)
+transform = Transform3D(0.7656741, 0, 0.6432287, 0, 1, 0, -0.6432287, 0, 0.7656741, 0, 43.25881, 0)
 pixel_size = 0.018
 billboard = 2
 shaded = true
 alpha_cut = 1
 texture = ExtResource("2_hkaox")
+
+[node name="Table" type="Node3D" parent="."]
+
+[node name="TableTop" type="MeshInstance3D" parent="Table"]
+transform = Transform3D(9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 33.658974, 0)
+material_override = SubResource("StandardMaterial3D_dt4nd")
+mesh = ExtResource("3_dfrfg")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Table"]
+transform = Transform3D(9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 4.757304)
+material_override = SubResource("StandardMaterial3D_scgj7")
+mesh = ExtResource("5_dt4nd")

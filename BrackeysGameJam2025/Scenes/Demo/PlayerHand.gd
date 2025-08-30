@@ -46,12 +46,34 @@ func _physics_process(delta: float) -> void:
 		global_position.y = lerp(global_position.y, targetY, delta * 3.0)
 		
 		if hoveredObject is CardInteractable:
+			var card: CardInteractable = hoveredObject
+			
 			var viewport: Viewport = get_viewport()
 			var mouseRatio: Vector2 = viewport.get_mouse_position() / viewport.get_visible_rect().size
 			if mouseRatio.y > 0.75 and mouseRatio.x > 0.25 and mouseRatio.x < 0.75:
 				Global.isTryingToHoldCard = true
 				Global.mouseRelativeXPos = mouseRatio.x
-	
+			
+			else:
+				
+				var layer: int
+				if card.cardIsHidden:
+					layer = 65536
+				else:
+					layer = 131072
+				
+				var result: Dictionary = RayHelper.castAreaRay(card.global_position, card.global_position + Vector3.DOWN * 50.0, layer, true)
+				if result and (result.collider as Node3D).is_in_group("DeckDropArea"):
+					if card.cardIsHidden:
+						card.model.rotation.x = lerp_angle(card.model.rotation.x, -PI / 6.0, delta * 5.0)
+					else:
+						card.model.rotation.y = lerp_angle(card.model.rotation.y, PI, delta * 5.0)
+					
+					return
+			
+			card.model.rotation.y = lerp_angle(card.model.rotation.y, 0.0, delta * 5.0)
+			card.model.rotation.x = lerp_angle(card.model.rotation.x, 0.0, delta * 5.0)
+
 func hold(toHold: Interactable, handPosition: Vector3) -> void:
 	global_position = handPosition
 	
@@ -94,6 +116,11 @@ func detach() -> void:
 			var result: Dictionary = RayHelper.castAreaRay(card.global_position, card.global_position + Vector3.DOWN * 50.0, layer, true)
 			if result and (result.collider as Node3D).is_in_group("DeckDropArea"):
 				_detach()
+				
+				var newTransform: Transform3D = card.model.global_transform
+				card.model.rotation = Vector3.ZERO
+				card.global_transform = newTransform
+				
 				deck.helpDropOnTop(card, 0)
 				return
 		
@@ -121,7 +148,7 @@ func _process(_delta: float) -> void:
 		global_position = pos
 		
 		var pos2d := Vector2(global_position.x, global_position.z)
-		const limit: float = 150.0
+		const limit: float = 125.0
 		if center2d.distance_to(pos2d) > limit:
 			var posLimit2d := center2d + center2d.direction_to(pos2d) * limit
 			global_position.x = posLimit2d.x

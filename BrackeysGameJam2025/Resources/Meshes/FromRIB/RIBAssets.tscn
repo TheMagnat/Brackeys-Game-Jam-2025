@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ba41y3mm1l3qi"]
+[gd_scene load_steps=8 format=3 uid="uid://ba41y3mm1l3qi"]
 
 [ext_resource type="ArrayMesh" uid="uid://db8k46w6xujjn" path="res://Resources/Meshes/FromRIB/TableEtTabouret/table.res" id="1_82vhb"]
 [ext_resource type="ArrayMesh" uid="uid://bgvcye0dgx4ev" path="res://Resources/Meshes/FromRIB/TableEtTabouret/tabouret.res" id="2_xa84e"]
@@ -7,8 +7,6 @@
 [ext_resource type="ArrayMesh" uid="uid://br8mvamk01ah3" path="res://Resources/Meshes/FromRIB/Chevet/chevet.res" id="5_o6kt1"]
 [ext_resource type="ArrayMesh" uid="uid://by5mx2k30wobw" path="res://Resources/Meshes/FromRIB/diams.res" id="6_2lswb"]
 [ext_resource type="ArrayMesh" uid="uid://72xhpos1drbq" path="res://Resources/Meshes/FromRIB/rubis.res" id="7_2lswb"]
-[ext_resource type="ArrayMesh" uid="uid://du8jrf4pahx40" path="res://Resources/Meshes/FromRIB/cadreBig.res" id="8_j4ga1"]
-[ext_resource type="ArrayMesh" uid="uid://du8jrf4pahx40" path="res://Resources/Meshes/FromRIB/cadreSmall.res" id="9_2rbup"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -39,11 +37,3 @@ mesh = ExtResource("6_2lswb")
 [node name="Rubis" type="MeshInstance3D" parent="."]
 transform = Transform3D(9.425, 0, 0, 0, 9.425, 0, 0, 0, 9.425, -233.4746, 57.32744, 2.529564)
 mesh = ExtResource("7_2lswb")
-
-[node name="CadreSmall" type="MeshInstance3D" parent="."]
-transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -233.68068, 69.70241, 99.128624)
-mesh = ExtResource("8_j4ga1")
-
-[node name="CadreBig" type="MeshInstance3D" parent="."]
-transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -233.71677, 69.75599, 99.16895)
-mesh = ExtResource("9_2rbup")

@@ -4,9 +4,19 @@ extends Node3D
 
 @onready var gameManager: GameManager = %GameManager
 
-# Called when the node enters the scene tree for the first time.
+var soundTween: Tween
+
 func _ready() -> void:
 	#animationPlayer.play()
+	var bus1: int = AudioServer.get_bus_index("DiceBus")
+	var bus2: int = AudioServer.get_bus_index("Interactable")
+	
+	AudioServer.set_bus_volume_db(bus1, -100.0)
+	AudioServer.set_bus_volume_db(bus2, -100.0)
+	
+	soundTween = create_tween()
+	soundTween.tween_method(func(db: float) -> void: AudioServer.set_bus_volume_db(bus1, db), -100.0, 0.0, 1.0)
+	soundTween.parallel().tween_method(func(db: float) -> void: AudioServer.set_bus_volume_db(bus2, db), -100.0, 0.0, 1.0)
 	
 	if Debug.DEBUG or Global.shouldSkipFirstIntro:
 		$intro.queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=84 format=3 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://dghclx6pomr1h" path="res://Scenes/Parallax/Waves/WavesParallax.tscn" id="23_f46tu"]
 [ext_resource type="Script" uid="uid://bab5y7yuyg22q" path="res://addons/shaker/data/Vector3/BaseShakerType3D.gd" id="24_3dcc7"]
 [ext_resource type="Shader" uid="uid://ke0ojpsjcaaw" path="res://Scenes/Demo/windTest.gdshader" id="24_m5r7i"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/ChoiceMenu.tscn" id="25_6e0n7"]
+[ext_resource type="PackedScene" uid="uid://147q4fwq5jsn" path="res://Scenes/UI/ChoiceMenu.tscn" id="25_6e0n7"]
 [ext_resource type="Script" uid="uid://cqun2xsfmafoe" path="res://addons/shaker/data/Vector3/ShakerTypeSineWave3D.gd" id="25_jtovl"]
 [ext_resource type="Script" uid="uid://brw14p6k8jsht" path="res://addons/shaker/data/Vector3/ShakerPreset3D.gd" id="26_r5ebq"]
 [ext_resource type="PackedScene" uid="uid://de0eaa8ej7skl" path="res://Resources/Meshes/Boat/Boat.tscn" id="28_y4a6v"]
@@ -34,13 +34,21 @@
 [ext_resource type="Texture2D" uid="uid://kgcqlg8dhchm" path="res://Resources/Shaders/Filters/Assets/palette_eeve.png" id="37_hoqe0"]
 [ext_resource type="PackedScene" uid="uid://b1n5mlm7dlqxq" path="res://Resources/Assets/Items/Rubis.tscn" id="38_b644d"]
 [ext_resource type="PackedScene" uid="uid://45wtknl3gtxl" path="res://Resources/Assets/Items/Cut.tscn" id="39_hoqe0"]
+[ext_resource type="PackedScene" uid="uid://c6u6oapkswbha" path="res://Resources/Assets/Items/Static/Tabouret.tscn" id="39_mj15a"]
+[ext_resource type="Shader" uid="uid://bieskqpdelc8r" path="res://Scenes/Demo/ditherSky.gdshader" id="39_yu7dm"]
 [ext_resource type="PackedScene" uid="uid://g33bsuh0yrn5" path="res://Resources/Assets/Items/Lanterne.tscn" id="40_jgvkr"]
+[ext_resource type="Texture2D" uid="uid://cxaad3cnj15cx" path="res://Resources/Shaders/Filters/Assets/bayer2tile16.png" id="40_u5jl3"]
 [ext_resource type="PackedScene" uid="uid://cqiri0xdm0xcx" path="res://Resources/Assets/Items/Chevet.tscn" id="41_bffry"]
 [ext_resource type="Texture2D" uid="uid://cd1q3yyvcwytt" path="res://Resources/Shaders/Filters/Assets/bayer4tile8.png" id="41_u5jl3"]
 [ext_resource type="PackedScene" uid="uid://dq7pinxus4xj8" path="res://Resources/Assets/Items/Dice.tscn" id="41_yu7dm"]
 [ext_resource type="PackedScene" uid="uid://c73rp4eckvqan" path="res://Resources/Assets/Items/DiceBlack.tscn" id="42_yu7dm"]
 [ext_resource type="PackedScene" uid="uid://bcuptmofs0g8u" path="res://Resources/Meshes/Bottle.tscn" id="43_b0l7b"]
 [ext_resource type="Script" uid="uid://ca8ilgdhiysdk" path="res://Scenes/Global/GlobalCardManager.gd" id="43_u5jl3"]
+[ext_resource type="PackedScene" uid="uid://cfjga28gj4aiq" path="res://Resources/Assets/Items/Static/Barrel.tscn" id="44_b0l7b"]
+[ext_resource type="PackedScene" uid="uid://cvm0sbdq37jmx" path="res://Resources/Assets/Items/Static/BigFrame.tscn" id="45_ngihd"]
+[ext_resource type="PackedScene" uid="uid://c4eej8auvev7f" path="res://Resources/Assets/Items/Static/Frame.tscn" id="46_1b80r"]
+[ext_resource type="Texture2D" uid="uid://cou7we0hnkuaw" path="res://Resources/Images/Rogue_in_a_bottle-compressed_square.png" id="46_qv5v7"]
+[ext_resource type="Texture2D" uid="uid://d0wxp6ddp40vv" path="res://Resources/Images/Cover.png" id="48_mj15a"]
 
 [sub_resource type="Sky" id="Sky_rk0yb"]
 sky_material = ExtResource("2_y087b")
@@ -51,7 +59,9 @@ background_mode = 2
 sky = SubResource("Sky_rk0yb")
 ambient_light_color = Color(0.3515629, 0.3515629, 0.35156283, 1)
 tonemap_mode = 2
-ssao_radius = 16.0
+ssao_enabled = true
+ssao_radius = 8.0
+ssao_intensity = 1.5
 glow_enabled = true
 fog_enabled = true
 fog_mode = 1
@@ -105,7 +115,10 @@ size = Vector3(8, 200, 94.35)
 size = Vector3(8, 95.155, 94.35)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ckiob"]
-size = Vector3(290, 15, 582.95056)
+size = Vector3(800, 30, 800)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mj15a"]
+size = Vector3(40.555763, 89.41943, 300.795)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v63yj"]
 size = Vector3(290, 10, 584.21674)
@@ -172,6 +185,22 @@ shader_parameter/outline_color = Color(0, 0, 0, 1)
 [sub_resource type="QuadMesh" id="QuadMesh_ty8bk"]
 flip_faces = true
 size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u5jl3"]
+render_priority = 0
+shader = ExtResource("39_yu7dm")
+shader_parameter/u_dither_tex = ExtResource("40_u5jl3")
+shader_parameter/u_color_tex = ExtResource("37_hoqe0")
+shader_parameter/u_bit_depth = 16.0
+shader_parameter/u_contrast = 1.0
+shader_parameter/u_offset = 0.0
+shader_parameter/u_dither_size = 2.0
+shader_parameter/shades = 32.0
+shader_parameter/mixValue = 0.0
+shader_parameter/select = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_b0l7b"]
+size = Vector2(10000, 10000)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bffry"]
 shader = ExtResource("36_b644d")
@@ -332,6 +361,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95669633, 42.08834, 58.0498
 script = ExtResource("6_aanud")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerHandManager"]
+visible = false
 mesh = SubResource("SphereMesh_vp0ry")
 skeleton = NodePath("../..")
 
@@ -399,22 +429,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 60, 0)
 [node name="Entities" type="Node3D" parent="."]
 
 [node name="Diams" parent="Entities" instance=ExtResource("34_vphqs")]
-transform = Transform3D(0.8527587, 0.3023683, -0.4258827, 0, 0.8153906, 0.57891124, 0.52230513, -0.4936716, 0.6953314, -31.700306, 45.171368, 21.674572)
+transform = Transform3D(0.80953246, 0.56313246, -0.16594774, -0.24984175, 0.5862573, 0.77063704, 0.5312587, -0.58239514, 0.6152885, -28.630285, 41.986412, 16.491077)
 
 [node name="Rubis" parent="Entities" instance=ExtResource("38_b644d")]
-transform = Transform3D(0.29630557, -0.75681263, -0.582613, 0.3430795, 0.653632, -0.67458254, 0.8913471, 9.5146016e-09, 0.4533217, 30.05768, 46.101727, -4.64349)
+transform = Transform3D(-0.5080948, -0.8613012, -3.7648668e-08, -3.388119e-16, -4.3711385e-08, 1, -0.8613013, 0.5080947, 2.2209523e-08, 34.129326, 43.60392, -0.9691858)
 
 [node name="Cut" parent="Entities" instance=ExtResource("39_hoqe0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.001146, 42, 1.8954048)
+transform = Transform3D(0.85940635, -0.51129305, -4.156019e-08, -4.2641965e-08, 9.609783e-09, -0.9999999, 0.51129305, 0.8594064, -1.3543833e-08, -21.683905, 42.897587, -24.214247)
 
 [node name="Dice" parent="Entities" instance=ExtResource("41_yu7dm")]
-transform = Transform3D(0.8495982, 0, 0.5274304, 0, 1, 0, -0.5274304, 0, 0.8495982, -25.388706, 45, -13.406675)
+transform = Transform3D(0.8495982, 0, 0.5274304, 0, 1, 0, -0.5274304, 0, 0.8495982, 24.401821, 42, -26.212095)
 
 [node name="Dice2" parent="Entities" instance=ExtResource("42_yu7dm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.25077, 42, -3.8029518)
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 33.040638, 43.5, -21.986958)
 
 [node name="Bottle" parent="Entities" instance=ExtResource("43_b0l7b")]
-transform = Transform3D(-0.75944173, 0, -0.65057534, 0, 1, 0, 0.65057534, 0, -0.75944173, 26.432266, 42, 20.296478)
+transform = Transform3D(-0.5146791, 0, -0.85738295, 0, 1, 0, 0.85738295, 0, -0.5146791, 29.949394, 42, 24.74519)
 
 [node name="DiceCage" type="Node3D" parent="."]
 
@@ -444,15 +474,23 @@ transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 9
 shape = SubResource("BoxShape3D_b0l7b")
 
 [node name="OffTableDetector" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
 collision_layer = 0
 collision_mask = 128
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OffTableDetector"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26.348675)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.061035, 0, 26.348675)
 shape = SubResource("BoxShape3D_ckiob")
-debug_color = Color(0.89, 0, 0.78616655, 1)
+debug_color = Color(0.6143917, 0.357953, 1, 1)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="OffTableDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -118.60301, 14.709717, 0)
+shape = SubResource("BoxShape3D_mj15a")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="OffTableDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118.603, 14.71, 0)
+shape = SubResource("BoxShape3D_mj15a")
 
 [node name="GroundDetector" type="Area3D" parent="."]
 collision_layer = 0
@@ -462,7 +500,6 @@ monitorable = false
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="GroundDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 27.118927)
 shape = SubResource("BoxShape3D_v63yj")
-debug_color = Color(0.89869046, 0.00018097162, 0.7697709, 0.41960785)
 
 [node name="CookieArea" parent="." instance=ExtResource("33_y4a6v")]
 unique_name_in_owner = true
@@ -493,11 +530,46 @@ intensity = 5.0
 shakerPreset = SubResource("Resource_6e0n7")
 metadata/_custom_type_script = "uid://dme7n7ov1ou1l"
 
-[node name="Lanterne" parent="Environment" instance=ExtResource("40_jgvkr")]
-transform = Transform3D(0.82883257, 0, 0.55949676, 0, 1, 0, -0.55949676, 0, 0.82883257, -124.12194, -0.05019498, -122.80108)
-
 [node name="Chevet" parent="Environment" instance=ExtResource("41_bffry")]
 transform = Transform3D(0.00024445454, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, 0.00024445454, -58.56983, 0.008306503, -191.48743)
+
+[node name="Barrel" parent="Environment" instance=ExtResource("44_b0l7b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.631355, -3.8146973e-06, -73.611435)
+
+[node name="Lanterne" parent="Environment/Barrel" instance=ExtResource("40_jgvkr")]
+transform = Transform3D(0.82883257, 0, 0.55949676, 0, 1, 0, -0.55949676, 0, 0.82883257, 0.04059601, 36.331028, 0.96733093)
+
+[node name="Barrel2" parent="Environment" instance=ExtResource("44_b0l7b")]
+transform = Transform3D(0.49395314, 0, -0.78797865, 0, 0.93, 0, 0.78797865, 0, 0.49395314, -112.52664, 0, -111.73701)
+
+[node name="Barrel4" parent="Environment" instance=ExtResource("44_b0l7b")]
+transform = Transform3D(0.7040478, 0, -0.60763204, 0, 0.93, 0, 0.60763204, 0, 0.7040478, -122.18644, 0, 18.40287)
+
+[node name="Barrel5" parent="Environment" instance=ExtResource("44_b0l7b")]
+transform = Transform3D(-0.55925083, 0, -0.82899857, 0, 1, 0, 0.82899857, 0, -0.55925083, -117.547554, 0, 54.64978)
+
+[node name="Barrel3" parent="Environment" instance=ExtResource("44_b0l7b")]
+transform = Transform3D(0.59761316, 0, -0.38335168, 0, 0.71, 0, 0.38335168, 0, 0.59761316, -92.76937, 0, -92.74508)
+
+[node name="BigFrame" parent="Environment" instance=ExtResource("45_ngihd")]
+transform = Transform3D(12.401085, 5.722536, -14.610461, 5.6573086, 15.739434, 10.966542, 14.635841, -10.932644, 8.140597, 122.71814, 22.317596, -230.4784)
+texture = ExtResource("46_qv5v7")
+
+[node name="Frame" parent="Environment" instance=ExtResource("46_1b80r")]
+transform = Transform3D(-11.835434, 0.49296987, 16.114567, -12.695136, 12.037173, -9.692255, -9.9375925, -15.964439, -6.81035, 108.32922, 22.625912, -246.0059)
+
+[node name="BigFrame2" parent="Environment" instance=ExtResource("45_ngihd")]
+transform = Transform3D(-7.337063, 8.146134, 12.331181, -1.2799493, 13.365196, -9.590789, -14.723426, -5.2213016, -5.3111897, 122.0246, 15.929308, -205.25119)
+
+[node name="Frame2" parent="Environment" instance=ExtResource("46_1b80r")]
+transform = Transform3D(13.025808, 0, -10.923752, 7.218428, 12.75954, 8.60747, 8.198943, -11.233619, 9.776665, 115.95428, 10.212, -193.02312)
+texture = ExtResource("48_mj15a")
+
+[node name="Tabouret" parent="Environment" instance=ExtResource("39_mj15a")]
+transform = Transform3D(0.7690204, 0, 0.6392243, 0, 1, 0, -0.6392243, 0, 0.7690204, -115.064, 0, -26.408978)
+
+[node name="Tabouret2" parent="Environment" instance=ExtResource("39_mj15a")]
+transform = Transform3D(-0.54838085, 0, -0.83622867, 0, 1, 0, 0.83622867, 0, -0.54838085, 119.59077, 0, 69.055405)
 
 [node name="SafeGround" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -123.36064, 0)
@@ -520,6 +592,11 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.188477, 0)
 material_override = SubResource("ShaderMaterial_7k30j")
 mesh = SubResource("QuadMesh_ty8bk")
+
+[node name="PostProcessDitherSky" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.188477, -670.50085)
+material_override = SubResource("ShaderMaterial_u5jl3")
+mesh = SubResource("QuadMesh_b0l7b")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

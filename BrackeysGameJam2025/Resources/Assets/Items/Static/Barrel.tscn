@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfjga28gj4aiq"]
+
+[ext_resource type="ArrayMesh" uid="uid://b4qj5csnmswye" path="res://Resources/Meshes/Barrel.res" id="1_nf50t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nf50t"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+metallic = 0.55
+metallic_specular = 0.73
+roughness = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nf50t"]
+size = Vector3(36, 36.297, 36)
+
+[node name="Barrel" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(14, 0, 0, 0, 14, 0, 0, 0, 14, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_nf50t")
+mesh = ExtResource("1_nf50t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.149, 0)
+shape = SubResource("BoxShape3D_nf50t")

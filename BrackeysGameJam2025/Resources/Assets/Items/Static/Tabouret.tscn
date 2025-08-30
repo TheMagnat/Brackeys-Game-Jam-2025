@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6u6oapkswbha"]
+
+[ext_resource type="ArrayMesh" uid="uid://bgvcye0dgx4ev" path="res://Resources/Meshes/FromRIB/TableEtTabouret/tabouret.res" id="1_ouwsy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ouwsy"]
+size = Vector3(30.11, 6.055, 21.085)
+
+[node name="Tabouret" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 18.060726, 0)
+shape = SubResource("BoxShape3D_ouwsy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+mesh = ExtResource("1_ouwsy")

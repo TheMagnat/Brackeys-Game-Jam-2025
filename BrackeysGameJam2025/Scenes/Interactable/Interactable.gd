@@ -31,6 +31,7 @@ func onBodyHit(body: Node) -> void:
 		hitPlayer.play()
 
 func _ready() -> void:
+	sleeping = true
 	collision_layer = 0b1000001
 	contact_monitor = true
 	max_contacts_reported = 1

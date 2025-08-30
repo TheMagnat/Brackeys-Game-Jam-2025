@@ -26,15 +26,16 @@ const introduction2Offers: Array[String] = [
 
 const introduction2Answers: Array[String] = [
 	"Do ya really think it's worth what A'm offerin' ya?",
-	"YA OFFER ME MY OWN BREAD? ARE YA STUPID?",
+	"Ya offer ME my OWN bread? Are ya stupid?",
 	"Ya'll kill me with boredom if this game's too short",
 ]
 
 
-const startGame := "Let's make it so the first to 3 wins gets the prize"
+const startGame := "Let's make it so the first to 3 wins gets the prize."
+const youStartInfo := "I will let you start so that's not too easy for me"
 
 const tutorialRepeat := "Fine, A'll repeat then"
-const tutorialRepeatAngry := "ARE YA STUPID? A'll repeat ONE LAST TIME"
+const tutorialRepeatAngry := "Are ya STUPID? A'll repeat one LAST time"
 
 const tutorialText: Array[String] = [
 	"Game's simple: we take turn puttin' cards in the middle of the table and they all add up",

@@ -5,6 +5,7 @@ const pick_sound := preload("res://Scenes/Cards/pick_sound.tscn")
 
 const PHYSICS_LAYER: int = 0b10000000
 
+# True if the card face down
 var cardIsHidden: bool = false
 
 var model: CardModel
@@ -34,8 +35,8 @@ func activate() -> void:
 	collision_layer = 0b01 + PHYSICS_LAYER
 	freeze = false
 	# Put back to get the hit sound
-	#contact_monitor = true
-	#max_contacts_reported = 1
+	contact_monitor = true
+	max_contacts_reported = 1
 	
 	lastPosition = global_position
 
@@ -84,7 +85,7 @@ func _physics_process(_delta: float) -> void:
 
 ## Helper
 func isOnGround() -> bool:
-	if global_position.y < 20.0:
+	if global_position.y < 35.0:
 		return true
 	
 	return false

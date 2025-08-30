@@ -34,7 +34,7 @@ func _ready() -> void:
 var showCookieAreaTween: Tween
 func showCookieArea() -> void:
 	showCookieAreaTween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-	showCookieAreaTween.tween_property(cookieArea, "position:x", -70.0, 3.0)
+	showCookieAreaTween.tween_property(cookieArea, "position:x", 70.0, 3.0)
 
 const YES : Array[String] = [
 	"Yes", "Sure", "For sure", "Aye"
@@ -179,6 +179,9 @@ func startGame() -> void:
 	EventBus.startSimpleDialog.emit(PirateDialogs.startGame, false)
 	await EventBus.simpleDialogFinished
 	
+	EventBus.startSimpleDialog.emit(PirateDialogs.youStartInfo, false)
+	await EventBus.simpleDialogFinished
+	
 	call_deferred("drawCards", Global.MAX_CARDS_IN_HAND)
 
 const WINNER_PLAYER := 0
@@ -212,7 +215,7 @@ func onGameFinished(whoWin: int) -> void:
 
 func restartGame(_answer: int = 0) -> void:
 	currentGameTotalScore = 0
-	deck.askShuffle(true)
+	deck.askShuffle(true, 1 + playerScore)
 	
 	await deck.shuffleFinished
 	await drawCards(Global.MAX_CARDS_IN_HAND)
@@ -287,6 +290,10 @@ func playerWinEventAnswer(answer: int) -> void:
 		Global.goodEnding = false
 	
 	await EventBus.simpleDialogFinished
+	
+	animationPlayer.play_backwards("OpenScene")
+	await animationPlayer.animation_finished
+	
 	OUTRO.start(Global.goodEnding)
 
 func drawCards(nb: int) -> void:
@@ -334,7 +341,7 @@ func onCardPlayed(card: CardInteractable, who: int) -> void:
 		
 		EventBus.startSimpleDialog.emit(PirateDialogs.shuffleCards.pick_random(), false)
 		
-		deck.askShuffle(false, cardToExcludeFromReshuffle)
+		deck.askShuffle(false, 0, cardToExcludeFromReshuffle)
 
 func onCardSelected(index: int) -> void:
 	var result: Dictionary = RayHelper.castHandCardRay()

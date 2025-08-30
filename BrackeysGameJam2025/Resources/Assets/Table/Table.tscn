@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bvhj527wv0io3"]
+[gd_scene load_steps=14 format=3 uid="uid://bvhj527wv0io3"]
 
 [ext_resource type="Script" uid="uid://cp7c7e0c7wprf" path="res://Resources/Assets/Table/Table.gd" id="1_tds7a"]
 [ext_resource type="Shader" uid="uid://dwq5gktwpm308" path="res://Resources/Shaders/CeilShading/ceil_shader.gdshader" id="2_jqfya"]
 [ext_resource type="PackedScene" uid="uid://crrxs6e4dk0jh" path="res://Resources/Assets/Kenny/GLB format/structure.glb" id="2_vjwv6"]
 [ext_resource type="ArrayMesh" uid="uid://db8k46w6xujjn" path="res://Resources/Meshes/FromRIB/TableEtTabouret/table.res" id="2_xeg4i"]
-[ext_resource type="Texture2D" uid="uid://bjanp35e1m07v" path="res://Resources/Meshes/FromRIB/TableEtTabouret/TableGBL_0.png" id="3_eikwc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sar6x"]
 size = Vector3(80, 4, 80)
@@ -14,8 +13,7 @@ render_priority = 0
 shader = ExtResource("2_jqfya")
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 1.0
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/base_texture = ExtResource("3_eikwc")
+shader_parameter/color = Color(0.58794904, 0.40705466, 0.30895638, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
 shader_parameter/fresnel = Color(0.06879827, 0.06879828, 0.06879828, 0.3019608)
 shader_parameter/uv_scale = Vector2(1, 1)

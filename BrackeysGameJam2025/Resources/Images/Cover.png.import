@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5rf0ok28k2v2"
-path.s3tc="res://.godot/imported/far_bird13.png-4324557e1bd9256138a13e7f0a4c549c.s3tc.ctex"
+uid="uid://d0wxp6ddp40vv"
+path.s3tc="res://.godot/imported/Cover.png-b544374940a333dd1d04ce2a9dac1cf7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Resources/Assets/Birds/far_bird13.png"
-dest_files=["res://.godot/imported/far_bird13.png-4324557e1bd9256138a13e7f0a4c549c.s3tc.ctex"]
+source_file="res://Resources/Images/Cover.png"
+dest_files=["res://.godot/imported/Cover.png-b544374940a333dd1d04ce2a9dac1cf7.s3tc.ctex"]
 
 [params]
 

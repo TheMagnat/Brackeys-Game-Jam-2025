@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://de0eaa8ej7skl"]
+[gd_scene load_steps=30 format=3 uid="uid://de0eaa8ej7skl"]
 
 [ext_resource type="ArrayMesh" uid="uid://kn3arhgkljf3" path="res://Resources/Meshes/Boat/mainBoat.res" id="1_e51uh"]
 [ext_resource type="Shader" uid="uid://dwq5gktwpm308" path="res://Resources/Shaders/CeilShading/ceil_shader.gdshader" id="1_qqdde"]
@@ -8,10 +8,10 @@
 [ext_resource type="Shader" uid="uid://qaytmjyuum1j" path="res://Resources/Meshes/Boat/WindVoile.gdshader" id="5_6aqwr"]
 [ext_resource type="ArrayMesh" uid="uid://xnj0io3l4ark" path="res://Resources/Meshes/Boat/voile.res" id="5_dhbx5"]
 [ext_resource type="Shader" uid="uid://b1nsuhiqtvfxl" path="res://Resources/Meshes/Boat/SingleRopWind.gdshader" id="8_6rt70"]
-[ext_resource type="ArrayMesh" uid="uid://casnhi8cblkb2" path="res://Resources/Meshes/Boat/rope1.res" id="8_d48g8"]
-[ext_resource type="ArrayMesh" uid="uid://bpvkn7stasarg" path="res://Resources/Meshes/Boat/rope2.res" id="9_7ganq"]
+[ext_resource type="ArrayMesh" uid="uid://d1gaivy2kybjw" path="res://Resources/Meshes/Boat/rope1.res" id="8_d48g8"]
+[ext_resource type="ArrayMesh" uid="uid://c8kkwygvyvhnj" path="res://Resources/Meshes/Boat/rope2.res" id="9_7ganq"]
 [ext_resource type="ArrayMesh" uid="uid://k3sdq6cyqvpl" path="res://Resources/Meshes/Boat/Net.res" id="9_0475y"]
-[ext_resource type="ArrayMesh" uid="uid://bnhujyn44634f" path="res://Resources/Meshes/Boat/NetFront.res" id="10_87dtr"]
+[ext_resource type="ArrayMesh" uid="uid://lxwjry016xgo" path="res://Resources/Meshes/Boat/NetFront.res" id="10_87dtr"]
 [ext_resource type="Shader" uid="uid://cceuwpwdm378t" path="res://Resources/Meshes/Boat/ropeWind.gdshader" id="10_xua6o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d48g8"]
@@ -19,7 +19,18 @@ render_priority = 0
 shader = ExtResource("1_qqdde")
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 1.0
-shader_parameter/color = Color(0.56918377, 0.3928786, 0.29476136, 1)
+shader_parameter/color = Color(0.6727867, 0.47901034, 0.37339094, 1)
+shader_parameter/specular = Color(0.23392546, 0.23392546, 0.2339254, 0.5019608)
+shader_parameter/fresnel = Color(0.27022174, 0.27022198, 0.27022186, 0.3019608)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5a1vw"]
+render_priority = 0
+shader = ExtResource("1_qqdde")
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/color = Color(0.29547173, 0.19226849, 0.1325377, 1)
 shader_parameter/specular = Color(0.23392546, 0.23392546, 0.2339254, 0.5019608)
 shader_parameter/fresnel = Color(0.27022174, 0.27022198, 0.27022186, 0.3019608)
 shader_parameter/uv_scale = Vector2(1, 1)
@@ -88,17 +99,17 @@ skeleton = NodePath("../..")
 
 [node name="MainFences" type="MeshInstance3D" parent="MeshHolder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.8898, 28.289455, 69.273315)
-material_override = SubResource("ShaderMaterial_d48g8")
+material_override = SubResource("ShaderMaterial_5a1vw")
 mesh = ExtResource("2_0veyl")
 
 [node name="TopFences" type="MeshInstance3D" parent="MeshHolder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.143456, 103.8686, -291.06314)
-material_override = SubResource("ShaderMaterial_d48g8")
+material_override = SubResource("ShaderMaterial_5a1vw")
 mesh = ExtResource("3_0veyl")
 
 [node name="TopCylinder" type="MeshInstance3D" parent="MeshHolder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 172.85481, -258.54047)
-material_override = SubResource("ShaderMaterial_d48g8")
+material_override = SubResource("ShaderMaterial_5a1vw")
 mesh = ExtResource("4_6yqv0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshHolder/TopCylinder"]

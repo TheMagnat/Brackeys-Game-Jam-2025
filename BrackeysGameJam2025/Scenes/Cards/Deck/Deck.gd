@@ -20,14 +20,41 @@ const CARD_MODEL = preload("uid://dnqbvrx07oldi")
 
 var originalPosition: Vector3
 
+func getShuffleIndices(nbCheats: int) -> Array[int]:
+	var indices: Array[int]
+	indices.assign(range(count))
+	
+	var cheatId: Array[int]
+	if nbCheats > 0:
+		indices.pop_at(50) # Queen of hearts
+		cheatId.push_back(50)
+	
+	for i in nbCheats - 1:
+		cheatId.push_back(indices.pop_back())
+	
+	indices.shuffle()
+	var s: int = indices.size()
+	for i in cheatId.size():
+		var insertionIndex: int = i + 1
+		indices.insert(s - insertionIndex, cheatId[i])
+	
+	return indices
+
 func _ready() -> void:
 	originalPosition = global_position
 	
-	var indices: Array[int]
-	indices.assign(range(count))
-	indices.shuffle()
+	# Generate cards models
+	for i: int in count:
+		var cardModel: CardModel = CARD_MODEL.instantiate()
+		cardModel.setColorAndValueFromId(i)
+		cardModel.cardOwner = 2
+		
+		cardsModels.push_back(cardModel)
 	
-	for i: int in indices.size():
+	var indices: Array[int] = getShuffleIndices(1)
+	
+	# Generate cards interactable for deck
+	for i: int in count:
 		var card := CardInteractable.new()
 		card.rotation = Vector3(PI / 2.0, PI + randf_range(-randomRotation, randomRotation), 0.0)
 		card.position.y = startPos + i * cardStep
@@ -40,14 +67,9 @@ func _ready() -> void:
 		card.add_child(collisionShape)
 		cardHolder.add_child(card)
 		
-		var cardModel: CardModel = CARD_MODEL.instantiate()
-		cardModel.setColorAndValueFromId(indices[i])
-		cardModel.cardOwner = 2
-		
-		card.initializeNewModel(cardModel)
+		card.initializeNewModel(cardsModels[indices[i]])
 		
 		cards.push_back(card)
-		cardsModels.push_back(cardModel)
 	
 	# Connect last card from the deck
 	cards[-1].activate()
@@ -79,27 +101,6 @@ var tween: Tween
 func addOnTop(cardInteractable: CardInteractable, who: int) -> void:
 	cards[-1].deactivate()
 	cards[-1].picked.disconnect(onTopCardPicked)
-	
-	#cardInteractable.deactivate()
-	#cardInteractable.model.meshInstance.material_override = CARD_ALPHA_MATERIAL
-	#var shaderMaterial: ShaderMaterial = cardInteractable.model.meshInstance.material_override
-	#if tween: tween.kill()
-	#tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-	#tween.tween_property(shaderMaterial, "shader_parameter/hidden", 1.0, 0.75)
-	#tween.parallel().tween_property(cardInteractable, "position:y", 20.0, 0.75).as_relative()
-	#tween.tween_property(cardInteractable, "global_position", global_position + Vector3.UP * 20.0, 0.0)
-	#tween.tween_property(cardInteractable, "rotation", Vector3(PI / 2.0, PI + randf_range(-randomRotation, randomRotation), 0.0), 0.0)
-	#tween.tween_callback(cardInteractable.reset_physics_interpolation)
-	#tween.tween_property(shaderMaterial, "shader_parameter/hidden", 0.0, 0.75)
-	#tween.parallel().tween_property(cardInteractable, "position:y", startPos + (cards.size() + 2) * cardStep, 0.75)
-	#tween.tween_callback(func() -> void: cardInteractable.model.meshInstance.material_override = cardInteractable.model.shaderMaterial)
-	#tween.tween_callback(func() -> void: _finishAddOnTop(cardInteractable))
-	#
-#func _finishAddOnTop(cardInteractable: CardInteractable) -> void:
-	# Set its position
-	#cardInteractable.global_position = global_position + Vector3.UP * 20.0
-	#cardInteractable.rotation = Vector3(PI / 2.0, PI + randf_range(-randomRotation, randomRotation), 0.0)
-	#cardInteractable.reset_physics_interpolation()
 	
 	cards.push_back(cardInteractable)
 	cards[-1].activate()
@@ -149,14 +150,12 @@ var reseting: bool = false
 var resetYRotation: PackedFloat32Array
 
 
-func resetCards(includeHand: bool, exclude: Array[CardModel]) -> void:
+func resetCards(includeHand: bool, nbCheats: int, exclude: Array[CardModel]) -> void:
 	cards.clear()
 	
 	resetYRotation = PackedFloat32Array()
 	
-	var indices: Array[int]
-	indices.assign(range(count))
-	indices.shuffle()
+	var indices: Array[int] = getShuffleIndices(nbCheats) 
 	
 	for i: int in indices:
 		var cardModel: CardModel = cardsModels[i]
@@ -169,7 +168,9 @@ func resetCards(includeHand: bool, exclude: Array[CardModel]) -> void:
 			cardInteractable.sleeping = false
 			continue
 		
+		# Set to deck mode
 		cardInteractable.deactivate()
+		cardInteractable.cardIsHidden = true
 		cardModel.cardOwner = 2
 		
 		resetYRotation.push_back(PI + randf_range(-randomRotation, randomRotation))
@@ -181,11 +182,7 @@ var isShuffling: bool = false
 @onready var shuffleHelperBot: Node3D = $ShuffleHelperBot
 @onready var shufflePath: Path3D = $Path3D
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("CANCEL"):
-		askShuffle(false)
-
-func askShuffle(includeHand: bool, exclude: Array[CardModel] = []) -> void:
+func askShuffle(includeHand: bool, nbCheat: int, exclude: Array[CardModel] = []) -> void:
 	Global.canInteract = false
 	isShuffling = true
 	
@@ -193,25 +190,10 @@ func askShuffle(includeHand: bool, exclude: Array[CardModel] = []) -> void:
 		cards[-1].deactivate()
 		cards[-1].picked.disconnect(onTopCardPicked)
 	
-	#for card: CardInteractable in cards:
-		#card.deactivate()
-	
-	#cardHolder.top_level = true
-	#cardHolder.reset_physics_interpolation()
-	#for child: Node3D in cardHolder.get_children():
-		#child.top_level = true
-		#child.reset_physics_interpolation()
-	
 	global_position = Vector3(0.0, 50, -40)
 	rotation = Vector3(0.0, PI / 2.0, PI / 4.0)
 	
-	#cardHolder.top_level = false
-	#cardHolder.reset_physics_interpolation()
-	#for child: Node3D in cardHolder.get_children():
-		#child.top_level = false
-		#child.reset_physics_interpolation()
-	
-	resetCards(includeHand, exclude)
+	resetCards(includeHand, nbCheat, exclude)
 	
 	for card: CardModel in exclude:
 		card.cardInteractable.collision_mask = CardInteractable.PHYSICS_LAYER + 0b10
@@ -243,9 +225,9 @@ func askShuffle(includeHand: bool, exclude: Array[CardModel] = []) -> void:
 		card.cardInteractable.collision_mask = CardInteractable.PHYSICS_LAYER + 0b01
 	
 	var counter: int = 5
-	shuffle(counter, exclude)
+	shuffle(counter, nbCheat, exclude)
 
-func shuffle(counter: int, exclude: Array[CardModel]) -> void:
+func shuffle(counter: int, nbCheat: int, exclude: Array[CardModel]) -> void:
 	var curveLength: float = shufflePath.curve.get_baked_length()
 	
 	var length: int = cards.size()
@@ -292,11 +274,11 @@ func shuffle(counter: int, exclude: Array[CardModel]) -> void:
 	
 	counter -= 1
 	if counter > 0:
-		shuffle(counter, exclude)
+		shuffle(counter, nbCheat, exclude)
 	else:
-		finishShuffle(exclude)
+		finishShuffle(nbCheat, exclude)
 
-func finishShuffle(exclude: Array[CardModel]) -> void:
+func finishShuffle(nbCheat: int, exclude: Array[CardModel]) -> void:
 	if tween: tween.kill()
 	tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "global_position", originalPosition, 1.0)
@@ -308,7 +290,7 @@ func finishShuffle(exclude: Array[CardModel]) -> void:
 	isShuffling = false
 	Global.canInteract = true
 	
-	resetCards(false, exclude)
+	resetCards(false, nbCheat, exclude)
 	
 	resetingDuration = RESET_DURATION
 	reseting = true

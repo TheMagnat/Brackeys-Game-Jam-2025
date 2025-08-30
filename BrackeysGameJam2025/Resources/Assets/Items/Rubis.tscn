@@ -64,8 +64,10 @@ shape = SubResource("ConvexPolygonShape3D_crqns")
 stream = SubResource("AudioStreamRandomizer_nsvq1")
 unit_size = 50.0
 pitch_scale = 2.5
+bus = &"Interactable"
 
 [node name="Break" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_5bnue")
 unit_size = 60.0
 pitch_scale = 2.0
+bus = &"Interactable"

@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://jyapw4g23vue" path="res://Resources/Assets/Birds/far_bird7.png" id="7_fgpph"]
 [ext_resource type="Texture2D" uid="uid://blyghvpqfcvif" path="res://Resources/Assets/Birds/far_bird8.png" id="8_5ol8u"]
 [ext_resource type="Texture2D" uid="uid://dcpsoow1b8mam" path="res://Resources/Assets/Birds/far_bird9.png" id="9_1436k"]
-[ext_resource type="Texture2D" uid="uid://b5rf0ok28k2v2" path="res://Resources/Assets/Birds/far_bird13.png" id="10_8guu7"]
-[ext_resource type="Texture2D" uid="uid://cyhvgq7g14x7i" path="res://Resources/Assets/Birds/far_bird12.png" id="10_jgjwn"]
-[ext_resource type="Texture2D" uid="uid://u5h6141gwujx" path="res://Resources/Assets/Birds/far_bird11.png" id="12_sppll"]
-[ext_resource type="Script" uid="uid://dupnhdv07jh5j" path="res://Scenes/Parallax/bird.gd" id="13_a1mu1"]
+[ext_resource type="Texture2D" uid="uid://b5rf0ok28k2v2" path="res://Resources/Assets/Birds/far_bird12.png" id="10_8guu7"]
+[ext_resource type="Texture2D" uid="uid://cyhvgq7g14x7i" path="res://Resources/Assets/Birds/far_bird11.png" id="10_jgjwn"]
+[ext_resource type="Texture2D" uid="uid://u5h6141gwujx" path="res://Resources/Assets/Birds/far_bird10.png" id="12_sppll"]
+[ext_resource type="Script" path="res://Scenes/Parallax/bird.gd" id="13_a1mu1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d4bcx"]
 animations = [{
@@ -61,5 +61,5 @@ animations = [{
 [node name="Bird" type="AnimatedSprite3D"]
 sprite_frames = SubResource("SpriteFrames_d4bcx")
 frame = 11
-frame_progress = 0.741376
+frame_progress = 1.0
 script = ExtResource("13_a1mu1")
