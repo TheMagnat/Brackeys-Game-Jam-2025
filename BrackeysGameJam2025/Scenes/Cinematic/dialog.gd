@@ -29,6 +29,7 @@ func _stop_talking():
 	talking = false
 	EventBus.dialogFinished.emit()
 
+var timer : SceneTreeTimer
 func _talk(t: String) -> void:
 	if !talking:
 		return
@@ -46,8 +47,6 @@ func _talk(t: String) -> void:
 		var last_word := t.split(" ")[0]
 		if (_process_text_length(split_by_line[split_by_line.size() - 1] + " " + last_word)) > MAX_TEXT_SIZE:
 			label.text += "\n"
-		else:
-			label.text += " "
 		
 		label.text += last_word
 		
@@ -59,7 +58,9 @@ func _talk(t: String) -> void:
 		var next_text := t.right(-last_word.length() - 1)
 		var sceneTree: SceneTree = get_tree()
 		if next_text.strip_edges() != "" and sceneTree:
-			sceneTree.create_timer(duration).timeout.connect(_talk.bind(t.right(-last_word.length() - 1)))
+			label.text += " "
+			timer = sceneTree.create_timer(duration)
+			timer.timeout.connect(_talk.bind(t.right(-last_word.length() - 1)))
 		else:
 			_stop_talking()
 
@@ -69,11 +70,13 @@ func write(t: String, a := false) -> void:
 	_start_talking(t, a)
 
 func clear() -> void:
+	if is_instance_valid(timer):
+		for c in timer.timeout.get_connections():
+			timer.timeout.disconnect(c.callable)
 	talking = false
 	label.text = ""
 
 func _ready() -> void:
-	
 	EventBus.pirateTalk.connect(write)
 	EventBus.clearDialog.connect(clear)
 	

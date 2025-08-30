@@ -333,7 +333,13 @@ enum CHEAT_TYPE {
 func cheatResolver(cheatType: CHEAT_TYPE, cardModel: CardModel) -> void:
 	if Global.gameFinished: return
 	
-	EventBus.startSimpleDialog.emit("Tu triche enculé. Tu peux modifier la phrase ici en fonction du type de triche.", true)
+	var cheatSentence : String = PirateDialogs.cheatSteal.pick_random() if cheatType == CHEAT_TYPE.STEAL else \
+								 PirateDialogs.cheatHide.pick_random() if cheatType == CHEAT_TYPE.HIDE else \
+								 PirateDialogs.cheatHideInDeck.pick_random() if cheatType == CHEAT_TYPE.HIDE_IN_DECK else \
+								 PirateDialogs.cheatWrongTurn.pick_random() if cheatType == CHEAT_TYPE.TRY_TO_PLAY_WRONG_TURN else \
+								 PirateDialogs.cheatPickGroundCard.pick_random()
+	
+	EventBus.startSimpleDialog.emit(cheatSentence, true)
 	
 	var cardInteractable: CardInteractable = Global.cardManager.getCardInteractableFromModel(cardModel)
 	
@@ -437,10 +443,10 @@ func _physics_process(delta: float) -> void:
 		sleepTime += delta
 		if sleepTime >= TIME_BEFORE_REACT:
 			if turnState == 0:
-				EventBus.startRemnantDialog.emit("I know I'm intimidating but ya have to play a card", false)
+				EventBus.startRemnantDialog.emit(PirateDialogs.pirateWaitingPlay.pick_random(), false)
 			
 			else:
-				EventBus.startRemnantDialog.emit("ZZzzzz... Ya supposed to pick a card now...", false)
+				EventBus.startRemnantDialog.emit(PirateDialogs.pirateWaitingPick.pick_random(), false)
 			
 			sleepTime = 0.0
 			sleepCount += 1
