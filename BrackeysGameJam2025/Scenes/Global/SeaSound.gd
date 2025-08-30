@@ -1,5 +1,7 @@
 extends AudioStreamPlayer
 
+signal game_ended
+
 const TIME := 4.0
 const INSIDE_CUTOFF := 1800.0
 
@@ -16,6 +18,7 @@ const HARMONICA_VOLUME_MAX := -12.0
 var t : Tween
 func _ready() -> void:
 	$HarmonicaLoop.finished.connect(harmonica_timeout)
+	$endmusic.finished.connect(game_ended.emit)
 	
 	volume_db = -30.0
 	$crackles.volume_db = -40.0
@@ -52,3 +55,11 @@ func outside() -> void:
 	t.tween_property($crackles, "volume_db", CRACKLES_VOLUME_MIN, TIME)
 	t.tween_property($HarmonicaLoop, "volume_db", HARMONICA_VOLUME_MAX, TIME)
 	t.tween_property(SeaFilter, "cutoff_hz", 20500.0, TIME)
+
+func ending():
+	if t: t.kill()
+	
+	t = create_tween().set_parallel(true)
+	t.tween_property($crackles, "volume_db", -40.0, TIME * 2.0)
+	t.tween_property($HarmonicaLoop, "volume_db", -40.0, TIME * 2.0)
+	$endmusic.play()

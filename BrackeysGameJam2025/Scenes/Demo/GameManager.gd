@@ -44,25 +44,30 @@ const NO : Array[String] = [
 	"No", "Nope", "Nae", "Certainly not"
 ]
 
+const RETRY : Array[String] = [
+	"Retry", "Play again", "Take a new chance", "Try another approach", "Hope for something better", "Try again"
+]
+
 var introductionFinished: bool = false
 func onSkipIntroduction() -> void:
 	introductionFinished = true
 	EventBus.clearDialog.emit()
 	EventBus.choosenChoice.emit(-1)
-	startIntroduction3()
+	showCookieArea()
+	startGame()
 
 func startIntroduction1() -> void:
 	EventBus.introductionStarted.emit()
 	
 	if introductionFinished: return
 	
-	for i in 5:
-		EventBus.startSimpleDialog.emit(PirateDialogs.introductionText[i], false)
+	for dialog in PirateDialogs.introductionText:
+		EventBus.startSimpleDialog.emit(dialog, false)
 		await EventBus.simpleDialogFinished
 		
 		if introductionFinished: return
 	
-	EventBus.startQuestionDialog.emit(PirateDialogs.introductionText[5], false, [YES.pick_random(), NO.pick_random()] as Array[String], introduction1Answer)
+	EventBus.startQuestionDialog.emit(PirateDialogs.introductionQuestion, false, [YES.pick_random(), NO.pick_random()] as Array[String], introduction1Answer)
 
 func introduction1Answer(answer: int) -> void:
 	if introductionFinished: return
@@ -76,19 +81,18 @@ func introduction1Answer(answer: int) -> void:
 func startIntroduction2() -> void:
 	if introductionFinished: return
 	
-	for i in 3:
-		EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[i], false)
+	for dialog in PirateDialogs.introduction2Text:
+		if dialog == PirateDialogs.introduction2Text[3]:
+			showCookieArea()
+		
+		EventBus.startSimpleDialog.emit(dialog, false)
 		await EventBus.simpleDialogFinished
 		
 		if introductionFinished: return
 	
-	showCookieArea()
-	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Text[3], false)
-	await EventBus.simpleDialogFinished
-	
 	if introductionFinished: return
 	
-	EventBus.startQuestionDialog.emit(PirateDialogs.introduction2Text[4], false, PirateDialogs.introduction2Answers, introduction2Answer)
+	EventBus.startQuestionDialog.emit(PirateDialogs.introduction2Question, false, PirateDialogs.introduction2Offers, introduction2Answer)
 
 var intro2State: int = -1
 func introduction2Answer(answer: int) -> void:
@@ -99,21 +103,17 @@ func introduction2Answer(answer: int) -> void:
 			startIntroduction3()
 			return
 		
-		var answers: Array[String] = PirateDialogs.introduction2Answers.duplicate()
-		var subIndex: int
+		var answers: Array[String] = PirateDialogs.introduction2Offers.duplicate()
 		var angry: bool = false
 		if answer == 0:
 			intro2State = 0
 			answers.remove_at(0)
-			subIndex = 0
 		else:
 			intro2State = 1
 			answers.remove_at(1)
-			subIndex = 1
 			angry = true
 		
-		EventBus.startQuestionDialog.emit(PirateDialogs.subIntroduction2Text[subIndex], angry, answers, introduction2Answer)
-	
+		EventBus.startQuestionDialog.emit(PirateDialogs.introduction2Answers[answer], angry, answers, introduction2Answer)
 	else:
 		if answer == 1:
 			startIntroduction3()
@@ -128,16 +128,13 @@ func introduction2Answer(answer: int) -> void:
 		else:
 			subIndex = 0
 		
-		EventBus.startQuestionDialog.emit(PirateDialogs.subIntroduction2Text[subIndex], angry, answers, startIntroduction3)
+		EventBus.startQuestionDialog.emit(PirateDialogs.introduction2Answers[subIndex], angry, answers, startIntroduction3)
 
 func startIntroduction3(_answer: int = 0) -> void:
 	introductionFinished = true
 	EventBus.introductionFinished.emit()
 	
-	EventBus.startSimpleDialog.emit(PirateDialogs.introduction3Text[0], false)
-	await EventBus.simpleDialogFinished
-	
-	EventBus.startSimpleDialog.emit(PirateDialogs.introduction3Text[1], false)
+	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Answers[2], false)
 	await EventBus.simpleDialogFinished
 	
 	startGame()
@@ -145,8 +142,8 @@ func startIntroduction3(_answer: int = 0) -> void:
 func startTutorial(angry: bool = false) -> void:
 	if introductionFinished: return
 	
-	for i in 4:
-		EventBus.startSimpleDialog.emit(PirateDialogs.tutorialText[i], angry)
+	for dialog in PirateDialogs.tutorialText:
+		EventBus.startSimpleDialog.emit(dialog, angry)
 		await EventBus.simpleDialogFinished
 		
 		if introductionFinished: return
@@ -155,7 +152,7 @@ func startTutorial(angry: bool = false) -> void:
 		tutorialPart2(0)
 		return
 	
-	EventBus.startQuestionDialog.emit(PirateDialogs.tutorialText[4], angry, [YES.pick_random(), NO.pick_random()] as Array[String], tutorialPart2)
+	EventBus.startQuestionDialog.emit(PirateDialogs.tutorialQuestion, angry, [YES.pick_random(), NO.pick_random()] as Array[String], tutorialPart2)
 
 var repeatCount: int = 0
 func tutorialPart2(answer: int) -> void:
@@ -179,6 +176,9 @@ func tutorialPart2(answer: int) -> void:
 	startIntroduction2()
 
 func startGame() -> void:
+	EventBus.startSimpleDialog.emit(PirateDialogs.startGame, false)
+	await EventBus.simpleDialogFinished
+	
 	call_deferred("drawCards", Global.MAX_CARDS_IN_HAND)
 
 const WINNER_PLAYER := 0
@@ -224,7 +224,7 @@ func onCheatFinish() -> void:
 	Global.gameFinished = true
 	Global.gameTrulyFinished = true
 	
-	EventBus.startQuestionDialog.emit("Tu vas passer un sale quart d'heure enfoiré !", true, ["Retry"] as Array[String], onRetry)
+	EventBus.startQuestionDialog.emit(PirateDialogs.cheatGameOver.pick_random(), true, [RETRY.pick_random()] as Array[String], onRetry)
 	explodeCards()
 
 func onPlayerWin() -> void:
@@ -236,7 +236,7 @@ func onPlayerWin() -> void:
 func onPirateWin() -> void:
 	Global.gameFinished = true
 	Global.gameTrulyFinished = true
-	EventBus.startQuestionDialog.emit("Hahahah j'ai gagné, bon c'était marrant, à la planche maintenant !", true, ["Retry"] as Array[String], onRetry)
+	EventBus.startQuestionDialog.emit(PirateDialogs.finalPirateWin.pick_random(), true, [RETRY.pick_random()] as Array[String], onRetry)
 
 func onRetry(_choice: int) -> void:
 	animationPlayer.play_backwards("OpenScene")
@@ -267,32 +267,27 @@ func explodeCards() -> void:
 		cardModel.cardInteractable.collision_layer = CardInteractable.PHYSICS_LAYER + 0b01
 
 func playerWinEvent() -> void:
-	EventBus.startSimpleDialog.emit("J'ai perdu :'(", false)
-	await EventBus.simpleDialogFinished
+	for dialog in PirateDialogs.winningDialog:
+		EventBus.startSimpleDialog.emit(dialog, false)
+		await EventBus.simpleDialogFinished
 	
-	EventBus.startSimpleDialog.emit("Rigolo", false)
-	await EventBus.simpleDialogFinished
-	
-	EventBus.startSimpleDialog.emit("Lol", false)
-	await EventBus.simpleDialogFinished
-	
-	EventBus.startQuestionDialog.emit("Tu veux me rejoindre ?", true, [YES.pick_random(), NO.pick_random()] as Array[String], playerWinEventAnswer)
+	EventBus.startQuestionDialog.emit(PirateDialogs.joinCrewQuestion, true, [YES.pick_random(), NO.pick_random()] as Array[String], playerWinEventAnswer)
 
 
-const OUTRO = preload("uid://cl1oreqg680v2")
+@onready var OUTRO := $"../Outro"
 func playerWinEventAnswer(answer: int) -> void:
 	if answer == 0:
 		# If yes (good ending)
-		EventBus.startSimpleDialog.emit("Ok tu viens dans mon crew xd", false)
+		EventBus.startSimpleDialog.emit(PirateDialogs.joinCrewAccept, false)
 		Global.goodEnding = true
 		
 	else:
 		# If no (bad ending)
-		EventBus.startSimpleDialog.emit("Je te tue xd", true)
+		EventBus.startSimpleDialog.emit(PirateDialogs.joinCrewRefuse, true)
 		Global.goodEnding = false
 	
 	await EventBus.simpleDialogFinished
-	get_tree().change_scene_to_packed(OUTRO)
+	OUTRO.start(Global.goodEnding)
 
 func drawCards(nb: int) -> void:
 	Global.canInteract = false
