@@ -35,9 +35,9 @@ const valueToScore: Dictionary[CardModel.VALUE, int] = {
 	CardModel.VALUE.EIGHT: 8,
 	CardModel.VALUE.NINE: 9,
 	CardModel.VALUE.TEN: 10,
-	CardModel.VALUE.JACK: -10,
+	CardModel.VALUE.JACK: -20,
 	CardModel.VALUE.QUEEN: 0,
-	CardModel.VALUE.KING: -20
+	CardModel.VALUE.KING: 0
 }
 
 static var valueToFileString: Dictionary[VALUE, String] = {

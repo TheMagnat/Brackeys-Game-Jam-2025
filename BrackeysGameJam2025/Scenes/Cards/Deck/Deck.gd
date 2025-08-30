@@ -25,12 +25,10 @@ func getShuffleIndices(nbCheats: int) -> Array[int]:
 	indices.assign(range(count))
 	
 	var cheatId: Array[int]
-	if nbCheats > 0:
-		indices.pop_at(50) # Queen of hearts
-		cheatId.push_back(50)
-	
-	for i in nbCheats - 1:
-		cheatId.push_back(indices.pop_back())
+	for i: int in nbCheats:
+		var queenIndex: int = 51 - i * 13 # Get kings
+		indices.pop_at(queenIndex)
+		cheatId.push_back(queenIndex)
 	
 	indices.shuffle()
 	var s: int = indices.size()

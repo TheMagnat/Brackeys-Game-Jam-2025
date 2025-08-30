@@ -326,7 +326,11 @@ func onCardPlayed(card: CardInteractable, who: int) -> void:
 	if who == 1:
 		EventBus.startRemnantDialog.emit(PirateDialogs.count.pick_random() % currentGameTotalScore, false)
 	else:
-		EventBus.startSimpleDialog.emit(PirateDialogs.playing.pick_random(), false)
+		if card.model.value == CardModel.VALUE.KING:
+			EventBus.startSimpleDialog.emit(PirateDialogs.playingKing.pick_random(), false)
+		
+		else:
+			EventBus.startSimpleDialog.emit(PirateDialogs.playing.pick_random(), false)
 	
 	card.model.cardOwner = 3
 	playedCardBuffer.push_back(card.model)

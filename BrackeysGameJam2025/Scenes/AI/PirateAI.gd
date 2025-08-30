@@ -4,6 +4,11 @@ extends Node
 var playerTurn: bool = true
 var turnState: int = 0 # 0 = Play card, 1 = draw card
 
+@onready var playerCurrentMaxCards: int = Global.MAX_CARDS_IN_HAND
+@onready var pirateCurrentMaxCards: int = Global.MAX_CARDS_IN_HAND
+var playerDrawExpected: int = 1
+var pirateDrawExpected: int = 1
+
 @onready var gameManager: GameManager = %GameManager
 @onready var deck: Deck = %Deck
 @onready var pirateCardHand: CardHand = %PirateCardHand
@@ -33,6 +38,8 @@ func onResetCurrentGame() -> void:
 	turnState = 0
 	sleepTime = 0.0
 	sleepCount = 0
+	playerCurrentMaxCards = Global.MAX_CARDS_IN_HAND
+	pirateCurrentMaxCards = Global.MAX_CARDS_IN_HAND
 	getNewThinkingTime(2.0)
 
 func moveToPirateTurn() -> void:
@@ -92,8 +99,10 @@ func onPlayerAddCardToHand(index: int, who: int) -> void:
 		return
 	
 	if playerTurn and turnState == 1 and cardModel.cardOwner == 2:
-		# OK, Picked from deck, prepare Pirate Turn
-		moveToPirateTurn()
+		playerDrawExpected -= 1
+		if playerDrawExpected <= 0:
+			# OK, Picked from deck, prepare Pirate Turn
+			moveToPirateTurn()
 	
 	elif cardModel.cardOwner != 0:
 		var busted: bool = detectCheat(true)
@@ -135,6 +144,15 @@ func onCardAddedInPlayArea(card: CardInteractable) -> void:
 		
 		if turnState == 0:
 			turnState = 1
+			
+			# King rule
+			if card.model.value == CardModel.VALUE.KING:
+				## Player get a new card to draw
+				playerCurrentMaxCards += 1
+				playerDrawExpected = 2
+			else:
+				playerDrawExpected = 1
+			
 		else:
 			var busted: bool = detectCheat(true)
 			if busted:
@@ -142,7 +160,10 @@ func onCardAddedInPlayArea(card: CardInteractable) -> void:
 				cheatResolver(CHEAT_TYPE.TRY_TO_PLAY_WRONG_TURN, card.model)
 				#EventBus.forceStoreCard.emit(card)
 				return
-		
+			
+			card.model.cardOwner = 3
+			return
+	
 	else:
 		if card.model.cardOwner != 1:
 			var busted: bool = detectCheat(true)
@@ -158,6 +179,14 @@ func onCardAddedInPlayArea(card: CardInteractable) -> void:
 		if turnState == 0:
 			# Pirate played his card, update turn state
 			turnState = 1
+			
+			if card.model.value == CardModel.VALUE.KING:
+				## Player get a new card to draw
+				pirateCurrentMaxCards += 1
+				pirateDrawExpected = 2
+			else:
+				pirateDrawExpected = 1
+			
 			getNewThinkingTime(0.2)
 	
 	EventBus.cardPlayed.emit(card, card.model.cardOwner)
@@ -226,10 +255,10 @@ func analyseGameState() -> void:
 	var isPlayerDrawTurn: bool = false
 	if playerTurn and turnState == 1:
 		isPlayerDrawTurn = true
-		nbCardsToRemove = visibleCards.size() - (Global.MAX_CARDS_IN_HAND - 1)
+		nbCardsToRemove = visibleCards.size() - (playerCurrentMaxCards - 1)
 		
 	else:
-		nbCardsToRemove = visibleCards.size() - Global.MAX_CARDS_IN_HAND
+		nbCardsToRemove = visibleCards.size() - playerCurrentMaxCards
 
 	
 	if nbCardsToRemove > 0:
@@ -436,8 +465,12 @@ func _physics_process(delta: float) -> void:
 				pirateCard.model.cardOwner = 1
 				pirateCardHand.onForceStoreCard(pirateCard)
 				
-				playerTurn = true
-				turnState = 0
+				pirateDrawExpected -= 1
+				if pirateDrawExpected > 0:
+					getNewThinkingTime(0.2)
+				else:
+					playerTurn = true
+					turnState = 0
 	else:
 		sleepTime += delta
 		if sleepTime >= TIME_BEFORE_REACT:
@@ -453,15 +486,24 @@ func _physics_process(delta: float) -> void:
 func selectCard() -> int:
 	var currentTotal: int = gameManager.currentGameTotalScore
 	
+	var queenIndex: int = -1
+	
 	var bestIndex: int = -1
 	var bestTotal: int = -1000
 	
 	for i: int in pirateCardHand.cards.size():
+		if pirateCardHand.cards[i].model.value == CardModel.VALUE.QUEEN:
+			queenIndex = i
+			continue
+		
 		var newTotal: int = currentTotal + pirateCardHand.cards[i].model.cardScore
 		
 		if newTotal > bestTotal and newTotal < Global.TOTAL_TO_NOT_REACH:
 			bestIndex = i
 			bestTotal = newTotal
+	
+	if bestIndex == -1:
+		return queenIndex
 	
 	return bestIndex
 

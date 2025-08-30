@@ -35,6 +35,14 @@ func _physics_process(delta: float) -> void:
 	
 	if requestDetach:
 		_detach()
+		
+		if hoveredObject is CardInteractable:
+			var card: CardInteractable = hoveredObject
+			
+			var newTransform: Transform3D = card.model.global_transform
+			card.model.rotation = Vector3.ZERO
+			card.global_transform = newTransform
+		
 		hoveredObject.apply_central_impulse(velocity * hoveredObject.mass)
 		requestDetach = false
 		EventBus.droppedItem.emit(hoveredObject)
