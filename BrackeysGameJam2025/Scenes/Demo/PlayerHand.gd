@@ -85,6 +85,9 @@ func hold(toHold: Interactable, handPosition: Vector3) -> void:
 	attach()
 
 func attach() -> void:
+	if hoveredObject.freeze:
+		hoveredObject.freeze = false
+	
 	hoveredObject.onUnhovered()
 	hoveredObject.can_sleep = false
 	
