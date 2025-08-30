@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bypsfov7yltrj"]
+[gd_scene load_steps=11 format=3 uid="uid://bypsfov7yltrj"]
 
 [ext_resource type="AudioStream" uid="uid://ckc4j7ynjkckd" path="res://Resources/SFX/ambient/sealoop.ogg" id="1_v2toe"]
 [ext_resource type="Script" uid="uid://ddws86x3aluyf" path="res://Scenes/Global/SeaSound.gd" id="2_6ewcn"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://bvo02jkueq3nm" path="res://Resources/SFX/UI/select1.ogg" id="5_2bnq2"]
 [ext_resource type="AudioStream" uid="uid://cis674sdci2e4" path="res://Resources/SFX/ambient/whistle_loop.ogg" id="5_6y42k"]
 [ext_resource type="AudioStream" uid="uid://c55cngt8ye4ci" path="res://Resources/SFX/UI/select3.ogg" id="6_6y42k"]
+[ext_resource type="AudioStream" uid="uid://c4gj86x7x8txd" path="res://Resources/SFX/ambient/ending_music.ogg" id="8_sb8uj"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jcaig"]
 streams_count = 2
@@ -38,3 +39,6 @@ bus = &"SeaSounds"
 stream = SubResource("AudioStreamRandomizer_sb8uj")
 volume_db = -8.0
 bus = &"SlightReverb"
+
+[node name="endmusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_sb8uj")

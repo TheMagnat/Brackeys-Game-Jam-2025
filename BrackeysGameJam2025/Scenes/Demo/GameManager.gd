@@ -274,7 +274,7 @@ func playerWinEvent() -> void:
 	EventBus.startQuestionDialog.emit(PirateDialogs.joinCrewQuestion, true, [YES.pick_random(), NO.pick_random()] as Array[String], playerWinEventAnswer)
 
 
-const OUTRO = preload("uid://cl1oreqg680v2")
+@onready var OUTRO := $"../Outro"
 func playerWinEventAnswer(answer: int) -> void:
 	if answer == 0:
 		# If yes (good ending)
@@ -287,7 +287,7 @@ func playerWinEventAnswer(answer: int) -> void:
 		Global.goodEnding = false
 	
 	await EventBus.simpleDialogFinished
-	get_tree().change_scene_to_packed(OUTRO)
+	OUTRO.start(Global.goodEnding)
 
 func drawCards(nb: int) -> void:
 	Global.canInteract = false

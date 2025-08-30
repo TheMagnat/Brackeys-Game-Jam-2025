@@ -1,3 +1,144 @@
-[gd_scene format=3 uid="uid://cl1oreqg680v2"]
+[gd_scene load_steps=3 format=3 uid="uid://cl1oreqg680v2"]
 
-[node name="Outro" type="Node3D"]
+[ext_resource type="Script" uid="uid://dkhn2go1d8dg4" path="res://Scenes/Cinematic/outro.gd" id="1_ng8ne"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ng8ne"]
+font_size = 30
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Outro" type="CanvasLayer"]
+layer = 110
+script = ExtResource("1_ng8ne")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 324, 1152, 324)
+width = 648.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Refuse" type="VBoxContainer" parent="."]
+visible = false
+modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
+custom_minimum_size = Vector2(1152, 648)
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Refuse"]
+layout_mode = 2
+text = "\"Got one last wish?\" the captain asked with a face of regrets"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Refuse"]
+layout_mode = 2
+text = "As I pointed the biscuit, he took it from the plate to hand it over to me"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="Refuse"]
+layout_mode = 2
+text = "
+It tasted amazing, and I tried enjoying every bit of its nutrients"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="Refuse"]
+layout_mode = 2
+text = "As I felt its parts sliding into my stomach, a burst of energy striked me"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="Refuse"]
+layout_mode = 2
+text = "
+I ran towards the board and dove right into the sea"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="Refuse"]
+layout_mode = 2
+text = "The pirates tried shooting at me, but I reached land nonetheless"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label7" type="Label" parent="Refuse"]
+layout_mode = 2
+text = "
+The story of my capture made me become a small celebrity in town"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label8" type="Label" parent="Refuse"]
+layout_mode = 2
+text = "As for everyone I became the man who chose to risk it for a biscuit"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Accept" type="VBoxContainer" parent="."]
+visible = false
+modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
+custom_minimum_size = Vector2(1152, 648)
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Accept"]
+layout_mode = 2
+text = "Had the captain announced my new promotion,"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Accept"]
+layout_mode = 2
+text = "the crewmembers already were embracing me in their pirate arms"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="Accept"]
+layout_mode = 2
+text = "
+The captain took the cookie from the plate and gave me a taste"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="Accept"]
+layout_mode = 2
+text = "It tasted like something new, a new kind of freedom"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="Accept"]
+layout_mode = 2
+text = "
+Freed from my past, playing cards like never I had, I made new comrades"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="Accept"]
+layout_mode = 2
+text = "Learning from my tricks, we scammed fools in band on each stopover"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="Label7" type="Label" parent="Accept"]
+layout_mode = 2
+text = "
+Life is good"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
+
+[node name="End" type="VBoxContainer" parent="."]
+modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
+custom_minimum_size = Vector2(1152, 648)
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="End"]
+layout_mode = 2
+text = "The End"
+label_settings = SubResource("LabelSettings_ng8ne")
+horizontal_alignment = 1
