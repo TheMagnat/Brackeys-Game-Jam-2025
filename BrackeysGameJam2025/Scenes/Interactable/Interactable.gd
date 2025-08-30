@@ -18,8 +18,7 @@ func onBodyHit(body: Node) -> void:
 	var vol: float = minf(3.0, (lastVelocity.length() * 40.0 - 30.0))
 	
 	if global_position.y < 15.0:
-		var new_volume := vol * 1.5
-		if not alreadyBroke and breakPlayer and (!breakPlayer.playing or breakPlayer.volume_db < new_volume):
+		if not alreadyBroke and breakPlayer:
 			breakPlayer.volume_db = vol * 1.5
 			breakPlayer.play()
 			alreadyBroke = true
@@ -27,7 +26,7 @@ func onBodyHit(body: Node) -> void:
 		
 		alreadyBroke = true
 	
-	if hitPlayer:
+	if hitPlayer and (!hitPlayer.playing or hitPlayer.volume_db < vol):
 		hitPlayer.volume_db = vol
 		hitPlayer.play()
 

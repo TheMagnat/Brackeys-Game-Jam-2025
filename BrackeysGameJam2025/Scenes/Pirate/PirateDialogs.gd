@@ -15,7 +15,7 @@ const introduction2Text: Array[String] = [
 	"'Tis so good it makes ye wanna throw up",
 	"But A' know ya scrub better than any fool",
 	"Ya wouldn't play for nothin', would ya?",
-	"So let's make a gamble. A'll bet this cookie\nLet's say it symbolizes yer freedom, or future work with us?",
+	"So let us make a gamble. A'll bet this cookie\nLet us say it symbolizes yer freedom, or future work with us?",
 ]
 
 const introduction2Question := "But ya gotta bet something that matches the value of this perfect biscuit, right?"
@@ -25,14 +25,14 @@ const introduction2Offers: Array[String] = [
 ]
 
 const introduction2Answers: Array[String] = [
-	"Do ya really think it's worth what A'm offerin' ya?",
+	"Ya really think it's worth what A'm offerin' ya?",
 	"Ya offer ME my OWN bread? Are ya stupid?",
 	"Ya'll kill me with boredom if this game's too short",
 ]
 
 
-const startGame := "Let's make it so the first to 3 wins gets the prize."
-const youStartInfo := "I will let you start so that's not too easy for me"
+const startGame := "Let us make it so the first to 3 wins gets the prize."
+const youStartInfo := "A'll let ya start so it ain't too easy for me"
 
 const tutorialRepeat := "Fine, A'll repeat then"
 const tutorialRepeatAngry := "Are ya STUPID? A'll repeat one LAST time"

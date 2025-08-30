@@ -2,7 +2,7 @@ extends Node2D
 
 const MAIN_SCENE := preload("res://Scenes/Demo/MainSceneDemo.tscn")
 
-func update_viewport():
+func update_viewport() -> void:
 	$CanvasLayer/SubViewport.size = get_window().size
 
 func _ready() -> void:
@@ -11,6 +11,7 @@ func _ready() -> void:
 	get_window().size_changed.connect(update_viewport)
 	update_viewport()
 	
+	$FadeOut/Line2D.modulate.a = 0.0
 	
 	SeaSound.inside()
 	$VBoxContainer/Play.pressed.connect(play)
@@ -21,7 +22,7 @@ func _ready() -> void:
 	check_fullscreen()
 	tween()
 
-func check_fullscreen():
+func check_fullscreen() -> void:
 	if get_window().mode == Window.MODE_FULLSCREEN:
 		$VBoxContainer/Fullscreen.text = "Surface"
 	else:
@@ -41,7 +42,9 @@ func tween() -> void:
 
 
 func play() -> void:
-	get_tree().change_scene_to_packed(MAIN_SCENE)
+	var t := create_tween()
+	t.tween_property($FadeOut/Line2D, "modulate:a", 1.0, 2.0)
+	t.finished.connect(get_tree().change_scene_to_packed.bind(MAIN_SCENE))
 
 func quit() -> void:
 	get_tree().quit()

@@ -1,11 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://b1n5mlm7dlqxq"]
+[gd_scene load_steps=15 format=3 uid="uid://b1n5mlm7dlqxq"]
 
 [ext_resource type="Script" uid="uid://dlsurt871l1yt" path="res://Scenes/Interactable/Interactable.gd" id="1_crqns"]
 [ext_resource type="ArrayMesh" uid="uid://72xhpos1drbq" path="res://Resources/Meshes/FromRIB/rubis.res" id="2_4utbr"]
-[ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/hover.gdshader" id="2_4xyyj"]
+[ext_resource type="Shader" path="res://Resources/Shaders/hover.gdshader" id="2_4xyyj"]
 [ext_resource type="AudioStream" uid="uid://ccesfxttojr8e" path="res://Resources/SFX/material/glass_hit1.ogg" id="3_ao2hq"]
-[ext_resource type="AudioStream" uid="uid://26ar0hkl6yv0" path="res://Resources/SFX/material/glass_hit2.ogg" id="4_4xyyj"]
-[ext_resource type="AudioStream" uid="uid://dqggwenj6fb5l" path="res://Resources/SFX/material/glass_hit3.ogg" id="5_0dqn8"]
 [ext_resource type="AudioStream" uid="uid://blqdlu6howgb" path="res://Resources/SFX/material/glass_hit4.ogg" id="6_qr7kc"]
 [ext_resource type="AudioStream" uid="uid://bn18feqgh1hs4" path="res://Resources/SFX/material/glass_break1.ogg" id="7_372vt"]
 [ext_resource type="AudioStream" uid="uid://brrnd53ikcvr7" path="res://Resources/SFX/material/glass_break2.ogg" id="8_fdcq5"]
@@ -30,11 +28,10 @@ anisotropy = 1.0
 points = PackedVector3Array(0.13395035, 0.5538778, 0.39100105, -0.33056092, 0.5538778, 0.2400356, 0.005553037, 0.0012670755, -0.0042025447, 0.42105997, 0.5538778, -0.0042025447, 0.14616466, 2.0013971, 0.3825217, -0.3114301, 2.0062294, 0.32383138, -0.33056092, 0.5538778, -0.24844071, 0.13395035, 0.5538778, -0.39940616, 0.089066476, 1.9846131, -0.45826274, 0.3705104, 1.9576564, -0.043855935, -0.044407845, 2.5992746, 0.02156797, -0.2836904, 1.9746951, -0.20088992)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nsvq1"]
-streams_count = 4
+random_pitch = 1.2
+streams_count = 2
 stream_0/stream = ExtResource("3_ao2hq")
-stream_1/stream = ExtResource("4_4xyyj")
-stream_2/stream = ExtResource("5_0dqn8")
-stream_3/stream = ExtResource("6_qr7kc")
+stream_1/stream = ExtResource("6_qr7kc")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5bnue"]
 streams_count = 4
