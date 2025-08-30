@@ -122,8 +122,8 @@ mesh = SubResource("QuadMesh_qwik3")
 [node name="Hit" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_xi7ho")
 unit_size = 50.0
-bus = &"Interactable"
 pitch_scale = 0.75
+bus = &"Interactable"
 
 [node name="Break" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_kju4j")
