@@ -53,6 +53,7 @@ func onSkipIntroduction() -> void:
 	introductionFinished = true
 	EventBus.clearDialog.emit()
 	EventBus.choosenChoice.emit(-1)
+	showCookieArea()
 	startGame()
 
 func startIntroduction1() -> void:

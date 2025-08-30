@@ -23,7 +23,7 @@ func stopDistraction() -> void:
 	pirateModel.showFrontFace()
 
 func getDistracted(pos: Vector3) -> void:
-	remainingDistractionTime = 4.0
+	remainingDistractionTime = 5.0
 	isDistracted = true
 	
 	pirateModel.showSideFace(pos.x < 0.0)
