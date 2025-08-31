@@ -20,7 +20,7 @@ func _ready() -> void:
 	
 	if Debug.DEBUG or Global.shouldSkipFirstIntro:
 		$intro.queue_free()
-		onIntroFinished()
+		await onIntroFinished()
 		$CanvasLayer/SkipIntro.show()
 		$CanvasLayer/SkipIntro.modulate.a = 0.0
 		var t := create_tween()
