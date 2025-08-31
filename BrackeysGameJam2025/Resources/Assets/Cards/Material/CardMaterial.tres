@@ -2,10 +2,8 @@
 
 [ext_resource type="Shader" uid="uid://5fyents3q6f5" path="res://Resources/Shaders/hover.gdshader" id="1_w5syx"]
 [ext_resource type="Shader" uid="uid://dbsvhn4bmcga1" path="res://Resources/Assets/Cards/Card.gdshader" id="2_curir"]
-[ext_resource type="Texture2D" uid="uid://h41im7ssvaix" path="res://Resources/Assets/Cards/Textures/2_coeur.png" id="3_2lovl"]
 [ext_resource type="Texture2D" uid="uid://boeej6obceyof" path="res://Resources/Assets/Cards/Textures/Other/dos_carte.png" id="3_4aqon"]
 [ext_resource type="Texture2D" uid="uid://h41im7ssvaix" path="res://Resources/Assets/Cards/Textures/2_coeur.png" id="4_w5syx"]
-
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jx5fj"]
 resource_local_to_scene = true
@@ -19,6 +17,5 @@ render_priority = 0
 next_pass = SubResource("ShaderMaterial_jx5fj")
 shader = ExtResource("2_curir")
 shader_parameter/frontTexture = ExtResource("4_w5syx")
-
 shader_parameter/backTexture = ExtResource("3_4aqon")
 shader_parameter/sideColor = Color(0.8392157, 0.75686276, 0.64705884, 1)

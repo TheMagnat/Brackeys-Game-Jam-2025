@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=4 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=100 format=4 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
@@ -40,6 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://g33bsuh0yrn5" path="res://Resources/Assets/Items/Lanterne.tscn" id="40_jgvkr"]
 [ext_resource type="Texture2D" uid="uid://cxaad3cnj15cx" path="res://Resources/Shaders/Filters/Assets/bayer2tile16.png" id="40_u5jl3"]
 [ext_resource type="PackedScene" uid="uid://cqiri0xdm0xcx" path="res://Resources/Assets/Items/Chevet.tscn" id="41_bffry"]
+[ext_resource type="ArrayMesh" uid="uid://w00kc5i1q5i8" path="res://Resources/Meshes/window.res" id="41_tgi5s"]
 [ext_resource type="Texture2D" uid="uid://cd1q3yyvcwytt" path="res://Resources/Shaders/Filters/Assets/bayer4tile8.png" id="41_u5jl3"]
 [ext_resource type="PackedScene" uid="uid://dq7pinxus4xj8" path="res://Resources/Assets/Items/Dice.tscn" id="41_yu7dm"]
 [ext_resource type="PackedScene" uid="uid://c73rp4eckvqan" path="res://Resources/Assets/Items/DiceBlack.tscn" id="42_yu7dm"]
@@ -277,6 +278,18 @@ metadata/_custom_type_script = "uid://cqun2xsfmafoe"
 script = ExtResource("26_r5ebq")
 PositionShake = Array[ExtResource("24_3dcc7")]([SubResource("Resource_hui0g"), SubResource("Resource_usaqk")])
 RotationShake = Array[ExtResource("24_3dcc7")]([SubResource("Resource_ohc42"), SubResource("Resource_3dcc7")])
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5bx16"]
+albedo_color = Color(0.29411766, 0.19215687, 0.13333334, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4mpxg"]
+albedo_color = Color(0.79980004, 0.86924, 0.93, 1)
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_qm45h"]
+size = Vector2(12, 12)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_yu7dm"]
 
@@ -695,6 +708,17 @@ transform = Transform3D(0.7690204, 0, 0.6392243, 0, 1, 0, -0.6392243, 0, 0.76902
 
 [node name="Tabouret2" parent="Environment" instance=ExtResource("39_mj15a")]
 transform = Transform3D(-0.54838085, 0, -0.83622867, 0, 1, 0, 0.83622867, 0, -0.54838085, 119.59077, 0, 69.055405)
+
+[node name="Window" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(-2.205, 0, -1.9276722e-07, 0, 2.205, 0, 1.9276722e-07, 0, -2.205, 41.241924, 59.408203, -198.98306)
+material_override = SubResource("StandardMaterial3D_5bx16")
+mesh = ExtResource("41_tgi5s")
+
+[node name="windowInt" type="MeshInstance3D" parent="Environment/Window"]
+transform = Transform3D(-1, 0, -8.7422784e-08, 0, 1, 0, 8.7422784e-08, 0, -1, 0, 7.0934258, 0.26906586)
+material_override = SubResource("StandardMaterial3D_4mpxg")
+mesh = SubResource("QuadMesh_qm45h")
+skeleton = NodePath("../..")
 
 [node name="SafeGround" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -123.36064, 0)
