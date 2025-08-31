@@ -392,7 +392,7 @@ func onCardSelected(index: int) -> void:
 	#animationPlayer.play("SetHandDown")
 
 func playPirateCard(index: int, replace: bool = true) -> void:
-	if replace and pirateCardHand.cards.size() > 6:
+	if replace and pirateCardHand.cards.size() > 5:
 		var newIndex: int = pirateCardHand.putToMiddle(index)
 		if newIndex != index:
 			index = newIndex
