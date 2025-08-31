@@ -129,6 +129,21 @@ func initDebug() -> void:
 		cards.push_back(newDebugCard)
 #END DEBUG
 
+# Return the new index of the card at index
+func putToMiddle(index: int) -> int:
+	var middleIndex: int = cards.size() / 2
+	if middleIndex == index: return index
+	
+	var oldMiddle: Card = cards[middleIndex]
+	
+	cards[middleIndex] = cards[index]
+	cards[middleIndex].handPosition = middleIndex
+	
+	cards[index] = oldMiddle
+	cards[index].handPosition = index
+	
+	return middleIndex
+
 func popCard(index: int) -> Card:
 	uninitializeCard(index)
 	

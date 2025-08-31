@@ -131,9 +131,6 @@ func introduction2Answer(answer: int) -> void:
 		EventBus.startQuestionDialog.emit(PirateDialogs.introduction2Answers[subIndex], angry, answers, startIntroduction3)
 
 func startIntroduction3(_answer: int = 0) -> void:
-	introductionFinished = true
-	EventBus.introductionFinished.emit()
-	
 	EventBus.startSimpleDialog.emit(PirateDialogs.introduction2Answers[2], false)
 	await EventBus.simpleDialogFinished
 	
@@ -176,6 +173,9 @@ func tutorialPart2(answer: int) -> void:
 	startIntroduction2()
 
 func startGame() -> void:
+	introductionFinished = true
+	EventBus.introductionFinished.emit()
+	
 	EventBus.startSimpleDialog.emit(PirateDialogs.startGame, false)
 	await EventBus.simpleDialogFinished
 	
@@ -377,12 +377,14 @@ func onCardSelected(index: int) -> void:
 	#animationPlayer.play("SetHandDown")
 
 func playPirateCard(index: int) -> void:
-	var card: Card = pirateCardHand.popCard(index)
-	var newCardInteractable: CardInteractable = Global.cardManager.convertCardHandToInteractableCard(card)
+	if pirateCardHand.cards.size() > 6:
+		var newIndex: int = pirateCardHand.putToMiddle(index)
+		if newIndex != index:
+			index = newIndex
+			var sceneTree: SceneTree = get_tree()
+			if sceneTree:
+				await get_tree().create_timer(0.5).timeout
 	
-	sendCardToCenter(newCardInteractable)
-
-func throwPirateCard(index: int) -> void:
 	var card: Card = pirateCardHand.popCard(index)
 	var newCardInteractable: CardInteractable = Global.cardManager.convertCardHandToInteractableCard(card)
 	

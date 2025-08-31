@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://hiengb0pep1m"]
+[gd_scene load_steps=36 format=3 uid="uid://hiengb0pep1m"]
 
 [ext_resource type="Texture2D" uid="uid://d3hxe0oewd2qo" path="res://Resources/Assets/Pirate/corps_pirate.png" id="1_jips7"]
 [ext_resource type="Script" uid="uid://cosngqolmc4ff" path="res://Scenes/Pirate/PirateModel.gd" id="1_upyiy"]
@@ -17,11 +17,8 @@
 [ext_resource type="Script" uid="uid://dulk70ijjn6vw" path="res://addons/shaker/src/Vector3/ShakerEmitter3D.gd" id="15_xu0v3"]
 [ext_resource type="Resource" uid="uid://dakufr1eoowxf" path="res://addons/shaker/data/resources/strong_shake3D.tres" id="16_t2ttu"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kw3xa"]
-size = Vector3(6.5837708, 13.7413025, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_sgsev"]
-size = Vector3(20.614624, 16.174683, 1)
+size = Vector3(20.614624, 23.92633, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kw3xa"]
 transparency = 2
@@ -575,12 +572,8 @@ script = ExtResource("1_upyiy")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000002, -0.11250305, 9.20747, 5.05688)
-shape = SubResource("BoxShape3D_kw3xa")
-
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000002, 1.4863129, 0.1752216, -0.36647257)
+transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000002, 1.4863129, 4.0510464, -0.36647257)
 shape = SubResource("BoxShape3D_sgsev")
 
 [node name="HeadPosition" type="Node3D" parent="."]

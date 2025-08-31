@@ -231,10 +231,10 @@ func onDeckTopCardPicked(card: CardInteractable, who: int) -> void:
 	#TODO: Detecter que le joueur à piocher plusieurs cartes
 
 var nbCheatDetected: int = 0
-const cheatLimitToExplode: int = 3
+const cheatLimitToExplode: int = 5
 
 var nbCheatSinceDistracted: int = 0
-const maxCheatPerDistraction: int = 2
+const maxCheatPerDistraction: int = 5
 
 var nbLostCardTrigger: int = 0
 var lastLostTriggerNbMissingCards: int = 0
@@ -335,6 +335,7 @@ func onCheatDetected() -> bool:
 	return true
 
 func onCheatFinishGame() -> void:
+	Global.gameFinished = true
 	Global.canInteract = false
 	
 	for i: int in pirateCardHand.cards.size():
