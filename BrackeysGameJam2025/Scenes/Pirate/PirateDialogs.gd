@@ -52,8 +52,8 @@ const tutorialRepeatAngry := "Are ya STUPID? A'll repeat one LAST time"
 const tutorialText: Array[String] = [
 	"Game's simple: we take turn puttin' cards in the middle of the table and they all add up",
 	"If ya put 9 it adds 9, if ya put 4 it adds 4",
-	"Ya wanna keep yer heads tho: Jacks remove 20 points, Kings and Queens add nothing",
-	"But the king also allow ya to draw 2 cards !",
+	"Ya wanna keep yer heads tho: Jacks remove 20 points, Kings and Queens pass yer turn",
+	"King also makes ya draw 2 cards !",
 	"Each time ya put a card, ya pick one from the stack",
 	"The goal's to never go above 30\nIf ya reach it, yer out",
 ]
