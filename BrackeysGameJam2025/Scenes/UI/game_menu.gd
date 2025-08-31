@@ -29,6 +29,7 @@ func fullscreen() -> void:
 
 func quit() -> void:
 	animationPlayer.play_backwards("OpenScene")
+	visible = false
 	await animationPlayer.animation_finished
 	
 	get_tree().change_scene_to_file("res://Scenes/UI/MainMenu.tscn")
@@ -39,7 +40,10 @@ func skip() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		visible = !visible
+		if !animationPlayer.is_playing():
+			visible = !visible
+		elif visible:
+			visible = false
 
 func onIntroductionStarted() -> void:
 	$VBoxContainer/HSeparator3.show()
