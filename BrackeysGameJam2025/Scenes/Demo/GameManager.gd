@@ -58,7 +58,7 @@ func onSkipIntroduction() -> void:
 	startGame()
 
 func startIntroduction1() -> void:
-	EventBus.introductionStarted.emit()
+	#EventBus.introductionStarted.emit()
 	
 	if introductionFinished: return
 	
@@ -385,6 +385,8 @@ func playPirateCard(index: int) -> void:
 			var sceneTree: SceneTree = get_tree()
 			if sceneTree:
 				await get_tree().create_timer(0.5).timeout
+	
+	if Global.gameFinished: return
 	
 	var card: Card = pirateCardHand.popCard(index)
 	var newCardInteractable: CardInteractable = Global.cardManager.convertCardHandToInteractableCard(card)

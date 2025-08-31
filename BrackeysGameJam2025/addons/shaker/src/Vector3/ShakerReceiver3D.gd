@@ -54,7 +54,7 @@ func _connect_signals() -> void:
 	area3d.area_exited.connect(on_area_exited)
 
 # Called every frame
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if !Engine.is_editor_hint():
 		position_offset = Vector3.ZERO
 		rotation_offset = Vector3.ZERO

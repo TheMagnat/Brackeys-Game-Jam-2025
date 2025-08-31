@@ -56,7 +56,7 @@ func _create_area3d() -> void:
 	area3d.collision_mask = 0
 
 # Called every frame
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if !Engine.is_editor_hint():
 		if emitting:
 			if shakerPreset != null:

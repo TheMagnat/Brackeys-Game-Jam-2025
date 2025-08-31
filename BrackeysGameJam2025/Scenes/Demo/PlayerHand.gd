@@ -47,6 +47,37 @@ func _physics_process(delta: float) -> void:
 		requestDetach = false
 		EventBus.droppedItem.emit(hoveredObject)
 	
+	# Old process part
+	if joint.node_b:
+		var pos: Vector3 = RayHelper.getMouseGroundPosition(hoverPosition.y) + hoverOffset
+		
+		pos.y = global_position.y
+		global_position = pos
+		
+		var pos2d := Vector2(global_position.x, global_position.z)
+		const limit: float = 125.0
+		if center2d.distance_to(pos2d) > limit:
+			var posLimit2d := center2d + center2d.direction_to(pos2d) * limit
+			global_position.x = posLimit2d.x
+			global_position.z = posLimit2d.y
+	else:
+		var result: Dictionary = RayHelper.castMouseRay(0b11)
+		if result:
+			global_position = result.position# + Vector3.UP * 0.25
+			
+			var collider: CollisionObject3D = result.collider
+			if collider is Interactable and (collider as Interactable).activated:
+				hoveredObject = collider
+				hoverPosition = global_position
+				hoverOffset = global_position - RayHelper.getMouseGroundPosition(global_position.y)
+				targetY = global_position.y + 7.5
+			else:
+				hoveredObject = null
+			
+		else:
+			hoveredObject = null
+			global_position = Vector3.ZERO
+	
 	Global.isTryingToHoldCard = false
 	if joint.node_b:
 		velocity = (hoveredObject.global_position - lastPos) / delta
@@ -146,43 +177,6 @@ func _detach() -> void:
 	hoveredObject.isPicked = false
 	
 	EventBus.isHandlingItem.emit(false)
-
-func _process(_delta: float) -> void:
-	#TODO: Le mettre en physics process aussi
-	if not Global.canInteract: return
-	
-	#if event is InputEventMouseMotion:
-	if joint.node_b:
-		var pos: Vector3 = RayHelper.getMouseGroundPosition(hoverPosition.y) + hoverOffset
-		
-		pos.y = global_position.y
-		global_position = pos
-		
-		var pos2d := Vector2(global_position.x, global_position.z)
-		const limit: float = 125.0
-		if center2d.distance_to(pos2d) > limit:
-			var posLimit2d := center2d + center2d.direction_to(pos2d) * limit
-			global_position.x = posLimit2d.x
-			global_position.z = posLimit2d.y
-		
-		return
-	
-	var result: Dictionary = RayHelper.castMouseRay(0b11)
-	if result:
-		global_position = result.position# + Vector3.UP * 0.25
-		
-		var collider: CollisionObject3D = result.collider
-		if collider is Interactable and (collider as Interactable).activated:
-			hoveredObject = collider
-			hoverPosition = global_position
-			hoverOffset = global_position - RayHelper.getMouseGroundPosition(global_position.y)
-			targetY = global_position.y + 7.5
-		else:
-			hoveredObject = null
-		
-	else:
-		hoveredObject = null
-		global_position = Vector3.ZERO
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not Global.canInteract: return

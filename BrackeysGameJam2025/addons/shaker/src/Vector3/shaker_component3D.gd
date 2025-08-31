@@ -43,8 +43,8 @@ func _ready() -> void:
 	set_process_internal(false)
 	set_process_shortcut_input(false)
 	set_process_unhandled_input(false)
-	set_physics_process(false)
-	set_physics_process_internal(false)
+	#set_physics_process(false)
+	#set_physics_process_internal(false)
 	add_to_group("ShakerComponent")
 	if !Engine.is_editor_hint():
 		if AutoPlay:
@@ -74,7 +74,7 @@ func _initalize_prev_positions() -> void:
 	_last_rotation_shake.fill(Vector3.ZERO)
 
 # Called every frame
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_playing:
 		if shakerPreset != null || _external_shakes.size() > 0 || is_receiving_from_emitters():
 			if timer <= duration || duration == 0.0:

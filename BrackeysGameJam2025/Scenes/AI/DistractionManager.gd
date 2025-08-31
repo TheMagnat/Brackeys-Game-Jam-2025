@@ -19,6 +19,8 @@ func stopDistraction() -> void:
 	pirateModel.showFrontFace()
 
 func getDistracted(pos: Vector3) -> void:
+	EventBus.startSimpleDialog.emit(PirateDialogs.distraction.pick_random(), true)
+	
 	remainingDistractionTime = 7.0
 	isDistracted = true
 	

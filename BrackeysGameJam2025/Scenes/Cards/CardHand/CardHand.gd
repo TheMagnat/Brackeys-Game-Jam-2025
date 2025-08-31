@@ -317,7 +317,6 @@ func updateCardsPosition(delta: float) -> void:
 	handSprites.position = lerp(handSprites.position, handSpritesPosition, delta * 5.0)
 	
 func _physics_process(delta: float) -> void:
-#func _process(delta: float) -> void:
 	if moving:
 		elapsedTime += delta * 10.0
 	

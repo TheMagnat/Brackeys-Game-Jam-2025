@@ -77,7 +77,7 @@ func explode() -> void:
 	for cardInteractable: CardInteractable in cards:
 		cardInteractable.gravity_scale = 0.25
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if currentIndex < 0:
 		
 		#if didExplode:

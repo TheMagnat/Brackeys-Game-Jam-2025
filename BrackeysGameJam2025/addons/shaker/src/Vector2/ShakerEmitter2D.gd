@@ -56,7 +56,7 @@ func _create_Area2D() -> void:
 	area2d.collision_mask = 0
 
 # Called every frame
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if emitting:
 		if shakerPreset != null:
 			if timer <= duration or duration == 0.0:

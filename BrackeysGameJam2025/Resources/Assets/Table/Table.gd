@@ -4,6 +4,7 @@ class_name Table extends StaticBody3D
 var insideCard: Dictionary[CardInteractable, int]
 var notResolvedCard: Dictionary[CardInteractable, int]
 
+var justEntered: Dictionary[CardInteractable, int]
 func _on_play_area_body_entered(body: Node3D) -> void:
 	var card: CardInteractable = body
 	
@@ -11,6 +12,7 @@ func _on_play_area_body_entered(body: Node3D) -> void:
 	
 	insideCard[card] = 0
 	notResolvedCard[card] = 0
+	justEntered[card] = 0
 
 func _on_play_area_body_exited(body: Node3D) -> void:
 	var card: CardInteractable = body 
@@ -23,6 +25,10 @@ func _on_play_area_body_exited(body: Node3D) -> void:
 	if card in notResolvedCard:
 		notResolvedCard.erase(card)
 		isResolved = false
+	
+	if card in justEntered:
+		justEntered.erase(card)
+		return
 	
 	if not is_instance_valid(card) or card.is_queued_for_deletion(): return
 	
@@ -42,3 +48,12 @@ func _physics_process(delta: float) -> void:
 			return
 		
 		EventBus.cardAddedInPlayArea.emit(card)
+	
+	for card: CardInteractable in justEntered.keys():
+		if not is_instance_valid(card) or card.is_queued_for_deletion():
+			justEntered.erase(card)
+			continue
+		
+		justEntered[card] += 1
+		if justEntered[card] > 10:
+			justEntered.erase(card)

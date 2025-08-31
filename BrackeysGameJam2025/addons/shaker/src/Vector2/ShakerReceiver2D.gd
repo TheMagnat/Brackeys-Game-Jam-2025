@@ -54,7 +54,7 @@ func _connect_signals() -> void:
 	area2D.area_exited.connect(on_area_exited)
 
 # Called every frame
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	position_offset = Vector2.ZERO
 	rotation_offset = 0.0
 	scale_offset = Vector2.ZERO
@@ -145,4 +145,3 @@ func is_playing() -> bool:
 	for i:EmitterData in emitter_list:
 		return i.emitter.emitting
 	return false
-
