@@ -288,7 +288,7 @@ func playerWinEvent() -> void:
 		EventBus.startSimpleDialog.emit(dialog, false)
 		await EventBus.simpleDialogFinished
 	
-	EventBus.startQuestionDialog.emit(PirateDialogs.joinCrewQuestion, true, [YES.pick_random(), NO.pick_random()] as Array[String], playerWinEventAnswer)
+	EventBus.startQuestionDialog.emit(PirateDialogs.joinCrewQuestion, false, [YES.pick_random(), NO.pick_random()] as Array[String], playerWinEventAnswer)
 
 
 @onready var OUTRO := $"../Outro"
@@ -297,10 +297,10 @@ func playerWinEventAnswer(answer: int) -> void:
 		# If yes (good ending)
 		EventBus.startSimpleDialog.emit(PirateDialogs.joinCrewAccept, false)
 		Global.goodEnding = true
-		
+	
 	else:
 		# If no (bad ending)
-		EventBus.startSimpleDialog.emit(PirateDialogs.joinCrewRefuse, true)
+		EventBus.startSimpleDialog.emit(PirateDialogs.joinCrewRefuse, false)
 		Global.goodEnding = false
 	
 	await EventBus.simpleDialogFinished

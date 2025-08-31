@@ -46,7 +46,7 @@ void vertex() {
 void fragment() {
 	float r = rand(COLOR.r);
 	
-	vec4 tex = texture(textures, vec3(UV, round(r * 9.0)));
+	vec4 tex = texture(textures, vec3(UV, round(r * 9.0) - 0.4));
 	ALBEDO = tex.rgb;
 	ALPHA = tex.a;// * 0.5;
 	ALPHA_SCISSOR_THRESHOLD = 0.01;
