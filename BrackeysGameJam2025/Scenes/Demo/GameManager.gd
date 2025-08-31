@@ -28,10 +28,10 @@ func _ready() -> void:
 	EventBus.cardPlayed.connect(onCardPlayed)
 	EventBus.gameFinished.connect(onGameFinished)
 	EventBus.cheatFinish.connect(onCheatFinish)
-	callHint("blabla")
 
-func callHint(t: String):
-	$"../CanvasLayer/Hint".hint(t)
+func callHint() -> void:
+	if Global.defeatCount > 0:
+		$"../CanvasLayer/Hint".hint(PirateDialogs.hints[mini(Global.defeatCount - 1, PirateDialogs.hints.size() - 1)])
 
 @onready var cookieArea: Node3D = %CookieArea
 
@@ -62,6 +62,10 @@ func onSkipIntroduction() -> void:
 	startGame()
 
 func startIntroduction1() -> void:
+	
+	if Global.defeatCount > 0:
+		callHint()
+	
 	#EventBus.introductionStarted.emit()
 	
 	if introductionFinished: return
@@ -209,9 +213,12 @@ func onGameFinished(whoWin: int) -> void:
 		dialogString += PirateDialogs.pirateWin.pick_random()
 		pirateModel.normalLook()
 		pirateScore += 1
+		Global.defeatCount += 1
 		if pirateScore >= Global.GAME_TO_WIN_TO_FINISH:
 			onPirateWin()
 			return
+		
+		callHint()
 	
 	EventBus.resetCurrentGame.emit()
 	
@@ -231,6 +238,8 @@ func restartGame(_answer: int = 0) -> void:
 func onCheatFinish() -> void:
 	Global.gameFinished = true
 	Global.gameTrulyFinished = true
+	
+	Global.defeatCount += 1
 	
 	EventBus.startQuestionDialog.emit(PirateDialogs.cheatGameOver.pick_random(), true, [RETRY.pick_random()] as Array[String], onRetry)
 	explodeCards()
@@ -381,16 +390,16 @@ func onCardSelected(index: int) -> void:
 	#await hand.animationPlayer.animation_finished
 	#animationPlayer.play("SetHandDown")
 
-func playPirateCard(index: int) -> void:
-	if pirateCardHand.cards.size() > 6:
+func playPirateCard(index: int, replace: bool = true) -> void:
+	if replace and pirateCardHand.cards.size() > 6:
 		var newIndex: int = pirateCardHand.putToMiddle(index)
 		if newIndex != index:
 			index = newIndex
 			var sceneTree: SceneTree = get_tree()
 			if sceneTree:
 				await get_tree().create_timer(0.5).timeout
-	
-	if Global.gameFinished: return
+		
+		if Global.gameFinished: return
 	
 	var card: Card = pirateCardHand.popCard(index)
 	var newCardInteractable: CardInteractable = Global.cardManager.convertCardHandToInteractableCard(card)

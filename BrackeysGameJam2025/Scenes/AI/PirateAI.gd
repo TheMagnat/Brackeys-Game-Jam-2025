@@ -339,7 +339,7 @@ func onCheatFinishGame() -> void:
 	Global.canInteract = false
 	
 	for i: int in pirateCardHand.cards.size():
-		gameManager.playPirateCard(0)
+		gameManager.playPirateCard(0, false)
 	
 	pirateModel.explode()
 	await pirateModel.animationPlayer.animation_finished

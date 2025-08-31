@@ -24,6 +24,8 @@ const ANGRY_DURATION: float = 2.0
 var goodEnding: bool = false
 var shouldSkipFirstIntro: bool = false
 
+var defeatCount: int = 0
+
 func _ready() -> void:
 	get_tree().scene_changed.connect(reset)
 

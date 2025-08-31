@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://bvhj527wv0io3"]
+[gd_scene load_steps=13 format=3 uid="uid://bvhj527wv0io3"]
 
 [ext_resource type="Script" uid="uid://cp7c7e0c7wprf" path="res://Resources/Assets/Table/Table.gd" id="1_tds7a"]
 [ext_resource type="Shader" uid="uid://dwq5gktwpm308" path="res://Resources/Shaders/CeilShading/ceil_shader.gdshader" id="2_jqfya"]
-[ext_resource type="PackedScene" uid="uid://crrxs6e4dk0jh" path="res://Resources/Assets/Kenny/GLB format/structure.glb" id="2_vjwv6"]
 [ext_resource type="ArrayMesh" uid="uid://db8k46w6xujjn" path="res://Resources/Meshes/FromRIB/TableEtTabouret/table.res" id="2_xeg4i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sar6x"]
@@ -109,10 +108,6 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/PlayArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.489769, 0)
 shape = SubResource("CylinderShape3D_vjwv6")
-
-[node name="structure2" parent="." instance=ExtResource("2_vjwv6")]
-transform = Transform3D(32.005, 0, 0, 0, 19.11, 0, 0, 0, 32.03, 0, 0, 0)
-visible = false
 
 [connection signal="body_entered" from="StaticBody3D/PlayArea" to="." method="_on_play_area_body_entered"]
 [connection signal="body_exited" from="StaticBody3D/PlayArea" to="." method="_on_play_area_body_exited"]

@@ -4,7 +4,9 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nf50t"]
 vertex_color_use_as_albedo = true
-metallic = 0.55
+vertex_color_is_srgb = true
+albedo_texture_force_srgb = true
+metallic = 0.25
 metallic_specular = 0.73
 roughness = 0.5
 

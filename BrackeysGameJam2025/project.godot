@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="BrackeysGameJam2025"
+config/name="Crooked Deck"
 run/main_scene="uid://comtniuw3st42"
 config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-config/icon="res://icon.svg"
+config/icon="uid://mecirubw3k24"
 
 [autoload]
 

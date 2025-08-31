@@ -25,7 +25,7 @@ func _ready() -> void:
 		$CanvasLayer/SkipIntro.modulate.a = 0.0
 		var t := create_tween()
 		t.tween_property($CanvasLayer/SkipIntro, "modulate:a", 1.0, 8.0)
-		t.tween_property($CanvasLayer/SkipIntro, "modulate:a", 0.0, 15.0)
+		t.tween_property($CanvasLayer/SkipIntro, "modulate:a", 0.0, 25.0)
 	else:
 		$intro.finished.connect(onIntroFinished)
 
