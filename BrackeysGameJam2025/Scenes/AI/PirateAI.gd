@@ -143,6 +143,11 @@ func onCardAddedInPlayArea(card: CardInteractable) -> void:
 			return
 		
 		if turnState == 0:
+			
+			if distractionManager.isDistracted:
+				card.model.cardOwner = 3
+				return
+			
 			turnState = 1
 			
 			# King rule
@@ -425,7 +430,7 @@ var eyeUp: bool = false
 
 var wasDistracted: bool = false
 
-const TIME_BEFORE_REACT: float = 15.0
+const TIME_BEFORE_REACT: float = 10.0
 var sleepCount: int = 0
 var sleepTime: float = 0.0
 
@@ -440,7 +445,7 @@ func _physics_process(delta: float) -> void:
 		wasDistracted = false
 		eyeDown = false
 		eyeUp = false
-		sleepTime = 0.0
+		sleepTime = TIME_BEFORE_REACT * 0.5
 		nbCheatSinceDistracted = 0
 		getNewThinkingTime()
 		analyseGameState()

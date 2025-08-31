@@ -36,23 +36,42 @@ func _physics_process(delta: float) -> void:
 	if requestDetach:
 		_detach()
 		
+		var forceFactor: float = 1.0
 		if hoveredObject is CardInteractable:
 			var card: CardInteractable = hoveredObject
 			
 			var newTransform: Transform3D = card.model.global_transform
 			card.model.rotation = Vector3.ZERO
 			card.global_transform = newTransform
+		else:
+			forceFactor = 0.75
 		
-		hoveredObject.apply_central_impulse(velocity * hoveredObject.mass)
+		hoveredObject.apply_central_impulse(velocity * hoveredObject.mass * forceFactor)
 		requestDetach = false
 		EventBus.droppedItem.emit(hoveredObject)
 	
 	# Old process part
 	if joint.node_b:
-		var pos: Vector3 = RayHelper.getMouseGroundPosition(hoverPosition.y) + hoverOffset
+		var mousePos: Vector2 = get_viewport().get_mouse_position()
+		var camera: Camera3D = get_viewport().get_camera_3d()
 		
-		pos.y = global_position.y
-		global_position = pos
+		var rayDirection: Vector3 = camera.project_ray_normal(mousePos)
+		
+		if rayDirection.y >= 0.0:
+			rayDirection.y = -0.1
+		
+		var rayOrigin: Vector3 = camera.project_ray_origin(mousePos)
+		
+		var pos: Vector3 = RayHelper.getGroundPosition(rayOrigin, rayDirection, hoverPosition.y) + hoverOffset
+		
+		var height: float = global_position.y
+		
+		if hoveredObject is CardInteractable:
+			global_position = pos
+		else:
+			global_position = lerp(global_position, pos, delta * 20.0)
+		
+		global_position.y = height
 		
 		var pos2d := Vector2(global_position.x, global_position.z)
 		const limit: float = 125.0
@@ -89,7 +108,7 @@ func _physics_process(delta: float) -> void:
 			
 			var viewport: Viewport = get_viewport()
 			var mouseRatio: Vector2 = viewport.get_mouse_position() / viewport.get_visible_rect().size
-			if mouseRatio.y > 0.75 and mouseRatio.x > 0.25 and mouseRatio.x < 0.75:
+			if mouseRatio.y > 0.7 and mouseRatio.x > 0.2 and mouseRatio.x < 0.8:
 				Global.isTryingToHoldCard = true
 				Global.mouseRelativeXPos = mouseRatio.x
 			

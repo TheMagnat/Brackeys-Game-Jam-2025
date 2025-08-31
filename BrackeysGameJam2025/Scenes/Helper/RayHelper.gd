@@ -45,6 +45,15 @@ func castTopRay(groundPosition: Vector3, mask: int) -> Vector3:
 	
 	return groundPosition
 
+func getGroundPosition(rayOrigin: Vector3, rayDirection: Vector3, groundHeight: float) -> Vector3:
+	# Calculate where the ray intersects the y = 0 plane
+	# Using the formula: origin.y + direction.y * t = 0
+	# Solving for t: t = -origin.y / direction.y
+	var t: float = (groundHeight - rayOrigin.y) / rayDirection.y
+	
+	# Get the 3D position at the intersection point
+	return rayOrigin + rayDirection * t
+
 func getMouseGroundPosition(groundHeight: float) -> Vector3:
 	# Get the mouse position in viewport coordinates
 	var mousePos: Vector2 = get_viewport().get_mouse_position()
@@ -55,10 +64,4 @@ func getMouseGroundPosition(groundHeight: float) -> Vector3:
 	var rayOrigin: Vector3 = camera.project_ray_origin(mousePos)
 	var rayDirection: Vector3 = camera.project_ray_normal(mousePos)
 	
-	# Calculate where the ray intersects the y = 0 plane
-	# Using the formula: origin.y + direction.y * t = 0
-	# Solving for t: t = -origin.y / direction.y
-	var t: float = (groundHeight - rayOrigin.y) / rayDirection.y
-	
-	# Get the 3D position at the intersection point
-	return rayOrigin + rayDirection * t
+	return getGroundPosition(rayOrigin, rayDirection, groundHeight)

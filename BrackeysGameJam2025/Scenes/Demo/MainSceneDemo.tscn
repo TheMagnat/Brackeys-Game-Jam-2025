@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=4 uid="uid://c0nwpy0h6ssfh"]
+[gd_scene load_steps=102 format=4 uid="uid://c0nwpy0h6ssfh"]
 
 [ext_resource type="PackedScene" uid="uid://bvhj527wv0io3" path="res://Resources/Assets/Table/Table.tscn" id="1_ouq38"]
 [ext_resource type="Script" uid="uid://cy3woh7if7mt8" path="res://Scenes/Demo/main_scene_demo.gd" id="1_vp0ry"]
@@ -40,7 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://g33bsuh0yrn5" path="res://Resources/Assets/Items/Lanterne.tscn" id="40_jgvkr"]
 [ext_resource type="Texture2D" uid="uid://cxaad3cnj15cx" path="res://Resources/Shaders/Filters/Assets/bayer2tile16.png" id="40_u5jl3"]
 [ext_resource type="PackedScene" uid="uid://cqiri0xdm0xcx" path="res://Resources/Assets/Items/Chevet.tscn" id="41_bffry"]
-[ext_resource type="ArrayMesh" uid="uid://w00kc5i1q5i8" path="res://Resources/Meshes/window.res" id="41_tgi5s"]
+[ext_resource type="ArrayMesh" uid="uid://bfiumhyngbknx" path="res://Resources/Meshes/window.res" id="41_tgi5s"]
 [ext_resource type="Texture2D" uid="uid://cd1q3yyvcwytt" path="res://Resources/Shaders/Filters/Assets/bayer4tile8.png" id="41_u5jl3"]
 [ext_resource type="PackedScene" uid="uid://dq7pinxus4xj8" path="res://Resources/Assets/Items/Dice.tscn" id="41_yu7dm"]
 [ext_resource type="PackedScene" uid="uid://c73rp4eckvqan" path="res://Resources/Assets/Items/DiceBlack.tscn" id="42_yu7dm"]
@@ -168,8 +168,22 @@ render_priority = 0
 shader = ExtResource("23_js4qg")
 shader_parameter/activated = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_js4qg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qm45h"]
 next_pass = SubResource("ShaderMaterial_0dqn8")
+albedo_color = Color(0.95, 0.67829996, 0.20900002, 1)
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.32
+anisotropy_enabled = true
+anisotropy = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kp37x"]
+render_priority = 0
+shader = ExtResource("23_js4qg")
+shader_parameter/activated = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_js4qg"]
+next_pass = SubResource("ShaderMaterial_kp37x")
 albedo_color = Color(0.5189479, 0, 0, 1)
 metallic = 0.5
 metallic_specular = 1.0
@@ -439,8 +453,8 @@ script = ExtResource("43_u5jl3")
 transform = Transform3D(1, 0, 0, 0, 0.9063078, 0.4226183, 0, -0.4226183, 0.9063078, 2.3791512e-05, 72.86001, 59.879124)
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
-far = 80000.0
+transform = Transform3D(1, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0)
+far = 8000.0
 script = ExtResource("3_jtovl")
 maxRotationOffset = Vector2(0.4, 0.25)
 
@@ -563,6 +577,16 @@ transform = Transform3D(2.45, 0, 0, 0, 2.45, 0, 0, 0, 2.45, 0, 0, 0)
 
 [node name="Rubis" parent="Entities" instance=ExtResource("38_b644d")]
 transform = Transform3D(-0.5080948, -0.8613012, -3.7648668e-08, -3.388119e-16, -4.3711385e-08, 1, -0.8613013, 0.5080947, 2.2209523e-08, 34.129326, 43.60392, -0.9691858)
+
+[node name="Rubis3" parent="Entities" instance=ExtResource("38_b644d")]
+transform = Transform3D(0.85021436, -0.52643645, -2.3011268e-08, -1.0051094e-15, -4.3711392e-08, 1, -0.52643645, -0.85021436, -3.716405e-08, -30.748526, 43.60392, 33.95054)
+
+[node name="MeshInstance3D" parent="Entities/Rubis3" index="0"]
+transform = Transform3D(2.398, 0, 0, 0, 2.398, 0, 0, 0, 2.398, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_qm45h")
+
+[node name="CollisionShape3D" parent="Entities/Rubis3" index="1"]
+transform = Transform3D(2.398, 0, 0, 0, 2.398, 0, 0, 0, 2.398, 0, 0, 0)
 
 [node name="Rubis2" parent="Entities" instance=ExtResource("38_b644d")]
 transform = Transform3D(0.62616843, -0.7796879, -3.4081232e-08, -4.37984e-16, -4.3711392e-08, 1, -0.77968794, -0.6261683, -2.7370687e-08, -24.599049, 43.60392, -10.020055)
@@ -804,4 +828,5 @@ libraries = {
 [connection signal="body_entered" from="GroundDetector" to="Pirate/DistractionManager" method="_on_ground_detector_body_entered"]
 
 [editable path="Entities/Diams2"]
+[editable path="Entities/Rubis3"]
 [editable path="Entities/Rubis2"]

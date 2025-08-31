@@ -202,14 +202,14 @@ curve = SubResource("Curve_fgcjk")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dvl10"]
 emission_shape = 3
-emission_box_extents = Vector3(8000, 400, 1)
+emission_box_extents = Vector3(800, 40, 1)
 angle_min = -44.99999
 angle_max = 45.00001
 spread = 5.0
 flatness = 1.0
-initial_velocity_min = 20.0
-initial_velocity_max = 30.0
-gravity = Vector3(0, 0, -1)
+initial_velocity_min = 2.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 0, -0.1)
 scale_min = 8.0
 scale_max = 12.0
 scale_curve = SubResource("CurveTexture_h583c")
@@ -221,7 +221,7 @@ turbulence_influence_min = 0.27600002
 turbulence_influence_max = 0.27600002
 
 [sub_resource type="QuadMesh" id="QuadMesh_cyoyg"]
-size = Vector2(100, 100)
+size = Vector2(10, 10)
 
 [sub_resource type="Curve" id="Curve_ww4fw"]
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
@@ -369,12 +369,12 @@ skeleton = NodePath("../../..")
 [node name="Clouds" type="Node3D" parent="."]
 
 [node name="GPUParticles3D2" type="GPUParticles3D" parent="Clouds"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 116.872, 900.4849, 3209.0461)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 11.687, 126.04664, 320.905)
 material_override = SubResource("ShaderMaterial_g667v")
 cast_shadow = 0
-amount = 60
-lifetime = 300.0
-preprocess = 300.0
+amount = 36
+lifetime = 180.0
+preprocess = 180.0
 randomness = 1.0
 fixed_fps = 60
 visibility_aabb = AABB(-7089.1523, -498.63278, -45591.887, 22551.068, 984.2649, 45694.48)
