@@ -255,7 +255,7 @@ func analyseGameState() -> void:
 	var isPlayerDrawTurn: bool = false
 	if playerTurn and turnState == 1:
 		isPlayerDrawTurn = true
-		nbCardsToRemove = visibleCards.size() - (playerCurrentMaxCards - 1)
+		nbCardsToRemove = visibleCards.size() - (playerCurrentMaxCards - playerDrawExpected)
 		
 	else:
 		nbCardsToRemove = visibleCards.size() - playerCurrentMaxCards
@@ -264,9 +264,18 @@ func analyseGameState() -> void:
 	if nbCardsToRemove > 0:
 		# Here the pirate saw that the player have more than 4 cards (or 3 if he need to pick a card)
 		#TODO: If in state 1 and now have 4, maybe pass state to pirate turn ?
-		if isPlayerDrawTurn and nbCardsToRemove == 1:
+		if isPlayerDrawTurn:
+			var remaining: int = nbCardsToRemove - playerDrawExpected
+			if remaining <= 0:
+				if remaining == 0:
+					moveToPirateTurn()
+				
+				playerDrawExpected -= abs(remaining)
+				return
+			
+			# Here the player even if he needed to draw, drawed more than the max he could, we take the diff and set to pirate turn
+			nbCardsToRemove = remaining
 			moveToPirateTurn()
-			return
 		
 		# When onCheatDetected return false, the game is over
 		if not onCheatDetected(): return
