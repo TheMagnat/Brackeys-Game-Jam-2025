@@ -29,7 +29,7 @@
 [ext_resource type="Script" uid="uid://j5wlt146ylot" path="res://Scenes/Demo/DialogManager.gd" id="32_nmdm0"]
 [ext_resource type="PackedScene" uid="uid://bl4c1a1vauw8u" path="res://Scenes/CookieArea/CookieArea.tscn" id="33_y4a6v"]
 [ext_resource type="PackedScene" uid="uid://bkt3cddomhukk" path="res://Resources/Assets/Items/Diams.tscn" id="34_vphqs"]
-[ext_resource type="Shader" path="res://Scenes/Demo/depthOutlines.gdshader" id="35_d1ngp"]
+[ext_resource type="Shader" uid="uid://bq328vjen4sbj" path="res://Scenes/Demo/depthOutlines.gdshader" id="35_d1ngp"]
 [ext_resource type="Shader" uid="uid://dicq7k08spru3" path="res://Resources/Shaders/Filters/dither.gdshader" id="36_b644d"]
 [ext_resource type="Texture2D" uid="uid://kgcqlg8dhchm" path="res://Resources/Shaders/Filters/Assets/palette_eeve.png" id="37_hoqe0"]
 [ext_resource type="PackedScene" uid="uid://b1n5mlm7dlqxq" path="res://Resources/Assets/Items/Rubis.tscn" id="38_b644d"]
@@ -621,7 +621,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="SkipIntro" type="Label" parent="CanvasLayer"]
-modulate = Color(0.8392157, 0.7411765, 0.62352943, 1)
+modulate = Color(0.84, 0.74171996, 0.6216, 0)
 custom_minimum_size = Vector2(800, 128)
 offset_top = 520.0
 offset_right = 701.0

@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+@onready var animationPlayer: AnimationPlayer = %AnimationPlayer
+
 func _ready() -> void:
 	EventBus.introductionStarted.connect(onIntroductionStarted)
 	EventBus.introductionFinished.connect(onIntroductionFinished)
@@ -26,6 +28,9 @@ func fullscreen() -> void:
 	check_fullscreen()
 
 func quit() -> void:
+	animationPlayer.play_backwards("OpenScene")
+	await animationPlayer.animation_finished
+	
 	get_tree().change_scene_to_file("res://Scenes/UI/MainMenu.tscn")
 
 func skip() -> void:
