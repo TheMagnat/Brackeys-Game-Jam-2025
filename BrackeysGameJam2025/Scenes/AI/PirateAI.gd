@@ -421,7 +421,7 @@ var sleepCount: int = 0
 var sleepTime: float = 0.0
 
 func _physics_process(delta: float) -> void:
-	if Global.gameFinished or Global.drawPhase: return
+	if Global.gameFinished or Global.drawPhase or deck.isShuffling: return
 	
 	if distractionManager.isDistracted:
 		wasDistracted = true
@@ -512,6 +512,8 @@ func _on_off_table_detector_body_entered(body: Node3D) -> void:
 	if Global.gameFinished: return
 	
 	var card: CardInteractable = body
+	if card.freeze:
+		return
 	
 	var busted: bool = detectCheat(true)
 	if busted:

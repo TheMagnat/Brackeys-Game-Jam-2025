@@ -2,6 +2,7 @@ class_name CardInteractable extends Interactable
 
 const hit_sound := preload("res://Scenes/Cards/hit_sound.tscn")
 const pick_sound := preload("res://Scenes/Cards/pick_sound.tscn")
+const HOVER_NEXT_PASS_MATERIAL = preload("uid://tsjxt7bs7t36")
 
 const PHYSICS_LAYER: int = 0b10000000
 
@@ -28,6 +29,7 @@ func initializeNewModel(newModel: CardModel) -> void:
 	newModel.cardInteractable = self
 	
 	meshInstance = newModel.meshInstance
+	meshInstance.material_override.next_pass = HOVER_NEXT_PASS_MATERIAL.duplicate()
 	initialize()
 
 func activate() -> void:

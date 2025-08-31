@@ -349,7 +349,8 @@ func onCardPlayed(card: CardInteractable, who: int) -> void:
 	card.model.cardOwner = 3
 	playedCardBuffer.push_back(card.model)
 	
-	if deck.cards.is_empty():
+	var expectedDraw: int = 2 if card.model.value == CardModel.VALUE.KING else 1
+	if deck.cards.size() < expectedDraw:
 		var cardToExcludeFromReshuffle: Array[CardModel]
 		#TODO: Maybe useless since push_back is just above ??
 		for i: int in range(playedCardBuffer.size() - 1, -1, -1):

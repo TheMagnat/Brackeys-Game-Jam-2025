@@ -41,6 +41,8 @@ func getShuffleIndices(nbCheats: int) -> Array[int]:
 func _ready() -> void:
 	originalPosition = global_position
 	
+	cardHolder.top_level = true
+	
 	# Generate cards models
 	for i: int in count:
 		var cardModel: CardModel = CARD_MODEL.instantiate()
@@ -158,7 +160,12 @@ func resetCards(includeHand: bool, nbCheats: int, exclude: Array[CardModel]) -> 
 	for i: int in indices:
 		var cardModel: CardModel = cardsModels[i]
 		
-		if not includeHand and cardModel.inHand: continue
+		if not includeHand:
+			if cardModel.inHand: continue
+			# To pick ground cards too
+			#if cardModel in CardModel.playerCardTracker and cardModel.cardInteractable.isVisible(): continue
+			if cardModel in CardModel.playerCardTracker: continue
+			if not cardModel.cardInteractable.isVisible(): continue
 		
 		var cardInteractable: CardInteractable = Global.cardManager.getCardInteractableFromModel(cardModel)
 		
