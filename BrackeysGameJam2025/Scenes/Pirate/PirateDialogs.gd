@@ -30,6 +30,12 @@ const introduction2Answers: Array[String] = [
 	"Ya'll kill me with boredom if this game's too short",
 ]
 
+const hintCheat := "Looks like this pirate always has good cards\nMaybe I should find a way to give myself good hands too"
+const hintCheat2 := "This pirate always watches me, maybe I could distract him for a moment?"
+const hintCheatDeck := "If I distract him at the right time, maybe I could put a bad card in his hand"
+const hintCheatSteal := "He probably won't notice if I steal a card that was played some rounds ago"
+const hintNumCards := "As long as my hand has the right amount of cards, I should be fine"
+
 
 const startGame := "Let us make it so the first to 3 wins gets the prize."
 const youStartInfo := "A'll let ya start so it ain't too easy for me"
