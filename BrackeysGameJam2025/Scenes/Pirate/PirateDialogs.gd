@@ -30,6 +30,12 @@ const introduction2Answers: Array[String] = [
 	"Ya'll kill me with boredom if this game's too short",
 ]
 
+const hintCheat := "Looks like this pirate always has good cards\nMaybe I should find a way to give myself good hands too"
+const hintCheat2 := "This pirate always watches me, maybe I could distract him for a moment?"
+const hintCheatDeck := "If I distract him at the right time, maybe I could put a bad card in his hand"
+const hintCheatSteal := "He probably won't notice if I steal a card that was played some rounds ago"
+const hintNumCards := "As long as my hand has the right amount of cards, I should be fine"
+
 
 const startGame := "Let us make it so the first to 3 wins gets the prize."
 const youStartInfo := "A'll let ya start so it ain't too easy for me"
@@ -188,18 +194,17 @@ const points: Array[String] = [
 ]
 
 const cheatGameOver: Array[String] = [
-	"Ya can't cheat no more if yer dead buddy!",
-	"A can't stand yer lil' games anymore!\nYa wanted to play, now ya pay the price!",
-	"Think A'm gonna go soft on ya because nobody can match my skill?!\nA'm really pissed that yer gonna die now!",
+	"Ya can't cheat no more if yer dead buddy!\nBobby, bring me the gun!",
+	"A can't stand yer cheats anymore!\nYa wanted to play, now ya pay the price!",
 	"That's the last cheat ya'll do of yer life ugly bastard!",
 ]
 
 const finalPirateWin: Array[String] = [
-	"...This was way too easy, not even a challenge to me\nNow go feed the sharks will ya?",
-	"Ahaha, yer just fraud like A thought\nHope ya'll like the sea water",
-	"Can't believe Bobby got to lose against ya, yer just a pickle like everybody else\nNow die, will ya?",
-	"A'm just the best, like A thought so\nAnd yer just dead. Such a shame",
-	"Don't think it was even close\nBobby, bring me the gun, will ya?"
+	"And... A win!\nThis was way too easy, not even a challenge\nNow go feed the sharks will ya?",
+	"A win!\nAhaha, yer just fraud like A thought\nHope ya'll like the sea water",
+	"And A win...\nCan't believe Bobby got to lose against ya, yer just a pickle like everybody else",
+	"The winner is me\nA'm just the best, like A thought so\nAnd yer just dead... Such a shame",
+	"A won\nDon't think it was even close\nBobby, bring me the gun, will ya?"
 ]
 
 const winningDialog: Array[String] = [

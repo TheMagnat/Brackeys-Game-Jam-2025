@@ -28,6 +28,10 @@ func _ready() -> void:
 	EventBus.cardPlayed.connect(onCardPlayed)
 	EventBus.gameFinished.connect(onGameFinished)
 	EventBus.cheatFinish.connect(onCheatFinish)
+	callHint("blabla")
+
+func callHint(t: String):
+	$"../CanvasLayer/Hint".hint(t)
 
 @onready var cookieArea: Node3D = %CookieArea
 
