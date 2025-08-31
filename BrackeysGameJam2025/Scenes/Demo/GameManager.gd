@@ -54,6 +54,7 @@ func onSkipIntroduction() -> void:
 	EventBus.clearDialog.emit()
 	EventBus.choosenChoice.emit(-1)
 	showCookieArea()
+	$"../CanvasLayer/SkipIntro".hide()
 	startGame()
 
 func startIntroduction1() -> void:
