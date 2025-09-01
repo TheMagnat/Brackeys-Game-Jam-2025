@@ -55,7 +55,7 @@ const tutorialText: Array[String] = [
 	"Ya wanna keep yer heads tho: Jacks remove 20 points, Kings and Queens pass yer turn",
 	"King also makes ya draw 2 cards !",
 	"Each time ya put a card, ya pick one from the stack",
-	"The goal's to never go above 30\nIf ya reach it, yer out",
+	"The goal's to never reach 30\nIf ya reach it, yer out",
 ]
 
 const pirateWaitingPlay: Array[String] = [
