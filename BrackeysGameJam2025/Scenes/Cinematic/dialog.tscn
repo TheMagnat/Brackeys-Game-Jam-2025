@@ -18,12 +18,11 @@ max_db = 6.0
 panning_strength = 0.5
 
 [node name="Text" type="Label3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 no_depth_test = true
-alpha_scissor_threshold = 0.573
-alpha_antialiasing_mode = 2
 alpha_antialiasing_edge = 0.54
 render_priority = 4
 outline_render_priority = 3
 text = "Get it ?"
-font_size = 1024
+font_size = 512
 outline_size = 127

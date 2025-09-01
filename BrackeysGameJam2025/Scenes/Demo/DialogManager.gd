@@ -5,7 +5,7 @@ var questionIsAsked: bool = false
 var questionChoices: Array[String]
 var questionCallback := Callable()
 
-const INITIAL_HIDE_DELAY: float = 2.0
+const INITIAL_HIDE_DELAY: float = 3.0
 var hideDelay: float = INITIAL_HIDE_DELAY
 var shouldHide: bool = false
 var isRemnant: bool = false
