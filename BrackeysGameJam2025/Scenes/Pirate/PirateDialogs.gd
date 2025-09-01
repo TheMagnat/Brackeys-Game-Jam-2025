@@ -54,7 +54,7 @@ const tutorialText: Array[String] = [
 	"If ya put 9 it adds 9, if ya put 4 it adds 4",
 	"Ya wanna keep yer heads tho: Jacks remove 20 points, Kings and Queens pass yer turn",
 	"King also makes ya draw 2 cards !",
-	"Each time ya put a card, ya pick one from the stack",
+	"Each time ya put a card, ya draw one",
 	"The goal's to never reach 30\nIf ya reach it, yer out",
 ]
 
@@ -68,11 +68,11 @@ const pirateWaitingPlay: Array[String] = [
 ]
 
 const pirateWaitingPick: Array[String] = [
-	"Don't forget to pick a card",
-	"Forgot to pick?",
-	"A'd be happy to play ya with less cards, but that wouldn't be fair, so pick one",
-	"Yer supposed to pick a card, bud",
-	"Ya play, ya pick\nNot so complex, is it?"
+	"Don't forget to draw a card",
+	"Forgot to draw?",
+	"A'd be happy to play ya with less cards, but that wouldn't be fair, so draw one",
+	"Yer supposed to draw a card, bud",
+	"Ya play, ya draw\nNot so complex, is it?"
 ]
 
 const tutorialQuestion := "Get it?"
@@ -117,8 +117,8 @@ const cheatPickGroundCard: Array[String] = [
 ]
 
 const notEnoughCards: Array[String] = [
-	"Ain't ya missina card?",
-	"Did ya forget to pick a card?"
+	"Ain't ya missin' a card?",
+	"Did ya forget to draw a card?"
 ]
 
 const notEnoughCardsAngry: Array[String] = [
